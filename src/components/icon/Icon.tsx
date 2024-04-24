@@ -10,14 +10,24 @@ export const book = (
   </svg>
 );
 
-export const contents = (
+export const hammer = (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-    <g clipPath="url(#clip0_597_299)">
-      <path d="M22.653 24H1.347a.735.735 0 01-.736-.735V.735C.611.33.941 0 1.347 0h21.306c.407 0 .736.33.736.735v22.53c0 .406-.33.735-.736.735zM2.082 22.53h19.836V1.47H2.082v21.06z" />
-      <path d="M18.704 6.18H5.296a.735.735 0 110-1.47h13.408a.735.735 0 010 1.47zM18.704 10.55H5.296a.735.735 0 010-1.47h13.408a.735.735 0 010 1.47zM18.704 14.92H5.296a.735.735 0 010-1.47h13.408a.735.735 0 010 1.47zM10.908 19.29H5.296a.735.735 0 010-1.47h5.612a.735.735 0 010 1.47z" />
+    <path d="M13.667 22h-5V12h5v10zm-.209-20H9.871A3.319 3.319 0 017 3.667 4.143 4.143 0 013.667 2H2v6.667h1.667A2.995 2.995 0 016.167 7c1.752 0 2.495 3.316 2.5 3.333h5c.555-2.564 1.666-4.06 2.901-4.06 2.469 0 5.432 3.42 5.432 3.42S20.333 2 13.458 2z" />
+  </svg>
+);
+
+export const search = (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+    <g clipPath="url(#clip0_756_355)">
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M15.331 17.023c-1.416 1.046 2.988-3.447 1.735-1.74.031-.002-.027.093-.222.33 0 0 3.347 3.317 4.99 5.004.57.615-.459 1.843-1.158 1.202-1.488-1.44-5.008-5.018-5.014-5.024l-.331.228z"
+      />
+      <path d="M10.413 18.7a8.504 8.504 0 005.819-2.422c1.82-1.795 2.758-4.45 2.43-6.985C18.103 4.948 14.523 2 10.36 2 7.197 2 4.123 3.973 2.775 6.835a8.36 8.36 0 000 7.03c1.338 2.842 4.362 4.805 7.53 4.835h.108zm-.099-1.392c-3.216-.03-6.217-2.512-6.814-5.693-.42-2.242.374-4.67 2.028-6.262 1.931-1.86 4.967-2.482 7.491-1.428 2.258.943 3.949 3.133 4.26 5.545.267 2.068-.477 4.236-1.94 5.729a7.063 7.063 0 01-4.935 2.11h-.09z" />
     </g>
     <defs>
-      <clipPath id="clip0_597_299">
+      <clipPath id="clip0_756_355">
         <path d="M0 0h24v24H0z" />
       </clipPath>
     </defs>
@@ -37,6 +47,53 @@ export const menu = (
       clipRule="evenodd"
       d="M3 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 5.25zM3 11.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75zM3 17.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
       fillRule="evenodd"
+    />
+  </svg>
+);
+
+export const arrowUp = (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+    <path
+      d="M12 21V3m0 0l7.5 7.5M12 3l-7.5 7.5"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+export const arrowDown = (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+    <path
+      d="M12 3v18m0 0l7.5-7.5M12 21l-7.5-7.5"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const arrowRight = (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+    <path
+      d="M3 12h18m0 0l-7.5-7.5M21 12l-7.5 7.5"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const arrowLeft = (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+    <path
+      d="M21 12H3m0 0l7.5-7.5M3 12l7.5 7.5"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );

@@ -11,10 +11,6 @@ export const MENUS = [
         path: '/costume/luxury-list',
       },
       {
-        name: '태닝 목록',
-        path: '/costume/tanning',
-      },
-      {
         name: '캐릭터 룩북',
         path: '/costume/lookbook',
       },
@@ -24,52 +20,77 @@ export const MENUS = [
     category: '도감',
     menu: [
       {
-        name: '일반 장비 - 목록',
-        path: '/db/normal-equip/list',
+        name: '일반 장비',
+        path: '/db/normal-equip',
       },
       {
-        name: '일반 장비 - 제작',
-        path: '/db/normal-equip/make',
+        name: '환수 장비',
+        path: '/db/pet-equip',
+      },
+      // {
+      //   name: '환수 시동',
+      //   path: '/db/pet-activate',
+      // },
+      {
+        name: '신수 유물',
+        path: '/db/artifact-equip',
       },
       {
-        name: '일반 장비 - 재련',
-        path: '/db/normal-equip/reforge',
-      },
-      {
-        name: '일반 장비 - 연마',
-        path: '/db/normal-equip/enhance',
-      },
-      {
-        name: '일반 장비 - 한벌효과',
-        path: '/db/normal-equip/set-effect',
-      },
-      {
-        name: '환수 장비 - 목록',
-        path: '/db/pet-equip/list',
-      },
-      {
-        name: '환수 장비 - 재련',
-        path: '/db/pet-equip/reforge',
-      },
-      {
-        name: '환수 장비 - 명중률',
-        path: '/db/pet-equip/accuracy',
-      },
-      {
-        name: '신수 유물 - 목록',
-        path: '/db/artifact-equip/list',
-      },
-      {
-        name: '신수 유물 - 제작',
-        path: '/db/artifact-equip/make',
-      },
-      {
-        name: '기술 능력',
-        path: '/db/skill-ability',
+        name: '한벌 효과',
+        path: '/db/set-effect',
       },
       {
         name: '장비 마법',
         path: '/db/equip-skill',
+      },
+      {
+        name: '특수 마법',
+        path: '/db/special-skill',
+      },
+    ],
+  },
+  {
+    category: '강화',
+    menu: [
+      {
+        name: '일반 장비 - 제작',
+        path: '/upgrade/normal-equip/make',
+      },
+      {
+        name: '일반 장비 - 강화',
+        path: '/upgrade/normal-equip/reforge',
+      },
+      {
+        name: '일반 장비 - 연마',
+        path: '/upgrade/normal-equip/hone',
+      },
+      {
+        name: '일반 장비 - 기술 능력',
+        path: '/upgrade/normal-equip/enchant',
+      },
+      {
+        name: '환수 장비 - 재련',
+        path: '/upgrade/pet-equip/reforge',
+      },
+      {
+        name: '신수 유물 - 제작',
+        path: '/upgrade/artifact-equip/make',
+      },
+      // {
+      //   name: '신수 유물 - 분해',
+      //   path: '/upgrade/artifact-equip/disassemble',
+      // },
+      {
+        name: '신체 강화 - 능력치',
+        path: '/upgrade/body-enhance/ability',
+      },
+      {
+        name: '신체 강화 - 재료',
+        path: '/upgrade/body-enhance/recipe',
+      },
+      {
+        name: '신체 강화 - 보너스',
+        path: '/upgrade/body-enhance/bonus',
       },
     ],
   },
@@ -77,28 +98,16 @@ export const MENUS = [
     category: '콘텐츠',
     menu: [
       {
-        name: '업적 정보',
+        name: '업적',
         path: '/content/achievement',
       },
       {
-        name: '탐험일지 정보',
+        name: '탐험일지',
         path: '/content/adventure',
       },
       {
-        name: '고고학 정보',
+        name: '고고학',
         path: '/content/archeology',
-      },
-      {
-        name: '신체 강화 - 능력치',
-        path: '/content/body-enhance/ability',
-      },
-      {
-        name: '신체 강화 - 재료',
-        path: '/content/body-enhance/recipe',
-      },
-      {
-        name: '신체 강화 - 보너스',
-        path: '/content/body-enhance/bonus',
       },
     ],
   },
@@ -106,7 +115,15 @@ export const MENUS = [
     category: '계산기',
     menu: [
       {
-        name: '생산',
+        name: '연마 재료',
+        path: '/calculator/honing-recipe',
+      },
+      {
+        name: '연마 분해',
+        path: '/calculator/honing-disassemble',
+      },
+      {
+        name: '생산 재료',
         path: '/calculator/production',
       },
       {
@@ -122,7 +139,7 @@ export const MENUS = [
         path: '/calculator/old-engrave',
       },
       {
-        name: '세시마을',
+        name: '세시마을 달력',
         path: '/calculator/calendar',
       },
     ],

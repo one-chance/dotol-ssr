@@ -1,21 +1,55 @@
-import SCHEDULES from '@/contants/calendar.json';
+'use client';
 
-export default function ProductionPage() {
+import { useEffect, useState } from 'react';
+import { Select } from '@/components';
+import jsonData from '@/contants/production-item.json';
+import jsonData2 from '@/contants/production-recipe.json';
+
+const SKILL_LIST = ['직조술', '벌목술', '채광술', '조제술', '재봉술', '목공술', '대장술', '강화술'];
+const GRADES = ['왕초보', '초보', '견습', '도제', '숙련', '전문', '장인', '명장인', '대장인', '절대장인', '전설장인'];
+type Skill = (typeof SKILL_LIST)[number] | '종류';
+type Grade = (typeof GRADES)[number] | '단계';
+
+export default function ProductionCalculatorPage() {
+  const [skill, setSkill] = useState<Skill>('종류');
+  const [grade, setGrade] = useState<Grade>('단계');
+  const [item, setItem] = useState<string>('품목');
+  const [ingredients, setIngredients] = useState(new Map());
+  const [qunaity, setQuantity] = useState<number>(1);
+
+  const DATA = jsonData[skill as keyof typeof jsonData];
+  const DATA2 = DATA[grade as keyof typeof DATA];
+
+  const selectSkill = (_skill: string) => {
+    setSkill(_skill as Skill);
+    setGrade('단계');
+    console.log(grade);
+    setItem('품목');
+  };
+
+  const selectGrade = (_grade: string) => {
+    setGrade(_grade as Grade);
+    setItem('품목');
+  };
+
+  const selectItem = (_item: string) => {
+    setItem(_item);
+    setQuantity(1);
+  };
+
   return (
-    <div className="flex flex-col grow max-w-[960px] mx-auto px-5 py-10 sm:p-10 gap-10 sm:gap-20">
-      <span className="text-xl sm:text-2xl font-bold text-center">생산 계산기</span>
+    <div className="flex flex-col grow max-w-[960px] w-full mx-auto px-5 py-10 sm:p-10 gap-5">
+      <span className="text-xl sm:text-2xl font-bold">생산 재료 계산기</span>
 
-      <div className="flex flex-row justify-evenly flex-wrap gap-5">
-        {SCHEDULES.map(schedule => (
-          <div key={schedule.event} className="flex flex-row h-16 items-center">
-            <span className="text-lg sm:text-xl font-bold min-w-32 sm:min-w-36">{schedule.event}</span>
+      <div className="flex flex-row gap-2">
+        <Select className="w-24" name="종류" items={SKILL_LIST} onSelect={selectSkill} />
+        <Select className="w-28" disabled={skill === '종류'} name="단계" items={GRADES} onSelect={selectGrade} />
+        <Select className="w-48" disabled={grade === '단계'} name="품목" items={DATA2} onSelect={selectItem} />
+      </div>
 
-            <div className="flex flex-col flex-1 h-full">
-              <span className="text-sm sm:text-base flex-1">{`음력: ${schedule.luna_start_date} ~ ${schedule.luna_end_date}`}</span>
-              <span className="text-sm sm:text-base flex-1 text-red-500">{`양력: ${schedule.solar_start_date} ~ ${schedule.solar_end_date}`}</span>
-            </div>
-          </div>
-        ))}
+      <div className="flex flex-row gap-2">
+        <input placeholder="수량" className="w-14 border px-2 py-1 rounded outline-none text-center" />
+        <button>확인</button>
       </div>
     </div>
   );

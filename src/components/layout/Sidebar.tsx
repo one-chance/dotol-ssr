@@ -1,11 +1,11 @@
 import Link from 'next/link';
+import { clothes, book, hammer, search, calculator } from '@/components/icon';
 import { MENUS } from '@/contants';
-import { clothes, book, contents, calculator } from '@/components/icon';
 import { Menu } from '@/types';
 import UserMenu from './UserMenu';
 
 export default function Sidebar() {
-  const ICONS = [clothes, book, contents, calculator];
+  const ICONS = [clothes, book, hammer, search, calculator];
 
   const todayVisitor = 123;
   const totalVisitor = 456;

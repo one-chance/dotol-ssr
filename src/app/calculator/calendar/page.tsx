@@ -1,4 +1,4 @@
-import SCHEDULES from '@/contants/calendar.json';
+import { CALENDAR } from '@/contants';
 
 export default function CalendarPage() {
   return (
@@ -6,7 +6,7 @@ export default function CalendarPage() {
       <span className="text-xl sm:text-2xl font-bold text-center">2024 세시마을 달력</span>
 
       <div className="flex flex-row justify-evenly flex-wrap gap-5">
-        {SCHEDULES.map(schedule => (
+        {CALENDAR?.map(schedule => (
           <div key={schedule.event} className="flex flex-row h-16 items-center">
             <span className="text-lg sm:text-xl font-bold min-w-32 sm:min-w-36">{schedule.event}</span>
 
