@@ -1,8 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { CostumeList, Select } from '@/components';
-import { Avatar } from '@/components/avatar';
+import { Avatar, CostumeList, Select, Pagination } from '@/components';
 
 const PARTS = [
   '목/어깨장식',
@@ -27,6 +26,7 @@ export default function CostumeListPage() {
   };
 
   const wearEquip = (item: string) => {
+    if (selectedEquip.length >= 10) return;
     setSelectedEquip(prev => (prev.includes(item) ? prev.filter(i => i !== item) : [...prev, item]));
   };
 
@@ -35,51 +35,51 @@ export default function CostumeListPage() {
   };
 
   const TEST_LIST = [
-    { index: 0, name: '용천제십검', part: 4, luxury: false },
-    { index: 1, name: '용천제십검', part: 4, luxury: false },
-    { index: 2, name: '용천제십검', part: 4, luxury: false },
-    { index: 3, name: '용천제십검', part: 4, luxury: false },
-    { index: 4, name: '용천제십검', part: 4, luxury: false },
-    { index: 5, name: '용천제십검', part: 4, luxury: false },
-    { index: 6, name: '용천제십검', part: 4, luxury: false },
-    { index: 7, name: '용천제십검', part: 4, luxury: false },
-    { index: 8, name: '용천제십검', part: 4, luxury: false },
-    { index: 9, name: '용천제십검', part: 4, luxury: false },
-    { index: 10, name: '용천제십검', part: 4, luxury: false },
-    { index: 11, name: '용천제십검', part: 4, luxury: false },
-    { index: 12, name: '용천제십검', part: 4, luxury: false },
-    { index: 13, name: '용천제십검', part: 4, luxury: false },
-    { index: 14, name: '용천제십검', part: 4, luxury: false },
-    { index: 15, name: '용천제십검', part: 4, luxury: false },
-    { index: 16, name: '용천제십검', part: 4, luxury: false },
-    { index: 17, name: '용천제십검', part: 4, luxury: false },
-    { index: 18, name: '용천제십검', part: 4, luxury: false },
-    { index: 19, name: '용천제십검', part: 4, luxury: false },
+    { index: 0, name: '용천제십검', part: 4, gender: 1, luxury: true },
+    { index: 1, name: '용천제십검', part: 4, gender: 2, luxury: false },
+    { index: 2, name: '용천제십검', part: 4, gender: 0, luxury: false },
+    { index: 3, name: '용천제십검', part: 4, gender: 0, luxury: false },
+    { index: 4, name: '용천제십검', part: 4, gender: 0, luxury: false },
+    { index: 5, name: '용천제십검', part: 4, gender: 0, luxury: false },
+    { index: 6, name: '용천제십검', part: 4, gender: 0, luxury: false },
+    { index: 7, name: '용천제십검', part: 4, gender: 0, luxury: false },
+    { index: 8, name: '용천제십검', part: 4, gender: 0, luxury: false },
+    { index: 9, name: '용천제십검', part: 4, gender: 0, luxury: false },
+    { index: 10, name: '용천제십검', part: 4, gender: 0, luxury: false },
+    { index: 11, name: '용천제십검', part: 4, gender: 0, luxury: false },
+    { index: 12, name: '용천제십검', part: 4, gender: 0, luxury: false },
+    { index: 13, name: '용천제십검', part: 4, gender: 0, luxury: false },
+    { index: 14, name: '용천제십검', part: 4, gender: 0, luxury: false },
+    { index: 15, name: '용천제십검', part: 4, gender: 0, luxury: false },
+    { index: 16, name: '용천제십검', part: 4, gender: 0, luxury: false },
+    { index: 17, name: '용천제십검', part: 4, gender: 0, luxury: false },
+    { index: 18, name: '용천제십검', part: 4, gender: 0, luxury: false },
+    { index: 19, name: '용천제십검', part: 4, gender: 0, luxury: false },
   ];
 
   return (
     <div className="flex flex-col grow max-w-[960px] w-full mx-auto px-2.5 py-5 sm:p-10 gap-5">
       <span className="text-xl sm:text-2xl font-semibold">치장 목록</span>
 
-      <div className="flex flex-row items-start flex-wrap gap-2.5">
+      <div className="flex flex-row flex-wrap gap-2.5">
         <div className="flex flex-col gap-2 mx-auto">
           <Avatar equips={selectedEquip} />
 
-          {selectedEquip.length > 0 && (
-            <div className="flex flex-col gap-2">
-              <span className="font-medium text-center">착용 목록</span>
-              <div>
-                {selectedEquip?.map(equip => (
-                  <div key={equip} className="flex flex-row justify-between px-2">
-                    <span className="text-sm text-blue-500">{equip}</span>
-                    <button type="button" className="text-sm text-blue-500" onClick={() => removeEquip(equip)}>
-                      해제
-                    </button>
-                  </div>
-                ))}
-              </div>
+          <div className="flex flex-col flex-1 p-2.5 gap-2.5 border rounded max-w-[214px] max-h-[290px] min-h-20">
+            <span className="font-medium text-center">착용 목록</span>
+
+            <div className="flex flex-col gap-1">
+              {selectedEquip?.map(equip => (
+                <div key={equip} className="flex flex-row justify-between gap-4">
+                  <span className="text-sm text-gray-500 text-ellipsis overflow-hidden whitespace-nowrap">{equip}</span>
+
+                  <button type="button" className="text-sm text-gray-500 min-w-7" onClick={() => removeEquip(equip)}>
+                    해제
+                  </button>
+                </div>
+              ))}
             </div>
-          )}
+          </div>
         </div>
 
         <div className="flex flex-col flex-1 border rounded">
@@ -93,7 +93,7 @@ export default function CostumeListPage() {
 
           <CostumeList list={TEST_LIST} selectedList={selectedEquip} onWear={wearEquip} />
 
-          <div className="flex flex-row justify-center px-5 py-2 border-t">Pagination</div>
+          <Pagination />
         </div>
       </div>
     </div>

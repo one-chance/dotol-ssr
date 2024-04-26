@@ -1,11 +1,17 @@
+'use client';
+
 import Link from 'next/link';
 import { clothes, book, hammer, search, calculator } from '@/components/icon';
 import { MENUS } from '@/contants';
 import { Menu } from '@/types';
 import UserMenu from './UserMenu';
+import { LoginModal } from '../modal';
+import { useAtom } from 'jotai';
+import { showLoginAtom } from '@/states/loginAtom';
 
 export default function Sidebar() {
   const ICONS = [clothes, book, hammer, search, calculator];
+  const [showLoginModal, setShowLoginModal] = useAtom(showLoginAtom);
 
   const todayVisitor = 123;
   const totalVisitor = 456;
@@ -47,6 +53,8 @@ export default function Sidebar() {
           </div>
         </nav>
       </div>
+
+      {showLoginModal && <LoginModal onClose={() => setShowLoginModal(false)} />}
     </aside>
   );
 }

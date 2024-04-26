@@ -8,7 +8,7 @@ export const MENUS = [
       },
       {
         name: '명품의 목록',
-        path: '/costume/luxury-list',
+        path: '/costume/luxury',
       },
       {
         name: '캐릭터 룩북',

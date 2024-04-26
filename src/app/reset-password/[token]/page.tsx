@@ -1,0 +1,42 @@
+'use client';
+
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+
+export default function ResetPasswordPage({ params }: { params: { token: string } }) {
+  const router = useRouter();
+  const [newPassword, setNewPassword] = useState('');
+
+  const inputNewPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewPassword(e.target.value);
+  };
+
+  const changePassword = () => {
+    console.log(params.token, newPassword);
+    router.push('/');
+  };
+
+  return (
+    <div className="flex flex-col grow max-w-[720px] w-full mx-auto px-5 py-10 sm:p-10 gap-10">
+      <span className="text-xl sm:text-2xl font-bold">비밀번호 변경</span>
+
+      <input
+        type="text"
+        autoComplete="new-password"
+        placeholder="새로운 비밀번호"
+        value={newPassword || ''}
+        onChange={inputNewPassword}
+        className="border rounded px-2 w-full h-10 outline-none"
+      />
+
+      <button
+        disabled={newPassword.length < 8}
+        type="button"
+        className="h-10 rounded bg-red-500 text-white font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+        onClick={changePassword}
+      >
+        변경하기
+      </button>
+    </div>
+  );
+}

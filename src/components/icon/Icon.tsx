@@ -97,3 +97,13 @@ export const arrowLeft = (
     />
   </svg>
 );
+
+export const close = (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+    <path
+      clipRule="evenodd"
+      d="M5.53 4.47a.75.75 0 00-1.06 1.06L10.94 12l-6.47 6.47a.75.75 0 101.06 1.06L12 13.06l6.47 6.47a.75.75 0 101.06-1.06L13.06 12l6.47-6.47a.75.75 0 00-1.06-1.06L12 10.94 5.53 4.47z"
+      fillRule="evenodd"
+    />
+  </svg>
+);

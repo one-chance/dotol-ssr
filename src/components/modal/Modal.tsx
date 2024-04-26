@@ -38,19 +38,20 @@ export default function Modal({ className, modalId, onClose, children }: ModalPr
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  if (typeof window === 'undefined') return null;
+
   return container
     ? typeof window !== 'undefined' &&
         createPortal(
           <div
             id={`${modalId}-overlay`}
             role="presentation"
-            className="fixed flex-col justify-center items-center inset-0 z-[1000] bg-[#0000004d] overflow-y-auto"
+            className="fixed flex flex-col justify-center items-center inset-0 z-[1000] bg-[#0000004d] overflow-y-auto scrollbar-hidden"
             onClick={handleOverlayClick}
-            style={{ scrollbarWidth: 'none' }}
           >
             <div
               id={`${modalId}-content`}
-              className={`flex flex-col overflow-y-auto p-5 ${className}`}
+              className={`flex flex-col overflow-y-auto ${className}`}
               onClick={handleContentClick}
             >
               {children}

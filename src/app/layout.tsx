@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
-import './globals.css';
+import { Provider } from 'jotai';
 import { Footer, MobileHeader, Sidebar } from '@/components/layout';
+import './globals.css';
 
 export const metadata: Metadata = {
   title: '도톨 | 바람의나라 커뮤니티',
@@ -16,17 +17,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-[#223A54]">
-        <div className="flex flex-row max-w-[1280px] mx-auto">
-          <Sidebar />
+        <Provider>
+          <div className="flex flex-row max-w-[1280px] mx-auto">
+            <Sidebar />
 
-          <main className="flex flex-col w-full min-h-screen bg-white">
-            <MobileHeader />
-            {children}
-            <Footer />
-          </main>
-        </div>
+            <main className="flex flex-col w-full min-h-screen bg-white">
+              <MobileHeader />
+              {children}
+              <Footer />
+            </main>
+          </div>
 
-        <div id="modal" />
+          <div id="modal" />
+        </Provider>
       </body>
     </html>
   );

@@ -15,13 +15,13 @@ type BodyEnhanceRecipeProps = {
   data: { [key: string]: RecipeCell[] };
 };
 
-const PARTS = ['무기', '갑옷', '투구', '왼손', '오른손', '목/어깨', '신발', '망토'] as const;
+const PARTS = ['무기, 갑옷, 투구', '왼손, 오른손', '목/어깨', '신발, 망토'] as const;
 type Parts = (typeof PARTS)[number];
 
 export default function BodyEnhanceRecipe({ data }: BodyEnhanceRecipeProps) {
   const TITLES = ['등급', '비약', '전표', '누적_비약', '누적_전표'] as const;
 
-  const [part, setPart] = useState<Parts>('무기');
+  const [part, setPart] = useState<Parts>('무기, 갑옷, 투구');
 
   const selectPart = (item: string) => {
     setPart(item as Parts);
@@ -31,7 +31,7 @@ export default function BodyEnhanceRecipe({ data }: BodyEnhanceRecipeProps) {
     <>
       <div className="flex flex-row justify-between items-center">
         <span className="text-xl sm:text-2xl font-semibold">신체 강화 - 재료</span>
-        <Select className="w-[100px]" items={PARTS} onSelect={selectPart} />
+        <Select className="w-40" items={PARTS} onSelect={selectPart} />
       </div>
 
       <div>

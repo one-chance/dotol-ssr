@@ -1,10 +1,10 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: '도톨 | 프로필',
+  title: '도톨 | 회원탈퇴',
 };
 
-export default function ProfileLayout({
+export default function WithdrawlLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

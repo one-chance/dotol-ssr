@@ -1,8 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Avatar } from '@/components/avatar';
-import { Select } from '@/components';
+import { Select, Avatar } from '@/components';
 import { SKIN_LIST } from '@/contants';
 
 const PARTS = [

@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import { LUXURY_LIST } from '@/contants';
 
-export default function CostumeListPage() {
+export default function LuxuryPage() {
   const [series, setSeries] = useState<keyof typeof LUXURY_LIST>(13);
   const names = Object.values(LUXURY_LIST).map(item => item.name);
 
@@ -40,7 +40,7 @@ export default function CostumeListPage() {
 
         <div className="flex flex-row justify-center items-center rounded">
           {LUXURY_LIST[series as keyof typeof LUXURY_LIST].images.map((img: string) => (
-            <img key={img} alt="luxury" src={`https://asset.dotols.com/image/luxury/${img}`} />
+            <img key={img} alt="luxury" src={`${process.env.NEXT_PUBLIC_ASSET}/image/luxury/${img}`} />
           ))}
         </div>
       </div>
