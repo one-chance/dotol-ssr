@@ -3,25 +3,23 @@
 import { useState } from 'react';
 import { Select } from '@/components';
 
-type RecipeCell = {
-  등급: string;
-  비약: string;
-  전표: string;
-  누적_비약: string;
-  누적_전표: string;
-};
-
-type BodyEnhanceRecipeProps = {
-  data: { [key: string]: RecipeCell[] };
-};
-
 const PARTS = ['무기, 갑옷, 투구', '왼손, 오른손', '목/어깨', '신발, 망토'] as const;
 type Parts = (typeof PARTS)[number];
 
-export default function BodyEnhanceRecipe({ data }: BodyEnhanceRecipeProps) {
-  const TITLES = ['등급', '비약', '전표', '누적_비약', '누적_전표'] as const;
+type BodyEnhanceRecipeData = {
+  [key in Parts]: {
+    등급: string;
+    비약: string;
+    전표: string;
+    '누적 비약': string;
+    '누적 전표': string;
+  }[];
+};
 
+export default function BodyEnhanceRecipe({ data }: { data: BodyEnhanceRecipeData }) {
+  const TITLES = ['등급', '비약', '전표', '누적 비약', '누적 전표'] as const;
   const [part, setPart] = useState<Parts>('무기, 갑옷, 투구');
+  const DATA = data[part];
 
   const selectPart = (item: string) => {
     setPart(item as Parts);
@@ -38,12 +36,12 @@ export default function BodyEnhanceRecipe({ data }: BodyEnhanceRecipeProps) {
         <div className="flex flex-row">
           {TITLES.map((title: string) => (
             <span key={title} className="w-32 bg-gray-300 py-2 font-bold text-sm sm:text-base text-center">
-              {title.replace('_', ' ')}
+              {title}
             </span>
           ))}
         </div>
 
-        {data[part]?.map((item: RecipeCell, index: number) => (
+        {DATA?.map((item, index) => (
           <div key={index} className="flex flex-row border-b border-gray-300 select-none bg-gray-100">
             {Object.values(item).map((value: string, index: number) => (
               <span key={index} className="flex-1 py-1 text-sm sm:text-base text-center">

@@ -3,21 +3,20 @@
 import { useState } from 'react';
 import { Select } from '@/components';
 
-type BonusCell = {
-  단계: string;
-  능력치: string[];
-  목록: string[];
-};
-
-type BodyEnahnceBonuseProps = {
-  data: { [key: string]: BonusCell[] };
-};
-
 const PARTS = ['무기', '갑옷', '투구', '왼손', '오른손', '목/어깨', '신발', '망토'] as const;
 type Parts = (typeof PARTS)[number];
 
-export default function BodyEnhanceBonuse({ data }: BodyEnahnceBonuseProps) {
+type BodyEnahnceBonusData = {
+  [key in Parts]: {
+    단계: string;
+    능력치: string[];
+    목록: string[];
+  }[];
+};
+
+export default function BodyEnhanceBonus({ data }: { data: BodyEnahnceBonusData }) {
   const [part, setPart] = useState<Parts>('무기');
+  const DATA = data[part];
 
   const selectPart = (item: string) => {
     setPart(item as Parts);
@@ -38,7 +37,7 @@ export default function BodyEnhanceBonuse({ data }: BodyEnahnceBonuseProps) {
         </div>
 
         <div>
-          {data[part].map((item: BonusCell, index: number) => (
+          {DATA?.map((item, index) => (
             <div key={index} className="flex flex-row items-center py-2 bg-gray-100 border-b">
               <div className="flex w-14 sm:w-20">
                 <span className="w-full text-center text-xs sm:text-sm">{item.단계}</span>

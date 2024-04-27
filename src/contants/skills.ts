@@ -1,5 +1,3 @@
-export const SKILL_IMAGE_SRC = 'https://jpdkgscyrlhfabjpohmv.supabase.co/storage/v1/object/public/asset/image/skills/';
-
 export const SKILL_LIST: { [key: string]: string[] } = {
   unique: [
     '진월아검',

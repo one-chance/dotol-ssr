@@ -3,21 +3,20 @@
 import { useState } from 'react';
 import { Select } from '@/components';
 
-type AbilityCell = {
-  등급: string;
-  선택_능력: string[];
-  기본_능력: string[];
-};
-
-type BodyEnhanceAbilityProps = {
-  data: { [key: string]: AbilityCell[] };
-};
-
 const PARTS = ['무기', '갑옷', '투구', '왼손', '오른손', '목/어깨', '신발', '망토'] as const;
 type Parts = (typeof PARTS)[number];
 
-export default function BodyEnhanceAbility({ data }: BodyEnhanceAbilityProps) {
+type BodyEnhanceAbilityData = {
+  [key in Parts]: {
+    등급: string;
+    '선택 능력': string[];
+    '기본 능력': string[];
+  }[];
+};
+
+export default function BodyEnhanceAbility({ data }: { data: BodyEnhanceAbilityData }) {
   const [part, setPart] = useState<Parts>('무기');
+  const DATA = data[part];
 
   const selectPart = (item: string) => {
     setPart(item as Parts);
@@ -38,14 +37,14 @@ export default function BodyEnhanceAbility({ data }: BodyEnhanceAbilityProps) {
         </div>
 
         <div>
-          {data[part]?.map((item: AbilityCell, index: number) => (
+          {DATA?.map((item, index) => (
             <div key={index} className="flex flex-row items-center border-b py-1 bg-gray-100">
               <div className="flex w-16">
                 <span className="w-full text-center text-sm sm:text-base">{item.등급}</span>
               </div>
 
               <div className="flex flex-col items-center w-32">
-                {item.선택_능력.map((ability: string) => (
+                {item['선택 능력'].map((ability: string) => (
                   <span key={ability} className="text-sm">
                     {ability}
                   </span>
@@ -53,7 +52,7 @@ export default function BodyEnhanceAbility({ data }: BodyEnhanceAbilityProps) {
               </div>
 
               <div className="flex flex-row flex-wrap justify-start items-center gap-1 flex-1 px-2">
-                {item.기본_능력.map((ability: string) => (
+                {item['기본 능력'].map((ability: string) => (
                   <span key={ability} className="text-sm">
                     {ability}
                   </span>

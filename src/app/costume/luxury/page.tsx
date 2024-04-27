@@ -4,12 +4,16 @@
 import { useState } from 'react';
 import { LUXURY_LIST } from '@/contants';
 
-export default function LuxuryPage() {
-  const [series, setSeries] = useState<keyof typeof LUXURY_LIST>(13);
-  const names = Object.values(LUXURY_LIST).map(item => item.name);
+type Series = keyof typeof LUXURY_LIST;
 
-  const selectSeries = (_series: number) => {
-    setSeries(_series as keyof typeof LUXURY_LIST);
+export default function LuxuryPage() {
+  const [series, setSeries] = useState<Series>('오방지신');
+  const names = Object.keys(LUXURY_LIST);
+
+  const DATA = LUXURY_LIST[series as Series];
+
+  const selectSeries = (_series: string) => {
+    setSeries(_series as Series);
   };
 
   return (
@@ -21,8 +25,8 @@ export default function LuxuryPage() {
           <button
             key={item}
             type="button"
-            className={`outline-none ${series === index + 1 && 'text-red-500'}`}
-            onClick={() => selectSeries(index + 1)}
+            className={`outline-none ${series === item && 'text-red-500'}`}
+            onClick={() => selectSeries(item)}
           >
             {index + 1}기 {item}
           </button>
@@ -31,7 +35,7 @@ export default function LuxuryPage() {
 
       <div className="flex flex-col gap-5 mt-1">
         <div className="flex flex-row flex-wrap gap-x-2 gap-y-1 border rounded p-2.5">
-          {LUXURY_LIST[series as keyof typeof LUXURY_LIST].parts.map((item: string) => (
+          {DATA?.parts.map((item: string) => (
             <span key={item} className="text-sm">
               {item}
             </span>
@@ -39,7 +43,7 @@ export default function LuxuryPage() {
         </div>
 
         <div className="flex flex-row justify-center items-center rounded">
-          {LUXURY_LIST[series as keyof typeof LUXURY_LIST].images.map((img: string) => (
+          {DATA?.images.map((img: string) => (
             <img key={img} alt="luxury" src={`${process.env.NEXT_PUBLIC_ASSET}/image/luxury/${img}`} />
           ))}
         </div>

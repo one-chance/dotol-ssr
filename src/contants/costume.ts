@@ -55,8 +55,7 @@ export const SKIN_LIST = {
 };
 
 export const LUXURY_LIST = {
-  1: {
-    name: '마법학교',
+  마법학교: {
     images: ['1-1.png'],
     parts: [
       '마법학교소녀헤어',
@@ -69,8 +68,7 @@ export const LUXURY_LIST = {
       '마법학교모자',
     ],
   },
-  2: {
-    name: '은하수요술사',
+  은하수요술사: {
     images: ['2-1.png'],
     parts: [
       '은하수요술사모자',
@@ -83,8 +81,7 @@ export const LUXURY_LIST = {
       '럭키별장식',
     ],
   },
-  3: {
-    name: '풀잎',
+  풀잎: {
     images: ['3-1.png'],
     parts: [
       '풀잎소녀헤어',
@@ -99,8 +96,7 @@ export const LUXURY_LIST = {
       '풀잎민들레머리띠',
     ],
   },
-  4: {
-    name: '악마사냥꾼',
+  악마사냥꾼: {
     images: ['4-1.png'],
     parts: [
       '악마사냥꾼의뿔',
@@ -113,8 +109,7 @@ export const LUXURY_LIST = {
       '악마사냥꾼의증표',
     ],
   },
-  5: {
-    name: '은빛미호',
+  은빛미호: {
     images: ['5-1.png'],
     parts: [
       '은빛미호의귀',
@@ -128,8 +123,7 @@ export const LUXURY_LIST = {
       '은빛미호의장식',
     ],
   },
-  6: {
-    name: '시간여행자',
+  시간여행자: {
     images: ['6-1.png'],
     parts: [
       '시간여행자머리장식(남)',
@@ -143,8 +137,7 @@ export const LUXURY_LIST = {
       '시간여행자비행선',
     ],
   },
-  7: {
-    name: '월야산신',
+  월야산신: {
     images: ['7-1.png'],
     parts: [
       '월야산신갓',
@@ -157,8 +150,7 @@ export const LUXURY_LIST = {
       '월야산신밤호랑이',
     ],
   },
-  8: {
-    name: '인형술사',
+  인형술사: {
     images: ['8-1.png'],
     parts: [
       '인형술사다이아모자',
@@ -172,8 +164,7 @@ export const LUXURY_LIST = {
       '인형술사요술토끼',
     ],
   },
-  9: {
-    name: '잔혹천사',
+  잔혹천사: {
     images: ['9-1.png'],
     parts: [
       '잔혹천사가면',
@@ -186,8 +177,7 @@ export const LUXURY_LIST = {
       '잔혹천사하트안대',
     ],
   },
-  10: {
-    name: '천상의심포니',
+  천상의심포니: {
     images: ['10-1.png'],
     parts: [
       '천상의심포니모자',
@@ -199,8 +189,7 @@ export const LUXURY_LIST = {
       '천상의심포니타악쥐',
     ],
   },
-  11: {
-    name: '달빛마중',
+  달빛마중: {
     images: ['11-1.gif', '11-2.gif'],
     parts: [
       '달빛마중머리띠',
@@ -213,8 +202,7 @@ export const LUXURY_LIST = {
       '달빛마중깡충귀',
     ],
   },
-  12: {
-    name: '생명의바다',
+  생명의바다: {
     images: ['12-1.gif', '12-2.gif'],
     parts: [
       '생명의바다고래물결',
@@ -226,8 +214,7 @@ export const LUXURY_LIST = {
       '생명의바다햇살파도',
     ],
   },
-  13: {
-    name: '오방지신',
+  오방지신: {
     images: ['13-1.gif'],
     parts: [
       '오방지신백호첨익',
