@@ -1,17 +1,25 @@
 'use client';
 
-import { useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { Select } from '@/components';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useAtomValue } from 'jotai';
+import { isloggedinAtom } from '@/states';
+import { deleteCharacter, getCharacterList, registerCharacter, updateMainCharacter } from '@/utils/api';
+import { getMyInfo } from '@/utils';
 
-const SERVERS = ['연', '유리', '무휼', '하자', '호동', '진'] as const;
+const SERVERS = ['서버', '연', '유리', '무휼', '하자', '호동', '진'] as const;
 type Server = (typeof SERVERS)[number] | '서버';
 
 export default function CharacterPage() {
+  const router = useRouter();
+  const isLoggedin = useAtomValue(isloggedinAtom);
+
   const [character, setCharacter] = useState('');
   const [server, setServer] = useState<Server>('서버');
   const [charactes, setCharacters] = useState<string[]>([]);
-  const mainCharacter = '캐릭터';
+  const [mainCharacter, setMainCharacter] = useState('');
 
   const inputCharacter = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCharacter(e.target.value);
@@ -21,17 +29,57 @@ export default function CharacterPage() {
     setServer((item as (typeof SERVERS)[number]) || '서버');
   };
 
-  const getAuth = () => {
-    console.log('getAuth');
+  const getMainCharacter = async () => {
+    const res = await getMyInfo();
+
+    if (res.statusCode === 200) {
+      setMainCharacter(res.data.mainCharacter);
+    }
   };
 
-  const changeMainCharacter = (_character: string) => {
-    console.log(_character);
+  const getCharacters = async () => {
+    const res = await getCharacterList();
+
+    if (res.statusCode === 200) {
+      setCharacters(res.data);
+    }
   };
 
-  const deleteCharacter = (_character: string) => {
-    console.log(_character);
+  const getAuth = async () => {
+    const res = await registerCharacter(`${character}@${server}`);
+
+    if (res.statusCode === 400) {
+      return alert('이미 등록된 캐릭터거나 인시말이 일치하지 않습니다.');
+    } else if (res.statusCode === 200) {
+      alert('캐릭터가 등록되었습니다.');
+      window.location.reload();
+    }
   };
+
+  const changeMainCharacter = async (_character: string) => {
+    const res = await updateMainCharacter(_character);
+
+    if (res.statusCode === 200) {
+      return alert('대표 캐릭터가 변경되었습니다.');
+    }
+  };
+
+  const removeCharacter = async (_character: string) => {
+    const res = await deleteCharacter(_character);
+
+    if (res.statusCode === 400) {
+      return alert('대표 캐릭터는 삭제할 수 없습니다.');
+    } else if (res.statusCode === 200) {
+      return alert('캐릭터가 삭제되었습니다.');
+    }
+  };
+
+  useLayoutEffect(() => {
+    if (!isLoggedin) router.push('/');
+
+    getMainCharacter();
+    getCharacters();
+  }, [isLoggedin, router]);
 
   return (
     <div className="flex flex-col grow mx-auto px-2.5 py-5 sm:p-10 gap-10">
@@ -58,10 +106,15 @@ export default function CharacterPage() {
               className="flex-1 h-10 px-2 border rounded text-center outline-none"
               onChange={inputCharacter}
             />
-            <Select name="서버" className="w-20" items={SERVERS} onSelect={selectServer} />
+            <Select className="w-20" name={server} items={SERVERS} onSelect={selectServer} />
           </div>
 
-          <button type="button" className="h-10 border rounded border-red-400 text-red-400" onClick={getAuth}>
+          <button
+            type="button"
+            disabled={character === '' || server === '서버'}
+            className="h-10 border rounded bg-red-500 text-white disabled:opacity-50"
+            onClick={getAuth}
+          >
             인증하기
           </button>
         </div>
@@ -73,7 +126,10 @@ export default function CharacterPage() {
             {charactes.length === 0 && <span className="text-center text-gray-400">인증된 캐릭터가 없습니다.</span>}
             {charactes?.map((char: string) => (
               <div key={char} className="flex flex-row justify-between items-center">
-                <span>{char}</span>
+                <span>
+                  {char}
+                  {mainCharacter === char ? ' [대표]' : ''}
+                </span>
                 <div className="flex flex-row gap-2">
                   <button
                     disabled={mainCharacter === char}
@@ -86,7 +142,7 @@ export default function CharacterPage() {
                   <button
                     type="button"
                     className="w-12 h-8 border rounded border-red-400 text-red-400"
-                    onClick={() => deleteCharacter(char)}
+                    onClick={() => removeCharacter(char)}
                   >
                     삭제
                   </button>

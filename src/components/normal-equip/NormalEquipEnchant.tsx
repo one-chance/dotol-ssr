@@ -35,8 +35,8 @@ export default function NormalEquipEnchant({ data }: { data: EnchantData }) {
       <div className="flex flex-row items-center justify-between">
         <span className="text-xl sm:text-2xl font-semibold">일반 장비 - 기술 능력</span>
         <div className="flex flex-row items-center gap-2">
-          <Select className="w-24" items={JOBS} onSelect={selectJob} />
-          <Select className="w-32" items={PARTS} onSelect={selectPart} />
+          <Select className="w-24" name={job} items={JOBS} onSelect={selectJob} />
+          <Select className="w-32" name={part} items={PARTS} onSelect={selectPart} />
         </div>
       </div>
 

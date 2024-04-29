@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { isDuplicatedEmail, sendOTPCode, verifyOTPCode } from '@/utils';
 
 type SignUpProps = {
   setPhase: (phase: 1 | 2 | 3 | 4, email?: string) => void;
@@ -24,12 +25,31 @@ export default function SignUp2({ setPhase }: SignUpProps) {
     setOTP(value);
   };
 
-  const sendOTP = () => {
-    setIsSentOTP(true);
+  const sendOTP = async () => {
+    const isUniqueEmail = await isDuplicatedEmail(email);
+    if (isUniqueEmail.statusCode === 400) {
+      return alert('이미 사용중인 이메일입니다.');
+    }
+
+    const sendOTP = await sendOTPCode(email);
+
+    if (sendOTP.statusCode === 400) {
+      return alert('이메일 전송에 실패했습니다.');
+    } else if (sendOTP.statusCode === 200) {
+      setIsSentOTP(true);
+    }
   };
 
-  const verifyOTP = () => {
-    setPhase(3, email);
+  const verifyOTP = async () => {
+    const isVerifiedOTP = await verifyOTPCode(email, otp);
+
+    if (isVerifiedOTP.statusCode === 400) {
+      return alert('OTP가 일치하지 않습니다.');
+    } else if (isVerifiedOTP.statusCode === 404) {
+      return alert('OTP가 만료되었습니다.');
+    } else if (isVerifiedOTP.statusCode === 200) {
+      setPhase(3, email);
+    }
   };
 
   useEffect(() => {

@@ -1,8 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { isloggedinAtom } from '@/states';
+import { deleteUser } from '@/utils';
+import { useAtomValue } from 'jotai';
+import { useRouter } from 'next/navigation';
+import { useLayoutEffect, useState } from 'react';
 
 export default function WithdrawlPage() {
+  const router = useRouter();
+  const isLoggedin = useAtomValue(isloggedinAtom);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -13,6 +20,20 @@ export default function WithdrawlPage() {
   const inputPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
+
+  const withdrawl = async () => {
+    const res = await deleteUser(email, password);
+
+    if (res.statusCode === 200) {
+      alert('탈퇴되었습니다.');
+      router.push('/');
+      return;
+    }
+  };
+
+  useLayoutEffect(() => {
+    if (!isLoggedin) router.push('/');
+  }, [isLoggedin, router]);
 
   return (
     <div className="flex flex-col grow mx-auto px-2.5 py-5 sm:p-10 gap-10">
@@ -38,7 +59,9 @@ export default function WithdrawlPage() {
           onChange={inputPassword}
         />
 
-        <button className="w-80 h-10 rounded bg-red-400 text-white font-medium">탈퇴하기</button>
+        <button className="w-80 h-10 rounded bg-red-400 text-white font-medium" onClick={withdrawl}>
+          탈퇴하기
+        </button>
       </div>
     </div>
   );

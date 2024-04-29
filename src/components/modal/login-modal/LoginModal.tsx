@@ -1,8 +1,11 @@
 'use client';
 
-import { Modal } from '@/components/modal';
 import Link from 'next/link';
 import { useState } from 'react';
+import { Modal } from '@/components/modal';
+import { isloggedinAtom } from '@/states';
+import { decodeJWT, verifyUser } from '@/utils';
+import { useAtom } from 'jotai';
 
 type ModalProps = {
   onClose: () => void;
@@ -11,6 +14,30 @@ type ModalProps = {
 export default function LoginModal({ onClose }: ModalProps) {
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
+  const [, setIsLoggedin] = useAtom(isloggedinAtom);
+
+  const inputUserId = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserId(e.target.value);
+  };
+
+  const inputPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
+  const signin = async () => {
+    const res = await verifyUser(userId, password);
+
+    if (res.statusCode === 404) {
+      return alert('등록되지 않은 계정입니다.');
+    } else if (res.statusCode === 400) {
+      return alert('비밀번호가 일치하지 않습니다.');
+    } else if (res.statusCode === 200) {
+      localStorage.setItem(`accessToken`, res.data);
+      localStorage.setItem('userInfo', JSON.stringify(decodeJWT(res.data)));
+      setIsLoggedin(true);
+      onClose();
+    }
+  };
 
   return (
     <Modal
@@ -21,9 +48,28 @@ export default function LoginModal({ onClose }: ModalProps) {
       <span className="text-4xl font-bold text-center">도톨</span>
 
       <div className="flex flex-col gap-4">
-        <input type="text" autoComplete="username" placeholder="아이디" className="border rounded px-2 h-10" />
+        <input
+          type="text"
+          autoComplete="username"
+          value={userId || ''}
+          placeholder="아이디"
+          className="border rounded px-2 h-10"
+          onChange={inputUserId}
+        />
 
-        <input type="password" autoComplete="password" placeholder="비밀번호" className="border rounded px-2 h-10" />
+        <input
+          type="password"
+          autoComplete="password"
+          value={password || ''}
+          placeholder="비밀번호"
+          className="border rounded px-2 h-10"
+          onChange={inputPassword}
+          onKeyDown={e => {
+            if (e.key === 'Enter') {
+              signin();
+            }
+          }}
+        />
       </div>
 
       <div className="flex flex-row items-center gap-1">
@@ -38,8 +84,9 @@ export default function LoginModal({ onClose }: ModalProps) {
 
       <button
         type="button"
-        disabled={userId === '' || password === ''}
+        disabled={userId === '' || password.length < 8}
         className="h-10 rounded bg-[#6877FF] text-white font-medium disabled:opacity-50"
+        onClick={signin}
       >
         로그인
       </button>

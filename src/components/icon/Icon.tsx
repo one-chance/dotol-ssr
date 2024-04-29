@@ -98,6 +98,26 @@ export const arrowLeft = (
   </svg>
 );
 
+export const right = (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+    <path
+      clipRule="evenodd"
+      d="M8.25 19.808a.75.75 0 01-.058-1.059l6.053-6.748-6.053-6.75a.75.75 0 011.116-1l6.503 7.249a.75.75 0 010 1.001l-6.503 7.25a.75.75 0 01-1.059.057z"
+      fillRule="evenodd"
+    />
+  </svg>
+);
+
+export const left = (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+    <path
+      clipRule="evenodd"
+      d="M15.75 4.192a.75.75 0 01.058 1.059l-6.054 6.748 6.054 6.75a.75.75 0 01-1.116 1L8.189 12.5a.75.75 0 010-1.001l6.503-7.25a.75.75 0 011.059-.057z"
+      fillRule="evenodd"
+    />
+  </svg>
+);
+
 export const close = (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
     <path

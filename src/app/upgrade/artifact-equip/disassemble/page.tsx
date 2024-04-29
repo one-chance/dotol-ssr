@@ -2,9 +2,9 @@
 
 import { Select } from '@/components';
 import { useState } from 'react';
-import jsonData from '@/contants/artifact-equip-reforge.json';
+// import jsonData from '@/contants/artifact-equip-reforge.json';
 
-const PARTS = ['무기', '갑옷', '투구', '명경', '장갑', '보주'];
+const PARTS = ['부위', '무기', '갑옷', '투구', '명경', '장갑', '보주'];
 
 type DataType = {
   [key: string]: { [key: string]: string }[];
@@ -27,8 +27,8 @@ const Title = () => {
 export default function ArtifactEquipDisassemblePage() {
   const [part, setPart] = useState<(typeof PARTS)[number]>('무기');
 
-  const DATA: DataType = jsonData[part as keyof typeof jsonData];
-  const SUBJECTS = Object.keys(DATA);
+  // const DATA: DataType = jsonData[part as keyof typeof jsonData];
+  // const SUBJECTS = Object.keys(DATA);
 
   const selectPart = (item: string) => {
     setPart(item);
@@ -38,10 +38,10 @@ export default function ArtifactEquipDisassemblePage() {
     <div className="flex flex-col grow max-w-[720px] w-full mx-auto px-2.5 py-5 sm:p-10 gap-5">
       <div className="flex flex-row justify-between items-center">
         <span className="text-xl sm:text-2xl font-semibold">신수 유물 - 제작</span>
-        <Select className="w-20" items={PARTS} onSelect={selectPart} />
+        <Select className="w-20" name={part} items={PARTS} onSelect={selectPart} />
       </div>
 
-      {SUBJECTS.map((subject, index) => (
+      {/* {SUBJECTS.map((subject, index) => (
         <div key={index} className="flex flex-col gap-2">
           <span className="sm:text-lg font-medium">{subject}</span>
 
@@ -59,7 +59,7 @@ export default function ArtifactEquipDisassemblePage() {
             ))}
           </div>
         </div>
-      ))}
+      ))} */}
     </div>
   );
 }

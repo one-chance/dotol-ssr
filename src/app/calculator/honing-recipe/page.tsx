@@ -3,11 +3,12 @@
 import { Select } from '@/components';
 import { useState } from 'react';
 import { HONE_RECIPE, HONE_BREAK_RECIPE } from '@/contants';
+import { addCommaToNumber } from '@/utils';
 
-const TYPES = ['용', '중국', '일본', '환웅', '타계', '기타'] as const;
-
+const SUBJECTS = ['종류', '용', '중국', '일본', '환웅', '타계', '기타'] as const;
+type Subjects = (typeof SUBJECTS)[number];
 export default function HoningRecipePage() {
-  const [type, setType] = useState<(typeof TYPES)[number] | '종류'>('종류');
+  const [subject, setSubject] = useState<Subjects>('종류');
   const [level, setLevel] = useState<{ start: number; end: number }>({
     start: 0,
     end: 0,
@@ -23,10 +24,10 @@ export default function HoningRecipePage() {
 
   const [showResult, setShowResult] = useState<boolean>(false);
 
-  const selectType = (item: string) => {
+  const selectSubject = (item: string) => {
     setShowResult(false);
     setLevel({ start: 0, end: 0 });
-    setType(item as (typeof TYPES)[number]);
+    setSubject(item as Subjects);
   };
 
   const inputStart = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,7 +84,7 @@ export default function HoningRecipePage() {
       금전: HONE_RECIPE[level.end].누적_금전 - HONE_RECIPE[level.start].누적_금전,
     });
 
-    setBreakMaterial(accumulateMaterials(HONE_BREAK_RECIPE, level.start, level.end, type));
+    setBreakMaterial(accumulateMaterials(HONE_BREAK_RECIPE, level.start, level.end, subject));
     setBreakMoney(accumulateMoney(HONE_BREAK_RECIPE, level.start, level.end));
 
     setShowResult(true);
@@ -100,11 +101,11 @@ export default function HoningRecipePage() {
       </span>
 
       <div className="flex flex-row gap-4">
-        <Select className="w-24" name="종류" items={TYPES} onSelect={selectType} />
+        <Select className="w-24" name={subject} items={SUBJECTS} onSelect={selectSubject} />
 
         <div className="flex flex-row items-center gap-1">
           <input
-            disabled={type === '종류'}
+            disabled={subject === '종류'}
             className="w-20 h-10 border rounded outline-none text-center"
             placeholder="0"
             value={level.start || ''}
@@ -112,7 +113,7 @@ export default function HoningRecipePage() {
           />
           <span> ~ </span>
           <input
-            disabled={type === '종류'}
+            disabled={subject === '종류'}
             className="w-20 h-10 border rounded outline-none text-center"
             placeholder="90"
             value={level.end || ''}
@@ -121,7 +122,7 @@ export default function HoningRecipePage() {
           <button
             type="button"
             className="w-14 h-10 rounded bg-blue-500 text-white outline-none disabled:opacity-50"
-            disabled={type === '종류' || level.end === 0}
+            disabled={subject === '종류' || level.end === 0}
             onClick={calculateRecipe}
           >
             계산
@@ -136,8 +137,8 @@ export default function HoningRecipePage() {
               <span className="font-medium">
                 연마 레벨 {level.start}부터 {level.end}까지 필요한 연마 재료
               </span>
-              <span>{`필요 재료: 연마석(${type}) ${honeRecipe.연마석}개`}</span>
-              <span>{`필요 금전: ${honeRecipe.금전.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}전`}</span>
+              <span>{`필요 재료: 연마석(${subject}) ${honeRecipe.연마석}개`}</span>
+              <span>{`필요 금전: ${addCommaToNumber(honeRecipe.금전)}`}</span>
             </div>
 
             <div className="flex flex-col gap-1">
@@ -150,7 +151,7 @@ export default function HoningRecipePage() {
                   {breakMaterial?.map((item, index) => <span key={index}>{`${item.이름}-${item.수량}개`}</span>)}
                 </div>
               </div>
-              <span>{`필요 금전: ${breakMoney.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}전`}</span>
+              <span>{`필요 금전: ${addCommaToNumber(breakMoney)}전`}</span>
             </div>
           </>
         )}

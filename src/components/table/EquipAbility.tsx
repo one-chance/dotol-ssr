@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import { Select } from '../common';
+import { useEffect, useState } from 'react';
+import { Select } from '@/components';
+import jsonData from '@/contants/normal-equip-hone-recipe.json';
 
 type EquipEnhanceTableProps = {
   equip: string;
@@ -37,82 +38,124 @@ const HONE_ABILITY_LIST = {
   },
 };
 
+type EquipInfo = {
+  종류: string;
+  부위: string;
+  장비: string;
+  능력치1: string;
+  능력치2: string;
+  20: string;
+  40: string;
+  80: string;
+};
+
 export default function EquipAbility({ equip }: EquipEnhanceTableProps) {
   const [item, setItem] = useState('장비 선택');
-  const [detailEquip, setDetailEquip] = useState<string>('선택');
+  const [detailEquip, setDetailEquip] = useState<string>('장비 선택');
   const [level, setLevel] = useState<{ start: number; end: number }>({
     start: 0,
     end: 0,
   });
-  const [maxLevel, setMaxLevel] = useState<number>(100);
+
+  const DATA: EquipInfo[] = jsonData;
+
   const [ability, setAbility] = useState({
+    20: '?',
+    40: '?',
     60: '?',
+    80: '?',
     90: '?',
     100: '?',
   });
 
+  const [test, setTest] = useState({} as EquipInfo);
+
+  const inputStartLevel = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const temp = Number(e.target.value);
+
+    if (temp > 100) return;
+    setLevel({ ...level, start: temp });
+  };
+
   const selectItem = (_item: string) => {
     setItem(_item);
   };
+
+  useEffect(() => {
+    DATA.forEach((data: EquipInfo) => {
+      if (data.장비 === equip) {
+        setTest(data);
+      }
+    });
+  }, [DATA, equip]);
 
   return (
     <div className="flex flex-col flex-1 border rounded p-4">
       <span className="text-center font-semibold text-lg">장비 설정</span>
       <div className="flex flex-row items-center py-2">
         <span className="w-20 text-center">상세 장비</span>
-        <Select name="장비 선택" className="w-40 mx-auto" items={[equip]} onSelect={selectItem} />
+        <Select disabled name={detailEquip} className="w-40 mx-auto" items={[equip]} onSelect={selectItem} />
       </div>
 
       <div className="flex flex-row py-2">
         <span className="w-20 text-center">장비 종류</span>
-        <span className="flex-1 text-center">[용]무기</span>
+        <span className="flex-1 text-center">
+          [{test.종류}]{test.부위}
+        </span>
       </div>
 
       <div className="flex flex-row py-2">
         <span className="w-20 text-center">연마 레벨</span>
         <div className="flex flex-row justify-center flex-1 gap-2">
-          <input placeholder="?" className="w-10 border rounded outline-none text-center text-sm" />
+          <input
+            placeholder="?"
+            className="w-10 border rounded outline-none text-center text-sm"
+            value={level.start || ''}
+            onChange={inputStartLevel}
+          />
           <span className="text-center">/ {level.end}</span>
         </div>
       </div>
 
       <div className="flex flex-row py-1">
         <span className="w-20 text-center">능력치 1</span>
-        <span className="flex-1 text-center">방어구관통</span>
+        <span className="flex-1 text-center">{test.능력치1}</span>
       </div>
       <div className="flex flex-row py-1">
         <span className="w-20 text-center">능력치 2</span>
-        <span className="flex-1 text-center">타격치</span>
+        <span className="flex-1 text-center">{test.능력치2}</span>
       </div>
       <div className="flex flex-row py-1">
         <span className="w-20 text-center">연마 20</span>
-        <span className="flex-1 text-center">타격치 200</span>
+        <span className="flex-1 text-center">{test[20]}</span>
       </div>
       <div className="flex flex-row py-1">
         <span className="w-20 text-center">연마 40</span>
-        <span className="flex-1 text-center">명중률 12</span>
+        <span className="flex-1 text-center">{test[40]}</span>
       </div>
       <div className="flex flex-row items-center py-1">
         <span className="w-20 text-center">연마 60</span>
 
         <Select
+          maxHeight="max-h-52"
           className="w-40 mx-auto h-8"
           name="랜덤 능력치"
-          items={RANDOM_ABILITY}
+          items={['랜덤 능력치', ...RANDOM_ABILITY]}
           onSelect={item => setAbility({ ...ability, 60: item })}
         />
       </div>
       <div className="flex flex-row py-1">
         <span className="w-20 text-center">연마 80</span>
-        <span className="flex-1 text-center">공격력증가 8%</span>
+        <span className="flex-1 text-center">{test[80]}</span>
       </div>
       <div className="flex flex-row items-center py-1">
         <span className="w-20 text-center">연마 90</span>
 
         <Select
+          maxHeight="max-h-52"
           className="w-40 mx-auto h-8"
           name="랜덤 능력치"
-          items={RANDOM_ABILITY}
+          items={['랜덤 능력치', ...RANDOM_ABILITY]}
           onSelect={item => setAbility({ ...ability, 90: item })}
         />
       </div>
@@ -120,9 +163,10 @@ export default function EquipAbility({ equip }: EquipEnhanceTableProps) {
         <span className="w-20 text-center">연마 100</span>
 
         <Select
+          maxHeight="max-h-52"
           className="w-40 mx-auto h-8"
           name="랜덤 능력치"
-          items={RANDOM_ABILITY}
+          items={['랜덤 능력치', ...RANDOM_ABILITY]}
           onSelect={item => setAbility({ ...ability, 100: item })}
         />
       </div>

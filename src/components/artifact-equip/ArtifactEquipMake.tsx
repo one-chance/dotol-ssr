@@ -41,7 +41,7 @@ export default function ArtifactEquipMake({ data }: { data: ReforgeData }) {
     <>
       <div className="flex flex-row justify-between items-center">
         <span className="text-xl sm:text-2xl font-semibold">신수 유물 - 제작</span>
-        <Select className="w-20" items={PARTS} onSelect={selectPart} />
+        <Select className="w-20" name={part} items={PARTS} onSelect={selectPart} />
       </div>
 
       {Subjects.map((subject, index) => (

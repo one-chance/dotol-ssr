@@ -1,12 +1,12 @@
 'use client';
 
-import { useSetAtom } from 'jotai';
+import { useAtom } from 'jotai';
 import { showLoginAtom } from '@/states';
 import { useRouter } from 'next/navigation';
 
 export default function SignUp4() {
   const router = useRouter();
-  const showLoginModal = useSetAtom(showLoginAtom);
+  const [, showLoginModal] = useAtom(showLoginAtom);
 
   const test = () => {
     router.push('/');

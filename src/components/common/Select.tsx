@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 
 type SelectProps = {
   className?: string;
-  name?: string;
+  name: string;
   items: readonly string[];
   onSelect: (item: string) => void;
   disabled?: boolean;
@@ -15,13 +15,17 @@ export default function Select({ className, name, items, onSelect, disabled, max
   const selectRef = useRef<HTMLDivElement>(null);
   const optionRef = useRef<HTMLDivElement>(null);
   const [show, setShow] = useState(false);
-  const [selected, setSelected] = useState(name ?? items[0]);
+  const [selected, setSelected] = useState(name);
 
   const selectItem = (item: string) => {
     setSelected(item);
     onSelect(item);
     setShow(false);
   };
+
+  useEffect(() => {
+    setSelected(name);
+  }, [name]);
 
   useEffect(() => {
     const autoClose = (e: CustomEvent<MouseEvent>) => {
@@ -77,13 +81,13 @@ export default function Select({ className, name, items, onSelect, disabled, max
           ref={optionRef}
           className={`absolute bg-white border rounded w-full mt-0.5 z-[100] ${maxHeight && `${maxHeight} overflow-y-auto`}`}
         >
-          {name && (
+          {/* {name && (
             <div className="flex items-center h-8 px-2 hover:bg-gray-200" onClick={() => selectItem(name)}>
               <p className="text-sm sm:text-base select-none text-ellipsis overflow-hidden whitespace-nowrap">{name}</p>
             </div>
-          )}
+          )} */}
 
-          {items.map((item: string, index: number) => (
+          {items?.map(item => (
             <div
               key={item}
               className="flex items-center h-8 px-2 hover:bg-gray-200 first:rounded-t last:rounded-b"

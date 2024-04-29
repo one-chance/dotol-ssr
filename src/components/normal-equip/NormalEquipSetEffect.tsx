@@ -5,6 +5,7 @@ import { EQUIP_SET_EFFECTS } from '@/contants/normal-equip';
 import { Select } from '@/components';
 
 const SUBJECTS = [
+  '종류',
   '용',
   '북방',
   '환웅',
@@ -18,13 +19,13 @@ const SUBJECTS = [
   '생산',
   '귀문',
   '기타',
-];
+] as const;
 type Subjects = (typeof SUBJECTS)[number];
 
 type Effect = {
   index: number;
   name: string;
-  type: string;
+  subject: string;
 };
 
 type NormalSetEffectData = {
@@ -38,15 +39,15 @@ export default function NormalEquipSetEffect({ data }: { data: NormalSetEffectDa
   const [effect, setEffect] = useState<Effect>({
     index: 0,
     name: '',
-    type: '',
+    subject: '',
   });
 
   const DATA = data[effect.name];
-  const effectList = EQUIP_SET_EFFECTS.filter(item => item.type === subject);
+  const effectList = EQUIP_SET_EFFECTS.filter(item => item.subject === subject);
 
   const selectSubject = (_subject: string) => {
     setSubject(_subject as Subjects);
-    setEffect({ index: 0, name: '', type: '' });
+    setEffect({ index: 0, name: '', subject: '' });
   };
 
   const selectEffect = (_effect: Effect) => {
@@ -57,7 +58,7 @@ export default function NormalEquipSetEffect({ data }: { data: NormalSetEffectDa
     <>
       <div className="flex flex-row justify-between items-center">
         <span className="text-xl sm:text-2xl font-semibold">한벌 효과</span>
-        <Select className="w-[140px]" name="종류" items={SUBJECTS} onSelect={selectSubject} />
+        <Select className="w-[140px]" name={subject} items={SUBJECTS} onSelect={selectSubject} />
       </div>
 
       <div className="flex flex-row flex-wrap items-start gap-2 content-start border rounded p-4 min-h-40">

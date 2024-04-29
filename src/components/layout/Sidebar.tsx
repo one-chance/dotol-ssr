@@ -1,20 +1,16 @@
-'use client';
-
 import Link from 'next/link';
 import { clothes, book, hammer, search, calculator } from '@/components/icon';
 import { MENUS } from '@/contants';
 import { Menu } from '@/types';
+import { getTodayVisitor, getTotalVisitor } from '@/utils/api';
 import UserMenu from './UserMenu';
-import { LoginModal } from '../modal';
-import { useAtom } from 'jotai';
-import { showLoginAtom } from '@/states/loginAtom';
+import Login from './Login';
 
-export default function Sidebar() {
+export default async function Sidebar() {
   const ICONS = [clothes, book, hammer, search, calculator];
-  const [showLoginModal, setShowLoginModal] = useAtom(showLoginAtom);
 
-  const todayVisitor = 123;
-  const totalVisitor = 456;
+  const todayVisitor = await getTodayVisitor();
+  const totalVisitor = await getTotalVisitor();
 
   return (
     <aside className="min-w-60 z-10 hidden md:block">
@@ -54,7 +50,7 @@ export default function Sidebar() {
         </nav>
       </div>
 
-      {showLoginModal && <LoginModal onClose={() => setShowLoginModal(false)} />}
+      <Login />
     </aside>
   );
 }

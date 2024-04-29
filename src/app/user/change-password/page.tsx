@@ -1,8 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { isloggedinAtom } from '@/states';
+import { updatePassword } from '@/utils';
+import { useAtomValue } from 'jotai';
+import { useRouter } from 'next/navigation';
+import { useLayoutEffect, useState } from 'react';
 
 export default function ChangePasswordPage() {
+  const router = useRouter();
+  const isLoggedin = useAtomValue(isloggedinAtom);
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
 
@@ -14,9 +20,19 @@ export default function ChangePasswordPage() {
     setNewPassword(e.target.value);
   };
 
-  const changePassword = () => {
-    console.log('change password');
+  const changePassword = async () => {
+    const res = await updatePassword(oldPassword, newPassword);
+
+    if (res.statusCode === 400) {
+      return alert('비밀번호가 일치하지 않습니다.');
+    } else if (res.statusCode === 200) {
+      return alert('비밀번호가 변경되었습니다.');
+    }
   };
+
+  useLayoutEffect(() => {
+    if (!isLoggedin) router.push('/');
+  }, [isLoggedin, router]);
 
   return (
     <div className="flex flex-col grow mx-auto px-2.5 py-5 sm:p-10 gap-10">
@@ -24,6 +40,7 @@ export default function ChangePasswordPage() {
 
       <div className="flex flex-col gap-5">
         <input
+          type="password"
           autoComplete="password"
           className="w-80 h-10 px-2 border rounded outline-none"
           value={oldPassword || ''}
@@ -32,6 +49,8 @@ export default function ChangePasswordPage() {
         />
 
         <input
+          type="password"
+          autoComplete="new-password"
           className="w-80 h-10 px-2 border rounded outline-none"
           value={newPassword || ''}
           placeholder="새로운 비밀번호"

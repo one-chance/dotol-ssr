@@ -4,6 +4,9 @@
 import { Select } from '@/components';
 import { useEffect, useLayoutEffect, useState } from 'react';
 import { arrowUp, arrowDown, arrowRight, arrowLeft } from '../icon';
+import { getCharacterList, getMyInfo } from '@/utils';
+import { useAtomValue } from 'jotai';
+import { isloggedinAtom } from '@/states';
 
 type Direction = 0 | 1 | 2 | 3;
 type Naked = 'y' | 'n';
@@ -22,6 +25,9 @@ const DIRECTIONS: { value: Direction; label: string; icon: JSX.Element }[] = [
 
 export default function Avatar({ equips, skin }: AvatarProps) {
   const basicURL = 'https://avatar.baram.nexon.com/Profile/AvatarRender.aspx?loginID=';
+  const [characters, setCharacters] = useState<string[]>([]);
+  const isLoggedIn = useAtomValue(isloggedinAtom);
+
   const [character, setCharacter] = useState('');
   const [direction, setDirection] = useState<Direction>(2);
   const [isNaked, setIsNaked] = useState<Naked>('n');
@@ -40,9 +46,30 @@ export default function Avatar({ equips, skin }: AvatarProps) {
     setIsNaked(naked);
   };
 
+  const getCharacters = async () => {
+    const res = await getCharacterList();
+
+    if (res.statusCode === 200) {
+      setCharacters(res.data);
+    } else {
+      setCharacters([]);
+    }
+  };
+
+  const getMainCharacter = async () => {
+    const res = await getMyInfo();
+
+    if (res.statusCode === 200) {
+      setCharacter(res.data.mainCharacter);
+    } else {
+      setCharacter('');
+    }
+  };
+
   useLayoutEffect(() => {
-    setCharacter('협가검@하자');
-  }, []);
+    getCharacters();
+    getMainCharacter();
+  }, [isLoggedIn]);
 
   useEffect(() => {
     let skinPath = '';
@@ -74,7 +101,7 @@ export default function Avatar({ equips, skin }: AvatarProps) {
         {character !== '' && <img src={path} alt="avatar" />}
       </div>
 
-      <Select items={['협가검@하자']} onSelect={changeCharacter} />
+      <Select name={character} disabled={character === ''} items={characters} onSelect={changeCharacter} />
 
       <div className="flex flex-row justify-center gap-2.5">
         <button

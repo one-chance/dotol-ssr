@@ -3,7 +3,7 @@ export default function Home() {
   return (
     <div className="flex flex-col grow max-w-[960px] w-full mx-auto px-2.5 py-5 sm:p-10 gap-5">
       <div className="flex flex-col border rounded p-4 gap-2">
-        <span className="text-lg font-medium">04.25 개발자 노트</span>
+        <span className="text-lg font-medium">04.30 개발자 노트</span>
 
         <span>
           04.18 환골탈태 업데이트로 많은 데이터가 변경되어 도톨도 상당 부분 교체가 필요했습니다.

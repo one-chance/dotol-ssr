@@ -27,7 +27,7 @@ export default function ArtifactEquipList({ data }: { data: ArtifactListData }) 
     <>
       <div className="flex flex-row justify-between items-center">
         <span className="text-xl sm:text-2xl font-semibold">신수 유물 - 도감</span>
-        <Select className="w-20" items={PARTS} onSelect={selectPart} />
+        <Select className="w-20" name={part} items={PARTS} onSelect={selectPart} />
       </div>
 
       {subjects.map((subject, index) => (

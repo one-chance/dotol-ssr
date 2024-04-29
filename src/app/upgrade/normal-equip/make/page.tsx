@@ -23,7 +23,7 @@ export default function NormalEquipMakePage() {
     <div className="flex flex-col grow max-w-[720px] w-full mx-auto px-2.5 py-5 sm:p-10 gap-5">
       <div className="flex flex-row justify-between items-center">
         <span className="text-xl sm:text-2xl font-semibold">일반 장비 - 제작</span>
-        <Select name="종류" className="w-20 sm:w-24" items={EQUIP_SUBJECTS} onSelect={selectSubject} />
+        <Select className="w-20 sm:w-24" name={subject} items={['종류', ...EQUIP_SUBJECTS]} onSelect={selectSubject} />
       </div>
 
       <NormalEquipList subject={subject} notice={NORMAL_EQUIP_NOTICE.make} onSelect={selectEquip} />

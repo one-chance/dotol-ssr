@@ -40,7 +40,7 @@ export default function AchievementTable({ data }: TableProps) {
     <>
       <div className="flex flex-row justify-between items-center">
         <span className="text-xl sm:text-2xl font-semibold">업적 정보</span>
-        <Select className="w-[140px]" items={SUBJECTS} onSelect={selectSubject} />
+        <Select className="w-[140px]" name={subject} items={SUBJECTS} onSelect={selectSubject} />
       </div>
 
       <div className="border-t border-r border-gray-300">

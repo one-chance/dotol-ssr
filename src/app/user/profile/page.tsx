@@ -1,7 +1,11 @@
 'use client';
 
+import { isloggedinAtom } from '@/states';
+import { getMyInfo } from '@/utils';
+import { useAtomValue } from 'jotai';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useLayoutEffect, useState } from 'react';
 
 const TITLES = ['userId', 'email', 'grade', 'point', 'mainCharacter', 'openTalk'] as const;
 
@@ -28,18 +32,34 @@ type IUser = {
 };
 
 export default function ProfilePage() {
+  const router = useRouter();
+  const isLoggedin = useAtomValue(isloggedinAtom);
   const [userInfo, setUserInfo] = useState<IUser>({
     index: 1,
-    userId: '도톨',
-    password: 'password',
-    email: '123',
+    userId: '',
+    password: '',
+    email: '',
     grade: 1,
     point: 0,
-    mainCharacter: '협가검@하자',
-    openTalk: 'open',
+    mainCharacter: '',
+    openTalk: '',
     createdAt: '',
     updatedAt: '',
   } as IUser);
+
+  const getInfo = async () => {
+    const res = await getMyInfo();
+
+    if (res.statusCode === 200) {
+      setUserInfo(res.data);
+    }
+  };
+
+  useLayoutEffect(() => {
+    if (!isLoggedin) router.push('/');
+
+    getInfo();
+  }, [isLoggedin, router]);
 
   return (
     <div className="flex flex-col grow mx-auto px-2.5 py-5 sm:p-10 gap-10">

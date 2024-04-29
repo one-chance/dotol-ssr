@@ -34,7 +34,7 @@ export default function PetEquipList({ data }: { data: PetListData }) {
     <>
       <div className="flex flex-row justify-between items-center">
         <span className="text-xl sm:text-2xl font-semibold">환수 장비 - 도감</span>
-        <Select className="w-24" items={SUBJECTS} onSelect={selectSubject} />
+        <Select className="w-24" name={subject} items={SUBJECTS} onSelect={selectSubject} />
       </div>
 
       {parts[subject].map(part => (

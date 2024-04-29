@@ -58,8 +58,8 @@ export default function AdventureTable({ data }: TableProps) {
       <div className="flex flex-row justify-between items-center">
         <span className="text-xl sm:text-2xl font-semibold">탐험일지 정보</span>
         <div className="flex flex-row items-center gap-2">
-          <Select className="w-[110px]" items={LOCATIONS} onSelect={selectLocation} />
-          <Select className="w-20" items={SUBJECTS} onSelect={selectSubject} />
+          <Select className="w-[110px]" name={location} items={LOCATIONS} onSelect={selectLocation} />
+          <Select className="w-20" name={subject} items={SUBJECTS} onSelect={selectSubject} />
         </div>
       </div>
 

@@ -1,9 +1,10 @@
 'use client';
+import { forgotPassword } from '@/utils';
 import { useState } from 'react';
 
 export default function ForgotUserIdPage() {
   const [email, setEmail] = useState('');
-  const [usreId, setUserId] = useState('');
+  const [userId, setUserId] = useState('');
   const [isSent, setIsSent] = useState(false);
 
   const inputEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,9 +15,16 @@ export default function ForgotUserIdPage() {
     setUserId(e.target.value);
   };
 
-  const findPassword = () => {
-    console.log(email);
-    setIsSent(true);
+  const findPassword = async () => {
+    const res = await forgotPassword(userId, email);
+
+    if (res.statusCode === 404) {
+      return alert('등록되지 않은 계정입니다.');
+    } else if (res.statusCode === 400) {
+      return alert('이메일이 일치하지 않습니다.');
+    } else if (res.statusCode === 200) {
+      setIsSent(true);
+    }
   };
 
   return (
@@ -30,7 +38,7 @@ export default function ForgotUserIdPage() {
 
       <button
         type="button"
-        disabled={email === '' || usreId === ''}
+        disabled={email === '' || userId === ''}
         onClick={findPassword}
         className="w-80 h-10 rounded bg-blue-500 text-white font-medium disabled:opacity-50"
       >

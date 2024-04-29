@@ -29,7 +29,7 @@ export default function BodyEnhanceRecipe({ data }: { data: BodyEnhanceRecipeDat
     <>
       <div className="flex flex-row justify-between items-center">
         <span className="text-xl sm:text-2xl font-semibold">신체 강화 - 재료</span>
-        <Select className="w-40" items={PARTS} onSelect={selectPart} />
+        <Select className="w-40" name={part} items={PARTS} onSelect={selectPart} />
       </div>
 
       <div>

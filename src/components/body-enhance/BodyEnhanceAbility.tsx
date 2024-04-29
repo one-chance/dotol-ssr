@@ -26,7 +26,7 @@ export default function BodyEnhanceAbility({ data }: { data: BodyEnhanceAbilityD
     <>
       <div className="flex flex-row justify-between items-center">
         <span className="text-xl sm:text-2xl font-semibold">신체 강화 - 능력치</span>
-        <Select className="w-[100px]" items={PARTS} onSelect={selectPart} />
+        <Select className="w-[100px]" name={part} items={PARTS} onSelect={selectPart} />
       </div>
 
       <div>

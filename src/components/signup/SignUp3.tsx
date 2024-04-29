@@ -1,5 +1,6 @@
 'use client';
 
+import { createUser, isDuplicatedUserId } from '@/utils';
 import { useState } from 'react';
 
 type SignUpProps = {
@@ -19,10 +20,20 @@ export default function SignUp3({ email, setPhase }: SignUpProps) {
     setPassword(e.target.value);
   };
 
-  const nextPhase = () => {
-    console.log(email, userId, password);
+  const nextPhase = async () => {
+    const isUniqueUserId = await isDuplicatedUserId(userId);
 
-    setPhase(4);
+    if (isUniqueUserId.statusCode === 400) {
+      return alert('이미 사용중인 아이디입니다.');
+    }
+
+    const signUpUser = await createUser({ userId, email, password });
+
+    if (signUpUser.statusCode === 400) {
+      return alert('회원가입에 실패했습니다.');
+    } else if (signUpUser.statusCode === 200) {
+      setPhase(4);
+    }
   };
 
   return (

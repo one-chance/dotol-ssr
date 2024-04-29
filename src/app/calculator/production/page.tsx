@@ -5,10 +5,23 @@ import { Select } from '@/components';
 import jsonData from '@/contants/production-item.json';
 import jsonData2 from '@/contants/production-recipe.json';
 
-const SKILL_LIST = ['직조술', '벌목술', '채광술', '조제술', '재봉술', '목공술', '대장술', '강화술'];
-const GRADES = ['왕초보', '초보', '견습', '도제', '숙련', '전문', '장인', '명장인', '대장인', '절대장인', '전설장인'];
-type Skill = (typeof SKILL_LIST)[number] | '종류';
-type Grade = (typeof GRADES)[number] | '단계';
+const SKILL_LIST = ['종류', '직조술', '벌목술', '채광술', '조제술', '재봉술', '목공술', '대장술', '강화술'];
+const GRADES = [
+  '단계',
+  '왕초보',
+  '초보',
+  '견습',
+  '도제',
+  '숙련',
+  '전문',
+  '장인',
+  '명장인',
+  '대장인',
+  '절대장인',
+  '전설장인',
+];
+type Skill = (typeof SKILL_LIST)[number];
+type Grade = (typeof GRADES)[number];
 
 export default function ProductionCalculatorPage() {
   const [skill, setSkill] = useState<Skill>('종류');
@@ -23,7 +36,6 @@ export default function ProductionCalculatorPage() {
   const selectSkill = (_skill: string) => {
     setSkill(_skill as Skill);
     setGrade('단계');
-    console.log(grade);
     setItem('품목');
   };
 
@@ -42,9 +54,15 @@ export default function ProductionCalculatorPage() {
       <span className="text-xl sm:text-2xl font-bold">생산 재료 계산기</span>
 
       <div className="flex flex-row gap-2">
-        <Select className="w-24" name="종류" items={SKILL_LIST} onSelect={selectSkill} />
-        <Select className="w-28" disabled={skill === '종류'} name="단계" items={GRADES} onSelect={selectGrade} />
-        <Select className="w-48" disabled={grade === '단계'} name="품목" items={DATA2} onSelect={selectItem} />
+        <Select className="w-24" name={skill} items={SKILL_LIST} onSelect={selectSkill} />
+        <Select className="w-28" disabled={skill === '종류'} name={grade} items={GRADES} onSelect={selectGrade} />
+        <Select
+          className="w-48"
+          disabled={grade === '단계'}
+          name={item}
+          items={['품목', ...DATA2]}
+          onSelect={selectItem}
+        />
       </div>
 
       <div className="flex flex-row gap-2">

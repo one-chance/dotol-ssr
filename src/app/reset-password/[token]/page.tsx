@@ -1,5 +1,6 @@
 'use client';
 
+import { resetPassword } from '@/utils';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -11,9 +12,15 @@ export default function ResetPasswordPage({ params }: { params: { token: string 
     setNewPassword(e.target.value);
   };
 
-  const changePassword = () => {
-    console.log(params.token, newPassword);
-    router.push('/');
+  const changePassword = async () => {
+    const res = await resetPassword(params.token, newPassword);
+
+    if (res.statusCode === 404) {
+      return alert('존재하지 않는 계정입니다.');
+    } else if (res.statusCode === 200) {
+      alert('비밀번호가 변경되었습니다.');
+      router.push('/');
+    }
   };
 
   return (

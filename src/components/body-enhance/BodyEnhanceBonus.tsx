@@ -26,7 +26,7 @@ export default function BodyEnhanceBonus({ data }: { data: BodyEnahnceBonusData 
     <>
       <div className="flex flex-row justify-between items-center">
         <span className="text-xl sm:text-2xl font-semibold">신체 강화 - 보너스</span>
-        <Select className="w-[100px]" items={PARTS} onSelect={selectPart} />
+        <Select className="w-[100px]" name={part} items={PARTS} onSelect={selectPart} />
       </div>
 
       <div>
