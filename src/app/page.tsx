@@ -63,19 +63,19 @@ export default function Home() {
         </a>
       </div>
 
-      <div className="flex flex-row gap-5">
+      <div className="flex flex-row flex-wrap gap-5">
         <div className="flex flex-col flex-1 border rounded gap-2.5 p-4">
           <span className="text-lg font-semibold">4월 신규 치장</span>
 
           <div className="flex flex-col gap-2">
             <span className="font-medium">멋진의상재봉틀 - 들꽃나그네 의상</span>
-            <div className="flex flex-row flex-wrap justify-center items-end">
+            <div className="flex flex-row flex-wrap justify-center items-end min-w-[304px]">
               <img src="/1.gif" alt="costume1" width={180} height={200} />
               <img src="/2.gif" alt="costume2" width={180} height={200} />
             </div>
 
             <span className="font-medium"> 의상수선가위 - 헬로캠퍼스 의상</span>
-            <div className="flex flex-row flex-wrap justify-center items-end">
+            <div className="flex flex-row flex-wrap justify-center items-end min-w-[304px]">
               <img src="/3.gif" alt="costume3" width={160} height={160} />
               <img src="/4.gif" alt="costume4" width={160} height={160} />
             </div>

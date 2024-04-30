@@ -5,6 +5,7 @@ import { Menu } from '@/types';
 import { getTodayVisitor, getTotalVisitor } from '@/utils/api';
 import UserMenu from './UserMenu';
 import Login from './Login';
+import Visitor from './Visitor';
 
 export default async function Sidebar() {
   const ICONS = [clothes, book, hammer, search, calculator];
@@ -43,10 +44,7 @@ export default async function Sidebar() {
             </div>
           ))}
 
-          <div className="flex flex-col items-center gap-2 p-5 border-t border-b border-[#808396]">
-            <span className="text-[#e9e1d1]">Today: {todayVisitor}</span>
-            <span className="text-[#e9e1d1]">Total: {totalVisitor}</span>
-          </div>
+          <Visitor />
         </nav>
       </div>
 
