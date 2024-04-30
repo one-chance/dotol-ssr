@@ -14,7 +14,7 @@ const ImageList = ({ names }: { names: string[] }) => {
     <div className="flex flex-row flex-wrap items-start rounded bg-gray-300 gap-2 p-4">
       {names.map((name: string) => (
         // eslint-disable-next-line @next/next/no-img-element
-        <img key={name} width={260} alt="skill" src={`${process.env.NEXT_PUBLIC_ASSET}/image/set-effect/${name}.png`} />
+        <img key={name} width={260} alt="skill" src={`${process.env.NEXT_PUBLIC_ASSET}/image/skill/${name}.png`} />
       ))}
     </div>
   );
