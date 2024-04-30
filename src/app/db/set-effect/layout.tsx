@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   description:
     '한벌 효과 - 용 전설, 중국 전설, 일본 전설, 환웅 전설, 타계 전설, 북방, 백제/황산벌, 전우치/구미호, 흉수계/봉래산, 생산, 격전지/전장, 귀문, 기타',
   openGraph: {
+    url: 'https://dotols.com/db/set-effect',
     title: '도톨 | 한벌 효과',
     description:
       '한벌 효과 - 용 전설, 중국 전설, 일본 전설, 환웅 전설, 타계 전설, 북방, 백제/황산벌, 전우치/구미호, 흉수계/봉래산, 생산, 격전지/전장, 귀문, 기타',

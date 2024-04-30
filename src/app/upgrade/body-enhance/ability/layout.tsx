@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   description:
     '신체 강화 - 방어구관통, 방어도무시, 방어도, 공격력증가, 마법치명, 마력증강, 직타저항, 시전향상, 명중률, 명중회피, 마법치명무시',
   openGraph: {
+    url: 'https://dotols.com/upgrade/body-enhance/ability',
     title: '도톨 | 신체 강화 능력치',
     description:
       '신체 강화 - 방어구관통, 방어도무시, 방어도, 공격력증가, 마법치명, 마력증강, 직타저항, 시전향상, 명중률, 명중회피, 마법치명무시',

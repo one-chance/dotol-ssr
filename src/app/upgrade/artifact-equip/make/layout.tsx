@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: '도톨 | 신수 유물 제작',
   description: '신수 유물 - 무기유물, 갑옷유물, 투구유물, 장갑유물, 보조유물, 영옥유물',
   openGraph: {
+    url: 'https://dotols.com/upgrade/artifact-equip/make',
     title: '도톨 | 신수 유물 - 제작',
     description: '신수 유물 - 무기유물, 갑옷유물, 투구유물, 장갑유물, 보조유물, 영옥유물',
     ...sharedOpenGraph,

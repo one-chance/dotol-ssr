@@ -1,6 +1,5 @@
 export const sharedOpenGraph = {
   type: 'website',
-  url: 'https://dotols.com',
   siteName: '도톨',
   images: [
     {

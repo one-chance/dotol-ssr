@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   description:
     '바람의나라 최신 정보 - 치장, 룩북, 장비, 제련, 연마, 장비마법, 환수장비, 신수유물, 업적, 탐험일지, 고고학, 신체강화',
   openGraph: {
+    url: 'https://dotols.com',
     title: '도톨 | 바람의나라 커뮤니티',
     description:
       '바람의나라 최신 정보 - 치장, 룩북, 장비, 제련, 연마, 장비마법, 환수장비, 신수유물, 업적, 탐험일지, 고고학, 신체강화',
