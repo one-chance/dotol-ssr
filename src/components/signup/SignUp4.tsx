@@ -21,7 +21,7 @@ export default function SignUp4() {
         <span className="text-sm sm:text-base">
           로그인을 하고 [내 정보 - 캐릭터 관리]로 이동하여 캐릭터를 등록하세요.
           <br />
-          캐릭터 룩북과 게시판 메뉴를 이용하려면 대표 캐릭터가 필요합니다.
+          치장 목록, 캐릭터 룩북, 게시판을 이용하려면 등록된 캐릭터가 필요합니다.
         </span>
 
         <button type="button" className="h-10 rounded bg-[#6877FF] text-white font-medium" onClick={test}>

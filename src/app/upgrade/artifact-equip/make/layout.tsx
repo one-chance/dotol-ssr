@@ -1,7 +1,14 @@
 import { Metadata } from 'next';
+import { sharedOpenGraph } from '@/app/shared-metadata';
 
 export const metadata: Metadata = {
-  title: '도톨 | 신수 유물 - 제작',
+  title: '도톨 | 신수 유물 제작',
+  description: '신수 유물 - 무기유물, 갑옷유물, 투구유물, 장갑유물, 보조유물, 영옥유물',
+  openGraph: {
+    title: '도톨 | 신수 유물 - 제작',
+    description: '신수 유물 - 무기유물, 갑옷유물, 투구유물, 장갑유물, 보조유물, 영옥유물',
+    ...sharedOpenGraph,
+  },
 };
 
 export default function ArtifactEquipMakeLayout({

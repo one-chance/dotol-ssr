@@ -62,7 +62,7 @@ export default function CostumeListPage() {
   };
 
   const wearEquip = (item: string) => {
-    if (!isLoggedIn) return alert('대표 캐릭터를 등록하면 아바타가 보입니다.');
+    if (!isLoggedIn) return alert('캐릭터를 등록하면 아바타가 보입니다.');
 
     if (selectedEquip.length >= 10) return;
     setSelectedEquip(prev => (prev.includes(item) ? prev.filter(i => i !== item) : [...prev, item]));

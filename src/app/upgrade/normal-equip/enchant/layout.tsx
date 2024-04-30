@@ -1,7 +1,14 @@
 import { Metadata } from 'next';
+import { sharedOpenGraph } from '@/app/shared-metadata';
 
 export const metadata: Metadata = {
-  title: '도톨 | 일반 장비 - 기술 능력',
+  title: '도톨 | 기술 능력 부여',
+  description: '기술 능력 부여 - 전사, 도적, 주술사, 도사, 궁사, 천인, 마도사, 영술사, 차사, 살수사',
+  openGraph: {
+    title: '도톨 | 기술 능력 부여',
+    description: '기술 능력 부여 - 전사, 도적, 주술사, 도사, 궁사, 천인, 마도사, 영술사, 차사, 살수사',
+    ...sharedOpenGraph,
+  },
 };
 
 export default function SkillAbilityLayout({

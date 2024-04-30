@@ -64,7 +64,7 @@ export default function LookBookPage() {
   };
 
   const applyPreview = () => {
-    if (!isLoggedIn) return alert('대표 캐릭터를 등록하면 아바타가 보입니다.');
+    if (!isLoggedIn) return alert('캐릭터를 등록하면 아바타가 보입니다.');
 
     setEquips(Object.values(equipList).filter(item => item !== ''));
   };
