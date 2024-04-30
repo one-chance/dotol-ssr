@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { sharedOpenGraph } from '@/app/shared-metadata';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: '도톨 | 치장 목록',
@@ -17,5 +18,5 @@ export default function CostumeListLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return children;
+  return <Suspense>{children}</Suspense>;
 }
