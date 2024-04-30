@@ -6,7 +6,7 @@ import { SignUp1, SignUp2, SignUp3, SignUp4 } from '@/components/signup';
 type Phase = 1 | 2 | 3 | 4;
 
 export default function SignUpPage() {
-  const [phase, setPhase] = useState<Phase>(2);
+  const [phase, setPhase] = useState<Phase>(1);
   const [email, setEmail] = useState<string>('');
 
   const movePhase = (_phase: Phase, _email?: string) => {
