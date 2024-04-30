@@ -1,0 +1,5 @@
+User-Agent: *
+Disallow: /user
+Disallow: /reset-password
+
+Sitemap: https://dotols.com/sitemap.xml
