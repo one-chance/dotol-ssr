@@ -42,7 +42,7 @@ export default function HoningRecipePage() {
     setShowResult(false);
     const value = e.target.value.replace(/[^0-9]/g, '');
 
-    if (Number(value) >= 90) return setLevel({ ...level, end: Number(value) });
+    if (Number(value) >= 90) return setLevel({ ...level, end: 90 });
     setLevel({ ...level, end: Number(value) });
   };
 
