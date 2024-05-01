@@ -166,7 +166,7 @@ export default function CostumeListPage() {
 
           <CostumeList list={itemList} selectedList={selectedEquip} onWear={wearEquip} />
 
-          {page !== 0 && <Pagination currentPage={page} totalPage={Math.ceil(count / 12)} />}
+          {page !== 0 && <Pagination currentPage={page} totalPage={Math.ceil(count / 16)} />}
         </div>
       </div>
     </div>
