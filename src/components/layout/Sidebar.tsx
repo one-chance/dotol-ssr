@@ -2,16 +2,12 @@ import Link from 'next/link';
 import { clothes, book, hammer, search, calculator } from '@/components/icon';
 import { MENUS } from '@/contants';
 import { Menu } from '@/types';
-import { getTodayVisitor, getTotalVisitor } from '@/utils/api';
 import UserMenu from './UserMenu';
 import Login from './Login';
 import Visitor from './Visitor';
 
 export default async function Sidebar() {
   const ICONS = [clothes, book, hammer, search, calculator];
-
-  const todayVisitor = await getTodayVisitor();
-  const totalVisitor = await getTotalVisitor();
 
   return (
     <aside className="min-w-60 z-10 hidden md:block">

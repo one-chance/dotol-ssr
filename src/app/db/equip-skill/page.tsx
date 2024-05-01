@@ -16,7 +16,7 @@ export default function EquipSkillPage() {
           description="기술서를 통해 신화 등급의 갑옷에 부여한 액티브 스킬"
         />
 
-        <SkillList type="buff" title="[자동버프 마법]" description="장비를 착용하면 자동으로 적용되는 패시브 스킬" />
+        {/* <SkillList type="buff" title="[자동버프 마법]" description="장비를 착용하면 자동으로 적용되는 패시브 스킬" /> */}
       </div>
     </div>
   );
