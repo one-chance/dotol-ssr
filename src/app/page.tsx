@@ -8,7 +8,11 @@ export default function Home() {
         <span>
           05.02 바람의상실 업데이트로 바람 측에서 갑자기 아바타 렌더링 기능을 변경하였네요.
           <br />
-          그래서 치장, 룩북 메뉴에서 아바타를 막아두고 저녁에 수정해서 반영하도록 하겠습니다.
+          <span className="line-through">
+            그래서 치장, 룩북 메뉴에서 아바타를 막아두고 저녁에 수정해서 반영하도록 하겠습니다.
+          </span>
+          <br />
+          겸사겸사 다른 작업도 같이 진행한 후에 배포할 계획이라 며칠 더 소요 될 예정입니다.
         </span>
 
         <span className="text-lg font-medium">04.30 개발자 노트</span>
