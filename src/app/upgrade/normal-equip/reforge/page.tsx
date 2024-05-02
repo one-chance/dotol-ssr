@@ -56,7 +56,7 @@ export default function NormalEquipReforgePage() {
 
       <NormalEquipList subject={subject} part={part} notice={NORMAL_EQUIP_NOTICE.reforge} onSelect={selectEquip} />
 
-      {equip !== '' && equip !== '흑룡화살통' && subject === '용' && <NormalEquipTable list={DATA} />}
+      {equip !== '' && equip !== '흑룡화살통' && <NormalEquipTable list={DATA} />}
     </div>
   );
 }
