@@ -4,14 +4,19 @@ import { useEffect, useState } from 'react';
 import { EQUIP_BY_SUBJECT } from '@/contants';
 import { EquipSubject } from '@/types';
 
+const PARTS = ['무기', '갑옷', '투구', '손', '보조무기', '망토', '신발', '얼굴장식', '목/어깨', '보조'] as const;
+type Parts = (typeof PARTS)[number];
+
 type ListProps = {
   subject: EquipSubject;
+  part?: Parts;
   notice: string;
   onSelect: (item: string) => void;
 };
 
-export default function NormalEquipList({ subject, notice, onSelect }: ListProps) {
+export default function NormalEquipList({ subject, part, notice, onSelect }: ListProps) {
   const [selectedEquip, setSelectedEquip] = useState('');
+  const DATA = EQUIP_BY_SUBJECT[subject][part as Parts];
 
   const selectItem = (item: string) => {
     setSelectedEquip(item);
@@ -20,7 +25,7 @@ export default function NormalEquipList({ subject, notice, onSelect }: ListProps
 
   useEffect(() => {
     setSelectedEquip('');
-  }, [subject]);
+  }, [subject, part]);
 
   return (
     <div className="flex flex-col gap-5">
@@ -30,7 +35,7 @@ export default function NormalEquipList({ subject, notice, onSelect }: ListProps
             <span className="text-sm sm:text-base text-[#6877FF]">{notice}</span>
           </div>
         ) : (
-          EQUIP_BY_SUBJECT[subject].map((item: string) => (
+          DATA?.map((item: string) => (
             <button
               type="button"
               key={item}
