@@ -24,7 +24,8 @@ const DIRECTIONS: { value: Direction; label: string; icon: JSX.Element }[] = [
 ];
 
 export default function Avatar({ equips, skin }: AvatarProps) {
-  const basicURL = 'https://avatar.baram.nexon.com/Profile/AvatarRender.aspx?loginID=';
+  const baseURL = 'https://avatar.baram.nexon.com/Profile/AvatarRender.aspx?loginID=';
+  // const baseURL = 'https://avatar.baram.nexon.com/Profile/RenderAvatar/';
   const [characters, setCharacters] = useState<string[]>([]);
   const isLoggedIn = useAtomValue(isloggedinAtom);
 
@@ -78,7 +79,11 @@ export default function Avatar({ equips, skin }: AvatarProps) {
     if (skin) skinPath = skin >= 0 ? `&sc=${skin}` : '';
     if (equips) equipsPath = `&previewEquip=${encodeURI(equips.join('|'))}`;
 
-    setPath(`${basicURL}${character}&is=1&changeDir=${direction}&ed=${isNaked}${skinPath}${equipsPath}`);
+    setPath(`${baseURL}${character}?is=1&changeDir=${direction}&ed=${isNaked}${skinPath}${equipsPath}`);
+
+    // setPath(
+    //   `${baseURL}${character.split('@')[1]}/${character.split('@')[0]}?is=1&changeDir=${direction}&ed=${isNaked}${skinPath}${equipsPath}`,
+    // );
   }, [character, direction, equips, isNaked, skin]);
 
   return (
@@ -98,7 +103,7 @@ export default function Avatar({ equips, skin }: AvatarProps) {
       </div>
 
       <div className="relative flex flex-row justify-center items-center w-[180px] h-[158px] bg-[#EBE7E2]">
-        {character !== '' && <img src={path} alt="avatar" />}
+        {/* {character !== '' && <img src={path} alt="avatar" />} */}
       </div>
 
       <Select name={character} disabled={character === ''} items={characters} onSelect={changeCharacter} />

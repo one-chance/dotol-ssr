@@ -3,6 +3,14 @@ export default function Home() {
   return (
     <div className="flex flex-col grow max-w-[960px] w-full mx-auto px-2.5 py-5 sm:p-10 gap-5">
       <div className="flex flex-col border rounded p-4 gap-2">
+        <span className="text-lg font-medium">05.02 개발자 노트</span>
+
+        <span>
+          05.02 바람의상실 업데이트로 바람 측에서 갑자기 아바타 렌더링 기능을 변경하였네요.
+          <br />
+          그래서 치장, 룩북 메뉴에서 아바타를 막아두고 저녁에 수정해서 반영하도록 하겠습니다.
+        </span>
+
         <span className="text-lg font-medium">04.30 개발자 노트</span>
 
         <span>

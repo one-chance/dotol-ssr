@@ -11,7 +11,7 @@ export default function SetSkillPage() {
         <SkillList
           type="status"
           title="[출세가도 마법]"
-          description="출세가도의 특정 신분을 달성하면 사용할 수 있는 액티브 스킬"
+          description="출세가도의 특정 계급을 달성하면 사용할 수 있는 액티브 스킬"
         />
 
         <SkillList type="archeology" title="[고고학 마법]" description="고고학 보상으로 얻을 수 있는 액티브 스킬" />
