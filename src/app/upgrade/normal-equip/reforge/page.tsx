@@ -1,37 +1,41 @@
 'use client';
 
-import { useState } from 'react';
-import { Select, NormalEquipList, NormalEquipTable } from '@/components';
-import { EQUIP_SUBJECTS, NORMAL_EQUIP_NOTICE } from '@/contants';
-import { EquipSubject } from '@/types';
-import jsonData from '@/contants/normal-equip-reforge-recipe.json';
-
-const PARTS = ['무기', '갑옷', '투구', '손', '보조무기', '망토', '신발', '얼굴장식', '목/어깨', '보조'] as const;
-type Parts = (typeof PARTS)[number];
-type ReforgeData = {
-  [key: string]: string;
-}[];
+import { useEffect, useState } from 'react';
+import { Select, NormalOriginList, NormalEquipTable } from '@/components';
+import { EQUIP_PARTS, EQUIP_SUBJECTS, NORMAL_EQUIP_NOTICE } from '@/contants';
+import { EquipSubject, EquipPart } from '@/types';
+import { getEquipList } from '@/utils/supabase';
 
 export default function NormalEquipReforgePage() {
   const [subject, setSubject] = useState<EquipSubject>('종류');
-  const [part, setPart] = useState<Parts>('무기');
-  const [equip, setEquip] = useState<string>('');
+  const [part, setPart] = useState<EquipPart>('부위');
+  const [origin, setOrigin] = useState<string>('');
 
-  const DATA: ReforgeData = equip === '' ? ([] as ReforgeData) : jsonData[equip as keyof typeof jsonData];
+  const [originList, setOriginList] = useState<string[]>([]);
 
-  const selectSubject = (_subject: string) => {
-    setSubject(_subject as EquipSubject);
-    setEquip('');
+  const handleSelect = (type: string) => (value: string) => {
+    if (type === 'subject') {
+      setOrigin('');
+      setPart('부위' as EquipPart);
+      setSubject(value as EquipSubject);
+    } else if (type === 'part') {
+      setOrigin('');
+      setPart(value as EquipPart);
+    } else if (type === 'equip') {
+      setOrigin(value);
+    }
   };
 
-  const selectPart = (_part: string) => {
-    setPart(_part as Parts);
-    setEquip('');
-  };
+  useEffect(() => {
+    if (subject === '종류') return setOriginList([]);
 
-  const selectEquip = (_equip: string) => {
-    setEquip(_equip);
-  };
+    const getData = async () => {
+      const data = await getEquipList(subject, part, 'reforge');
+      setOriginList(data.map(item => item.name));
+    };
+
+    getData();
+  }, [subject, part]);
 
   return (
     <div className="flex flex-col grow max-w-[720px] w-full mx-auto px-2.5 py-5 sm:p-10 gap-5">
@@ -41,22 +45,26 @@ export default function NormalEquipReforgePage() {
           <Select
             className="w-20 sm:w-24"
             name={subject}
-            items={['종류', ...EQUIP_SUBJECTS]}
-            onSelect={selectSubject}
+            items={EQUIP_SUBJECTS.filter(item => item !== '기타')}
+            onSelect={handleSelect('subject')}
           />
           <Select
             className="w-20 sm:w-28"
             disabled={subject === '종류'}
             name={part}
-            items={PARTS}
-            onSelect={selectPart}
+            items={EQUIP_PARTS}
+            onSelect={handleSelect('part')}
           />
         </div>
       </div>
 
-      <NormalEquipList subject={subject} part={part} notice={NORMAL_EQUIP_NOTICE.reforge} onSelect={selectEquip} />
+      <NormalOriginList
+        list={originList}
+        notice={subject !== '종류' ? [] : NORMAL_EQUIP_NOTICE.reforge}
+        onSelect={handleSelect('equip')}
+      />
 
-      {equip !== '' && equip !== '흑룡화살통' && <NormalEquipTable list={DATA} />}
+      {origin !== '' && <NormalEquipTable as="reforge" equip={origin} />}
     </div>
   );
 }

@@ -1,45 +1,85 @@
 'use client';
 
-import { EquipAbility, Select } from '@/components';
-import { useState } from 'react';
-import { NormalEquipHoneList } from '@/components/list';
-import { EQUIP_SUBJECTS, NORMAL_EQUIP_NOTICE } from '@/contants';
-import { EquipSubject } from '@/types';
+import { useEffect, useState } from 'react';
+import { Select, NormalOriginList, EquipSetting, NormalDetailList } from '@/components';
+import { EQUIP_PARTS, EQUIP_SUBJECTS, NORMAL_EQUIP_NOTICE } from '@/contants';
+import { EquipPart, EquipSubject } from '@/types';
+import { getEquipList, getHoneData } from '@/utils/supabase';
 
 export default function NormalEquipListPage() {
-  const [subject, setSubject] = useState<EquipSubject | '기타'>('종류');
+  const [subject, setSubject] = useState<EquipSubject>('종류');
+  const [part, setPart] = useState<EquipPart>('부위');
+  const [originList, setOriginList] = useState<string[]>([]);
+  const [origin, setOrigin] = useState<string>('');
+  const [equipList, setEquipList] = useState<string[]>([]);
   const [equip, setEquip] = useState<string>('');
 
-  const selectSubject = (item: string) => {
-    setSubject(item as EquipSubject | '기타');
-    setEquip('');
+  const handleSelect = (type: string) => (value: string) => {
+    if (type === 'subject') {
+      setEquip('');
+      setOrigin('');
+      setSubject(value as EquipSubject);
+    } else if (type === 'part') {
+      setEquip('');
+      setOrigin('');
+      setPart(value as EquipPart);
+    } else if (type === 'origin') {
+      setEquip('');
+      setOrigin(value);
+    } else if (type === 'equip') {
+      setEquip(value);
+    }
   };
 
-  const selectEquip = (item: string) => {
-    setEquip(item);
-  };
+  useEffect(() => {
+    if (subject === '종류') return setOriginList([]);
+
+    const getList = async () => {
+      const data = await getEquipList(subject, part, 'hone');
+      setOriginList(data.map(item => item.name));
+    };
+
+    getList();
+  }, [subject, part]);
+
+  useEffect(() => {
+    if (origin === '') return setEquipList([]);
+
+    const getList = async () => {
+      const data = await getHoneData(origin);
+      setEquipList(data.map(item => item.equip));
+    };
+
+    getList();
+  }, [origin]);
 
   return (
     <div className="flex flex-col grow max-w-[720px] w-full mx-auto px-2.5 py-5 sm:p-10 gap-5">
       <div className="flex flex-row justify-between items-center">
         <span className="text-xl sm:text-2xl font-semibold">일반 장비 - 연마</span>
-        <Select
-          className="w-20 sm:w-24"
-          name={subject}
-          items={['종류', ...EQUIP_SUBJECTS, '기타']}
-          onSelect={selectSubject}
-        />
+        <div className="flex flex-row items-center gap-2">
+          <Select className="w-20 sm:w-24" name={subject} items={EQUIP_SUBJECTS} onSelect={handleSelect('subject')} />
+          <Select
+            className="w-20 sm:w-28"
+            disabled={subject === '종류'}
+            name={part}
+            items={EQUIP_PARTS}
+            onSelect={handleSelect('part')}
+          />
+        </div>
       </div>
 
-      <NormalEquipHoneList
-        subject={subject as EquipSubject}
-        notice={NORMAL_EQUIP_NOTICE.enhance}
-        onSelect={selectEquip}
+      <NormalOriginList
+        list={originList}
+        notice={subject !== '종류' ? [] : NORMAL_EQUIP_NOTICE.hone}
+        onSelect={handleSelect('origin')}
       />
+
+      {origin !== '' && <NormalDetailList list={equipList} onSelect={handleSelect('equip')} />}
 
       {equip !== '' && (
         <div className="flex flex-row flex-wrap gap-5">
-          <EquipAbility equip={equip} />
+          <EquipSetting origin={origin} equip={equip} />
 
           <div className="flex flex-col justify-center items-center flex-1 border rounded p-4">
             <span className="font-medium text-lg">장비 능력치</span>

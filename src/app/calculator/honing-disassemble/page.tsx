@@ -1,50 +1,92 @@
 'use client';
 
-import { NormalEquipHoneList, Select } from '@/components';
-import { EquipSubject } from '@/types';
-import { useState } from 'react';
-
-const SUBJECTS = ['종류', '용', '중국', '일본', '환웅', '타계', '기타'] as const;
-type Subjects = (typeof SUBJECTS)[number];
+import { NormalDetailList, NormalOriginList, Select } from '@/components';
+import { EQUIP_PARTS, EQUIP_SUBJECTS } from '@/contants';
+import { EquipPart, EquipSubject } from '@/types';
+import { getEquipList, getHoneData } from '@/utils/supabase';
+import { useEffect, useState } from 'react';
 
 export default function HoneCalculatorPage() {
-  const [subject, setSubject] = useState<Subjects>('종류');
+  const [subject, setSubject] = useState<EquipSubject>('종류');
+  const [part, setPart] = useState<EquipPart>('부위');
+  const [originList, setOriginList] = useState<string[]>([]);
+  const [origin, setOrigin] = useState<string>('');
+  const [equipList, setEquipList] = useState<string[]>([]);
   const [equip, setEquip] = useState<string>('');
-  const [deatilEquip, setDetailEquip] = useState<string>('');
 
-  const selectSubject = (item: string) => {
-    setSubject(item as Subjects);
-  };
-
-  const selectEquip = (item: string) => {
-    setEquip(item);
+  const handleSelect = (type: string) => (value: string) => {
+    if (type === 'subject') {
+      setEquip('');
+      setOrigin('');
+      setSubject(value as EquipSubject);
+    } else if (type === 'part') {
+      setEquip('');
+      setOrigin('');
+      setPart(value as EquipPart);
+    } else if (type === 'origin') {
+      setEquip('');
+      setOrigin(value);
+    } else if (type === 'equip') {
+      setEquip(value);
+    }
   };
 
   const deleteItem = (name: string) => {
     console.log(name);
   };
 
+  useEffect(() => {
+    if (subject === '종류') return setOriginList([]);
+
+    const getData = async () => {
+      const data = await getEquipList(subject, part, 'hone');
+      setOriginList(data.map(item => item.name));
+    };
+
+    getData();
+  }, [subject, part]);
+
+  useEffect(() => {
+    if (origin === '') return setEquipList([]);
+
+    const getList = async () => {
+      const data = await getHoneData(origin);
+      setEquipList(data.map(item => item.equip));
+    };
+
+    getList();
+  }, [origin]);
+
   return (
     <div className="flex flex-col grow max-w-[960px] w-full mx-auto px-2.5 py-5 sm:p-10 gap-5">
       <div className="flex flex-row justify-between items-center gap-10">
         <span className="text-xl sm:text-2xl font-bold">연마 분해 계산기</span>
 
-        <Select className="w-20" name={subject} items={SUBJECTS} onSelect={selectSubject} />
+        <div className="flex flex-row items-center gap-2">
+          <Select className="w-20 sm:w-24" name={subject} items={EQUIP_SUBJECTS} onSelect={handleSelect('subject')} />
+          <Select
+            className="w-20 sm:w-28"
+            disabled={subject === '종류'}
+            name={part}
+            items={EQUIP_PARTS}
+            onSelect={handleSelect('part')}
+          />
+        </div>
       </div>
 
-      <NormalEquipHoneList
-        subject={subject as EquipSubject}
-        notice="장비를 선택하면 분해할 장비 목록에 추가됩니다."
-        onSelect={selectEquip}
+      <NormalOriginList
+        list={originList}
+        notice={subject !== '종류' ? [] : ['장비를 선택하면 분해할 장비 목록에 추가됩니다.']}
+        onSelect={handleSelect('origin')}
       />
 
-      {equip !== '' && (
-        <div className="flex flex-row felx-wrap border rounded p-5">
-          <span className="w-full text-center text-gray-500">장비 데이터를 최신화하고 있습니다.</span>
-        </div>
-      )}
+      <div className="flex felx-row justify-center border rounded p-5">
+        <span>데이터를 업데이트 중입니다.</span>
+      </div>
 
-      {deatilEquip !== '' && (
+      {/* {origin !== '' && <NormalDetailList list={equipList} onSelect={handleSelect('equip')} />}
+
+      {equip !== '' && (
         <div className="flex flex-col border rounded p-4 gap-10">
           <div className="flex flex-col gap-2">
             <span className="text-lg font-medium">분해할 장비 목록</span>
@@ -74,7 +116,7 @@ export default function HoneCalculatorPage() {
             <span>연마돌파석: 1개</span>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 }
