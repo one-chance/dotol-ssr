@@ -7,7 +7,7 @@ export type Skin = keyof typeof SKIN_LIST;
 export type CostumeInfo = {
   index: number;
   name: string;
-  soure: string;
+  source: string;
   part: number;
   gender: number;
   luxury: boolean;

@@ -92,10 +92,10 @@ export default function CostumeSection({ selected, onSelect }: CostumeSectionPro
         {itemList?.map((item: CostumeInfo) => (
           <div key={item.index} className="flex flex-col cursor-pointer" onClick={() => wearEquip(item.name)}>
             <div className="relative flex flex-col justify-center items-center w-[150px] min-h-[90px] bg-[#E6E5E5]">
-              <img src={`${baseURL}${encodeURIComponent(item.name.replace('.', '′'))}`} alt={item.name} />
+              <img src={`${baseURL}${encodeURIComponent(item.source)}`} alt={item.name} />
             </div>
             <div className="flex flex-row justify-between px-2 py-1 bg-[#E6E5E5]">
-              <span className="text-xs">{item.gender === 0 ? '공용' : item.gender === 1 ? '남자' : '여자'}</span>
+              <span className="text-xs">{item.gender}</span>
               <span className="text-xs">{item.luxury ? '명품의' : ''}</span>
             </div>
             <div className="flex flex-row justify-center border px-1 py-0.5 max-w-[150px]">
