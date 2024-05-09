@@ -14,15 +14,14 @@ type CostumeListProps = {
 };
 
 export default function CostumeList({ list, selectedList, onWear }: CostumeListProps) {
-  // const basicURL = 'https://avatar.baram.nexon.com/Profile/itemRender.aspx?inm=';
   const baseURL = 'https://avatar.baram.nexon.com/Item/Render/';
 
   return (
-    <div className="flex flex-row flex-wrap content-start min-h-[622px] gap-2.5 flex-grow p-2.5">
+    <div className="flex flex-row flex-wrap content-start min-h-[440px] gap-2.5">
       {list?.map((item: CostumeInfo) => (
         <div key={item.index} className="flex flex-col cursor-pointer" onClick={() => onWear(item.name)}>
           <div className="flex flex-col justify-center items-center w-[150px] min-h-[90px] bg-[#E6E5E5]">
-            <img src={`${baseURL}${encodeURI(item.name)}`} alt={item.name} />
+            <img src={`${baseURL}${encodeURIComponent(item.name.replace('.', '′'))}`} alt={item.name} />
           </div>
           <div className="flex flex-row justify-between px-2 py-1 bg-[#E6E5E5]">
             <span className="text-xs">{item.gender === 0 ? '공용' : item.gender === 1 ? '남자' : '여자'}</span>

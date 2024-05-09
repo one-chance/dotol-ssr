@@ -7,7 +7,7 @@ import { LUXURY_LIST } from '@/contants';
 type Series = keyof typeof LUXURY_LIST;
 
 export default function LuxuryPage() {
-  const [series, setSeries] = useState<Series>('오방지신');
+  const [series, setSeries] = useState<Series>('풍운신령');
   const names = Object.keys(LUXURY_LIST);
 
   const DATA = LUXURY_LIST[series as Series];

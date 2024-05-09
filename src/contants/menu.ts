@@ -3,16 +3,12 @@ export const MENUS = [
     category: '치장',
     menu: [
       {
-        name: '치장 목록',
-        path: '/costume/list',
+        name: '캐릭터 룩북',
+        path: '/costume/lookbook',
       },
       {
         name: '명품의 목록',
         path: '/costume/luxury',
-      },
-      {
-        name: '캐릭터 룩북',
-        path: '/costume/lookbook',
       },
     ],
   },
@@ -27,14 +23,14 @@ export const MENUS = [
         name: '환수 장비',
         path: '/db/pet-equip',
       },
-      // {
-      //   name: '환수 시동',
-      //   path: '/db/pet-activate',
-      // },
       {
         name: '신수 유물',
         path: '/db/artifact-equip',
       },
+      // {
+      //   name: '수호 환수',
+      //   path: '/db/pet-guardian',
+      // },
       {
         name: '한벌 효과',
         path: '/db/set-effect',

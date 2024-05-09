@@ -3,7 +3,7 @@ import { EQUIP_SUBJECTS, EQUIP_PARTS } from '@/contants/normal-equip';
 export type EquipSubject = (typeof EQUIP_SUBJECTS)[number];
 export type EquipPart = (typeof EQUIP_PARTS)[number];
 
-export type EquipInfo = {
+export type NormalEquip = {
   index: number;
   name: string;
   subject: string;

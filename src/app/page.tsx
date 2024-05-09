@@ -1,4 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
+import Image from 'next/image';
+
 export default function Home() {
   return (
     <div className="flex flex-col grow max-w-[960px] w-full mx-auto px-2.5 py-5 sm:p-10 gap-5">
@@ -80,16 +81,16 @@ export default function Home() {
           <span className="text-lg font-semibold">4월 신규 치장</span>
 
           <div className="flex flex-col gap-2">
-            <span className="font-medium">멋진의상재봉틀 - 들꽃나그네 의상</span>
+            <span className="font-medium">멋진의상재봉틀 - 신월협객 의상</span>
             <div className="flex flex-row flex-wrap justify-center items-end min-w-[304px]">
-              <img src="/1.gif" alt="costume1" width={180} height={200} />
-              <img src="/2.gif" alt="costume2" width={180} height={200} />
+              <Image unoptimized src="/1.gif" alt="costume1" width={160} height={160} />
+              <Image unoptimized src="/2.gif" alt="costume2" width={160} height={160} />
             </div>
 
-            <span className="font-medium"> 의상수선가위 - 헬로캠퍼스 의상</span>
+            <span className="font-medium"> 의상수선가위 - 힙캐주얼 의상</span>
             <div className="flex flex-row flex-wrap justify-center items-end min-w-[304px]">
-              <img src="/3.gif" alt="costume3" width={160} height={160} />
-              <img src="/4.gif" alt="costume4" width={160} height={160} />
+              <Image unoptimized src="/3.gif" alt="costume3" width={160} height={160} />
+              <Image unoptimized src="/4.gif" alt="costume4" width={160} height={160} />
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import { left, right } from '@/components/icon';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 type PaginationProps = {
   currentPage: number;
@@ -11,18 +11,9 @@ type PaginationProps = {
 export default function Pagination({ currentPage, totalPage }: PaginationProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   const movePage = (_page: number) => {
-    let query = '';
-
-    if (searchParams.has('keyword')) {
-      query = `keyword=${searchParams.get('keyword')}&page=${_page}`;
-    } else if (searchParams.has('part')) {
-      query = `part=${searchParams.get('part')}&page=${_page}`;
-    }
-
-    router.replace(`${pathname}?${query}`);
+    router.replace(`${pathname}?page=${_page}`);
   };
 
   const getPageNumbers = () => {
@@ -43,11 +34,11 @@ export default function Pagination({ currentPage, totalPage }: PaginationProps) 
   const pageList = getPageNumbers();
 
   return (
-    <div className="flex flex-row justify-center items-center w-full h-10 border-t gap-2.5">
+    <div className="flex flex-row justify-center items-center w-full h-9 gap-2.5">
       <button
         type="button"
         disabled={currentPage === 1}
-        className="text-[#6877ff] disabled:opacity-50"
+        className="text-[#6877ff] outline-none disabled:opacity-50"
         onClick={() => movePage(Math.max(1, currentPage - 5))}
       >
         {left}
@@ -59,7 +50,7 @@ export default function Pagination({ currentPage, totalPage }: PaginationProps) 
             key={pageNumber}
             type="button"
             onClick={() => movePage(pageNumber)}
-            className={`w-9 h-9 rounded font-medium select-none ${pageNumber === currentPage && 'text-[#6877ff]'}`}
+            className={`w-9 h-9 rounded font-medium outline-none select-none ${pageNumber === currentPage && 'text-[#6877ff]'}`}
           >
             {pageNumber}
           </button>
@@ -69,7 +60,7 @@ export default function Pagination({ currentPage, totalPage }: PaginationProps) 
       <button
         type="button"
         disabled={totalPage < 5 || currentPage === totalPage}
-        className="text-[#6877ff] disabled:opacity-50"
+        className="text-[#6877ff] outline-none disabled:opacity-50"
         onClick={() => movePage(Math.min(totalPage, currentPage + 5))}
       >
         {right}

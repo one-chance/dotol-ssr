@@ -1,4 +1,4 @@
-import { EquipInfo, HoneData, MakeData, ReforgeData } from '@/types';
+import { HoneData, MakeData, NormalEquip, ReforgeData } from '@/types';
 import { createBrowserClient } from '@supabase/ssr';
 
 export function createClient() {
@@ -9,7 +9,7 @@ export const getEquipList = async (
   subject: string,
   part: string,
   as: 'make' | 'reforge' | 'hone',
-): Promise<EquipInfo[]> => {
+): Promise<NormalEquip[]> => {
   const supabase = createClient();
 
   let query = supabase.from('normal-equip').select('*').eq('subject', subject).eq(as, true);

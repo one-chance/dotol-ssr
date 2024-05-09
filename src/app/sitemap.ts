@@ -78,12 +78,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const costumeSitemap: MetadataRoute.Sitemap = [
     {
-      url: 'https://dotols.com/costume/list',
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 1,
-    },
-    {
       url: 'https://dotols.com/costume/luxury',
       lastModified: new Date(),
       changeFrequency: 'monthly',

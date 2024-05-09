@@ -7,12 +7,13 @@ import { arrowUp, arrowDown, arrowRight, arrowLeft } from '../icon';
 import { getCharacterList, getMyInfo } from '@/utils';
 import { useAtomValue } from 'jotai';
 import { isloggedinAtom } from '@/states';
+import { SKIN_LIST } from '@/contants';
 
 type Direction = 0 | 1 | 2 | 3;
 type Naked = 'y' | 'n';
 
 type AvatarProps = {
-  skin?: number;
+  skin: keyof typeof SKIN_LIST | '현재 색상';
   equips?: string[];
 };
 
@@ -24,12 +25,15 @@ const DIRECTIONS: { value: Direction; label: string; icon: JSX.Element }[] = [
 ];
 
 export default function Avatar({ equips, skin }: AvatarProps) {
-  const baseURL = 'https://avatar.baram.nexon.com/Profile/AvatarRender.aspx?loginID=';
-  // const baseURL = 'https://avatar.baram.nexon.com/Profile/RenderAvatar/';
-  const [characters, setCharacters] = useState<string[]>([]);
+  // const baseURL = 'https://avatar.baram.nexon.com/Profile/AvatarRender.aspx?loginID=';
+  const baseURL = 'https://avatar.baram.nexon.com/Profile/RenderAvatar/';
+
   const isLoggedIn = useAtomValue(isloggedinAtom);
 
-  const [character, setCharacter] = useState('');
+  const [userId, setUserId] = useState<string>('');
+  const [character, setCharacter] = useState<string>('');
+  const [characters, setCharacters] = useState<string[]>([]);
+
   const [direction, setDirection] = useState<Direction>(2);
   const [isNaked, setIsNaked] = useState<Naked>('n');
 
@@ -57,44 +61,42 @@ export default function Avatar({ equips, skin }: AvatarProps) {
     }
   };
 
-  const getMainCharacter = async () => {
+  const getUserInfo = async () => {
     const res = await getMyInfo();
 
     if (res.statusCode === 200) {
+      setUserId(res.data.userId);
       setCharacter(res.data.mainCharacter);
     } else {
+      setUserId('');
       setCharacter('');
     }
   };
 
   useLayoutEffect(() => {
     getCharacters();
-    getMainCharacter();
+    getUserInfo();
   }, [isLoggedIn]);
 
   useEffect(() => {
-    let skinPath = '';
     let equipsPath = '';
 
-    if (skin) skinPath = skin >= 0 ? `&sc=${skin}` : '';
-    if (equips) equipsPath = `&previewEquip=${encodeURI(equips.join('|'))}`;
+    const skinPath = `&skin=${SKIN_LIST[skin]}`;
+    if (equips) equipsPath = `&items=${equips.join(',')}`;
 
-    setPath(`${baseURL}${character}?is=1&changeDir=${direction}&ed=${isNaked}${skinPath}${equipsPath}`);
-
-    // setPath(
-    //   `${baseURL}${character.split('@')[1]}/${character.split('@')[0]}?is=1&changeDir=${direction}&ed=${isNaked}${skinPath}${equipsPath}`,
-    // );
-  }, [character, direction, equips, isNaked, skin]);
+    setPath(`/api/costume/${userId}/${character}?dir=${direction}&naked=${isNaked}${skinPath}${equipsPath}`);
+  }, [character, direction, equips, isNaked, skin, userId]);
 
   return (
-    <div className="flex flex-col border rounded gap-2.5 p-4 mx-auto">
+    <div className="flex flex-col border rounded gap-2.5 p-3 mx-auto">
       <div className="flex flex-row border">
         {DIRECTIONS.map(({ value, label, icon }) => (
           <button
             key={value}
             aria-label={label}
+            className={`flex flex-row justify-center flex-1 border py-1 outline-none disabled:opacity-50 ${direction === value && 'text-blue-500'}`}
+            disabled={character === ''}
             type="button"
-            className={`flex flex-row justify-center flex-1 border py-1 outline-none ${direction === value && 'text-blue-500'}`}
             onClick={() => changeDirection(value)}
           >
             {icon}
@@ -103,7 +105,7 @@ export default function Avatar({ equips, skin }: AvatarProps) {
       </div>
 
       <div className="relative flex flex-row justify-center items-center w-[180px] h-[158px] bg-[#EBE7E2]">
-        {/* {character !== '' && <img src={path} alt="avatar" />} */}
+        {/* {character !== '' && <img src={path} alt={character} />} */}
       </div>
 
       <Select name={character} disabled={character === ''} items={characters} onSelect={changeCharacter} />
@@ -111,7 +113,8 @@ export default function Avatar({ equips, skin }: AvatarProps) {
       <div className="flex flex-row justify-center gap-2.5">
         <button
           type="button"
-          className={`flex-1 rounded py-1 text-sm ${isNaked === 'y' ? 'bg-red-500 text-white' : 'border'}`}
+          disabled={character === ''}
+          className={`flex-1 rounded py-1 text-sm disabled:opacity-50 ${isNaked === 'y' ? 'bg-red-500 text-white' : 'border'}`}
           onClick={() => changeNaked('y')}
         >
           벗기
@@ -119,7 +122,8 @@ export default function Avatar({ equips, skin }: AvatarProps) {
 
         <button
           type="button"
-          className={`flex-1 rounded py-1 text-sm ${isNaked === 'n' ? 'bg-blue-500 text-white' : 'border'}`}
+          disabled={character === ''}
+          className={`flex-1 rounded py-1 text-sm disabled:opacity-50 ${isNaked === 'n' ? 'bg-blue-500 text-white' : 'border'}`}
           onClick={() => changeNaked('n')}
         >
           입기
