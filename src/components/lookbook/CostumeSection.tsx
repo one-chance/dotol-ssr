@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Pagination, Select } from '@/components';
 import { CostumeInfo, CostumePart } from '@/types';
-import { getClothesList2 } from '@/utils';
+import { getClothesList } from '@/utils';
 import { COSTUME_PARTS } from '@/contants';
 
 type CostumeSectionProps = {
@@ -22,6 +22,7 @@ export default function CostumeSection({ selected, onSelect }: CostumeSectionPro
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
   const [part, setPart] = useState<CostumePart>('부위');
+  const [name, setName] = useState<string>('');
   const [keyword, setKeyword] = useState<string>('');
   const [itemList, setItemList] = useState<CostumeInfo[]>([]);
 
@@ -30,11 +31,12 @@ export default function CostumeSection({ selected, onSelect }: CostumeSectionPro
     router.replace(`${pathname}?page=1`);
   };
 
-  const inputKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value);
+  const inputName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
   };
 
   const searchByKeyword = () => {
+    setKeyword(name);
     router.replace(`${pathname}?page=1`);
   };
 
@@ -56,14 +58,14 @@ export default function CostumeSection({ selected, onSelect }: CostumeSectionPro
       return router.replace(pathname);
     }
 
-    getClothesList2(keyword, part, pageNumber).then(res => {
+    setPage(pageNumber);
+    getClothesList(keyword, part, pageNumber).then(res => {
       if (res.statusCode === 200) {
         setItemList(res.data.list);
         setCount(res.data.count);
       }
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router, searchParams.get('page')]);
+  }, [part, keyword, pathname, router, searchParams]);
 
   return (
     <div className="flex flex-col gap-2.5 px-2.5 sm:px-4">
@@ -73,10 +75,10 @@ export default function CostumeSection({ selected, onSelect }: CostumeSectionPro
         <Select className="w-[120px] sm:w-[140px] h-9" name={part} items={COSTUME_PARTS} onSelect={selectPart} />
 
         <input
-          value={keyword || ''}
+          value={name || ''}
           placeholder="치장 이름"
           className="w-32 sm:w-40 border rounded px-2 ountline-none"
-          onChange={inputKeyword}
+          onChange={inputName}
           onKeyDown={e => e.key === 'Enter' && searchByKeyword()}
         />
         <button
