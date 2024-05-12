@@ -48,7 +48,7 @@ export async function GET(req: Request, { params }: { params: Params }) {
       'Content-Type': 'image/png',
       'User-Agent':
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3',
-      // referer: 'https://baram.nexon.com',
+      referer: 'https://baram.nexon.com',
     },
   });
 
@@ -56,6 +56,7 @@ export async function GET(req: Request, { params }: { params: Params }) {
 
   return new Response(blob, {
     status: 200,
+    statusText: 'OK',
     headers: {
       'Content-Type': 'image/png',
     },
