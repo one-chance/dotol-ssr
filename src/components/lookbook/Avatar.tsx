@@ -72,6 +72,8 @@ export default function Avatar({ equips, skin }: AvatarProps) {
   }, [isLoggedIn]);
 
   useEffect(() => {
+    if (character === '') return;
+
     const params = new URLSearchParams();
     params.set('dir', String(direction));
     params.set('naked', isNaked);

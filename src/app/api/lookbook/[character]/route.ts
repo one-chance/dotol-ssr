@@ -1,3 +1,4 @@
+import { NextResponse } from 'next/server';
 import { SKIN_LIST } from '@/contants';
 import { Skin } from '@/types';
 
@@ -45,6 +46,7 @@ export async function GET(req: Request, { params }: { params: Params }) {
     headers: {
       method: 'GET',
       'Content-Type': 'image/png',
+      referer: 'https://avatar.baram.nexon.com',
     },
   });
 
