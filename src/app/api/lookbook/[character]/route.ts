@@ -10,21 +10,21 @@ const whiteList = ['http://localhost:5173', 'https://dotols.com'];
 export async function GET(req: Request, { params }: { params: Params }) {
   const { character } = params;
   const { searchParams } = new URL(req.url!);
-  const referer = req.headers.get('referer') || '';
+  // const referer = req.headers.get('referer') || '';
 
-  try {
-    if (!referer) {
-      throw new Error('Forbidden');
-    }
+  // try {
+  //   if (!referer) {
+  //     throw new Error('Forbidden');
+  //   }
 
-    const refererDomain = new URL(referer).origin;
+  //   const refererDomain = new URL(referer).origin;
 
-    if (!whiteList.includes(refererDomain)) {
-      throw new Error('Forbidden');
-    }
-  } catch {
-    return new Response('403: Forbidden', { status: 403, statusText: 'Forbidden' });
-  }
+  //   if (!whiteList.includes(refererDomain)) {
+  //     throw new Error('Forbidden');
+  //   }
+  // } catch {
+  //   return new Response('403: Forbidden', { status: 403, statusText: 'Forbidden' });
+  // }
 
   const [name, server] = character.split('@');
   const skinParam = SKIN_LIST[searchParams.get('skin')! as Skin];
