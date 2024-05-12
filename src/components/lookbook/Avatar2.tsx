@@ -101,7 +101,7 @@ export default function Avatar({ equips, skin }: AvatarProps) {
       </div>
 
       <div className="relative flex flex-row justify-center items-center w-[180px] h-[158px] bg-[#EBE7E2]">
-        {/* {character !== '' && <img src={path} alt={character} />} */}
+        {character !== '' && <img src={path} alt={character} />}
       </div>
 
       <Select name={character} disabled={character === ''} items={characters} onSelect={changeCharacter} />
