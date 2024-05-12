@@ -7,15 +7,10 @@ import { arrowUp, arrowDown, arrowRight, arrowLeft } from '../icon';
 import { getCharacterList, getMyInfo } from '@/utils';
 import { useAtomValue } from 'jotai';
 import { isloggedinAtom } from '@/states';
-import { SKIN_LIST } from '@/contants';
+import { Skin } from '@/types';
 
 type Direction = 0 | 1 | 2 | 3;
 type Naked = 'y' | 'n';
-
-type AvatarProps = {
-  skin: keyof typeof SKIN_LIST | '현재 색상';
-  equips?: string[];
-};
 
 const DIRECTIONS: { value: Direction; label: string; icon: JSX.Element }[] = [
   { value: 3, label: '왼쪽', icon: arrowLeft },
@@ -24,16 +19,16 @@ const DIRECTIONS: { value: Direction; label: string; icon: JSX.Element }[] = [
   { value: 1, label: '오른쪽', icon: arrowRight },
 ];
 
-export default function Avatar({ equips, skin }: AvatarProps) {
-  // const baseURL = 'https://avatar.baram.nexon.com/Profile/AvatarRender.aspx?loginID=';
-  const baseURL = 'https://avatar.baram.nexon.com/Profile/RenderAvatar/';
+type AvatarProps = {
+  skin: Skin;
+  equips: string[];
+};
 
+export default function Avatar({ equips, skin }: AvatarProps) {
   const isLoggedIn = useAtomValue(isloggedinAtom);
 
-  const [userId, setUserId] = useState<string>('');
   const [character, setCharacter] = useState<string>('');
   const [characters, setCharacters] = useState<string[]>([]);
-
   const [direction, setDirection] = useState<Direction>(2);
   const [isNaked, setIsNaked] = useState<Naked>('n');
 
@@ -65,10 +60,8 @@ export default function Avatar({ equips, skin }: AvatarProps) {
     const res = await getMyInfo();
 
     if (res.statusCode === 200) {
-      setUserId(res.data.userId);
       setCharacter(res.data.mainCharacter);
     } else {
-      setUserId('');
       setCharacter('');
     }
   };
@@ -79,13 +72,16 @@ export default function Avatar({ equips, skin }: AvatarProps) {
   }, [isLoggedIn]);
 
   useEffect(() => {
-    let equipsPath = '';
+    if (character === '') return;
 
-    const skinPath = `&skin=${SKIN_LIST[skin]}`;
-    if (equips) equipsPath = `&items=${equips.join(',')}`;
+    const params = new URLSearchParams();
+    params.set('dir', String(direction));
+    params.set('naked', isNaked);
+    params.set('skin', skin);
+    if (equips.length > 0) params.set('items', equips.join(','));
 
-    setPath(`/api/costume/${userId}/${character}?dir=${direction}&naked=${isNaked}${skinPath}${equipsPath}`);
-  }, [character, direction, equips, isNaked, skin, userId]);
+    setPath(`/api/lookbook/${character}?${params.toString()}`);
+  }, [character, direction, isNaked, skin, equips]);
 
   return (
     <div className="flex flex-col border rounded gap-2.5 p-3 mx-auto">
@@ -105,7 +101,7 @@ export default function Avatar({ equips, skin }: AvatarProps) {
       </div>
 
       <div className="relative flex flex-row justify-center items-center w-[180px] h-[158px] bg-[#EBE7E2]">
-        {/* {character !== '' && <img src={path} alt={character} />} */}
+        {character !== '' && <img src={path} alt={character} />}
       </div>
 
       <Select name={character} disabled={character === ''} items={characters} onSelect={changeCharacter} />

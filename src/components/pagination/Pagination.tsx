@@ -13,7 +13,9 @@ export default function Pagination({ currentPage, totalPage }: PaginationProps) 
   const pathname = usePathname();
 
   const movePage = (_page: number) => {
-    router.replace(`${pathname}?page=${_page}`);
+    const params = new URLSearchParams(window.location.search);
+    params.set('page', String(_page));
+    router.replace(`${pathname}?${params.toString()}`);
   };
 
   const getPageNumbers = () => {

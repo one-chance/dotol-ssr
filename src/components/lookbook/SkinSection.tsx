@@ -3,16 +3,15 @@
 import { useState } from 'react';
 import { Select } from '@/components';
 import { SKIN_LIST } from '@/contants';
-
-type Skin = keyof typeof SKIN_LIST;
-const SKINS = Object.keys(SKIN_LIST);
+import { Skin } from '@/types';
 
 type SkinSectionProps = {
   onSelect: (skin: Skin) => void;
 };
 
 export default function SkinSection({ onSelect }: SkinSectionProps) {
-  const [skin, setSkin] = useState<Skin>('현재 색상');
+  const SKINS = Object.keys(SKIN_LIST);
+  const [skin, setSkin] = useState<Skin>('현재색상');
 
   const selectSkin = (_skin: string) => {
     setSkin(_skin as Skin);

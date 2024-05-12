@@ -9,7 +9,7 @@ import { Skin } from '@/types';
 export default function LookbookPage() {
   const isLoggedIn = useAtomValue(isloggedinAtom);
 
-  const [skin, setSkin] = useState<Skin>('현재 색상');
+  const [skin, setSkin] = useState<Skin>('현재색상');
   const [selectedEquip, setSelectedEquip] = useState<string[]>([]);
 
   const selectSkin = (_skin: string) => {
