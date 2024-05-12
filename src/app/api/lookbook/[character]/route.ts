@@ -46,7 +46,6 @@ export async function GET(req: Request, { params }: { params: Params }) {
     headers: {
       method: 'GET',
       'Content-Type': 'image/png',
-      referer: 'https://avatar.baram.nexon.com',
     },
   });
 
