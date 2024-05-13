@@ -80,7 +80,7 @@ export default function Avatar({ equips, skin }: AvatarProps) {
     params.set('skin', skin);
     if (equips.length > 0) params.set('items', equips.join(','));
 
-    setPath(`/api/lookbook/${character}?${params.toString()}`);
+    setPath(`/api/avatar/${character}?${params.toString()}`);
   }, [character, direction, isNaked, skin, equips]);
 
   return (
