@@ -23,7 +23,7 @@ export async function GET(req: Request, { params }: { params: Params }) {
       throw new Error('Forbidden');
     }
   } catch {
-    return new Response('403: Forbidden', { status: 403, statusText: 'Forbidden' });
+    return new Response('Forbidden', { status: 403, statusText: 'Forbidden' });
   }
 
   const [name, server] = character.split('@');
@@ -46,14 +46,11 @@ export async function GET(req: Request, { params }: { params: Params }) {
     const res = await fetch(url, {
       headers: {
         'Content-Type': 'image/png',
+        referer: 'https://avatar.baram.nexon.com',
       },
     });
 
     const blob = await res.blob();
-
-    if (res.status !== 200) {
-      throw new Error('Forbidden');
-    }
 
     return new Response(blob, {
       status: 200,
@@ -62,6 +59,6 @@ export async function GET(req: Request, { params }: { params: Params }) {
       },
     });
   } catch {
-    return new Response('404: Not Found', { status: 404, statusText: 'Not Found' });
+    return new Response('Not Found', { status: 404, statusText: 'Not Found' });
   }
 }
