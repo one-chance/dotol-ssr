@@ -4,16 +4,18 @@ export default function Home() {
   return (
     <div className="flex flex-col grow max-w-[960px] w-full mx-auto px-2.5 py-5 sm:p-10 gap-5">
       <div className="flex flex-col border rounded max-h-[480px] overflow-y-auto scrollbar-hidden p-4 gap-4">
-        {/* <div className="flex flex-col gap-2">
-          <span className="text-lg font-medium">05.12 개발자 노트</span>
+        <div className="flex flex-col gap-2">
+          <span className="text-lg font-medium">05.13 개발자 노트</span>
           <span>
             05.02에 막아두었던 룩북 기능을 정상화하고 치장 목록, 태닝 기능을 하나로 통합하였습니다.
             <br />
             현재는 치장 장비와 일반 장비가 분리되어 있어서 각각의 영역에서만 착용이 가능합니다.
             <br />
             장비 착용은 최대 10개까지 가능하며 그 이후로는 착용된 장비를 해제해야 가능합니다.
+            <br />
+            그리고 추가적인 수정이 필요해서 추후 작업을 진행하는 동안 기능이 중단될 수 있습니다.
           </span>
-        </div> */}
+        </div>
 
         <div className="flex flex-col gap-2">
           <span className="text-lg font-medium">05.02 개발자 노트</span>
