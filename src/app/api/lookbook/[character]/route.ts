@@ -1,3 +1,4 @@
+import { NextResponse } from 'next/server';
 import { SKIN_LIST } from '@/contants';
 import { Skin } from '@/types';
 
@@ -42,18 +43,20 @@ export async function GET(req: Request, { params }: { params: Params }) {
 
   const url = `https://avatar.baram.nexon.com/Profile/RenderAvatar/${server}/${name}?${urlParams.toString()}`;
 
-  const res = await fetch(url, {
-    headers: {
-      'Content-Type': 'image/png',
-    },
-  });
+  return NextResponse.redirect(url, { status: 302 });
 
-  const blob = await res.blob();
+  // const res = await fetch(url, {
+  //   headers: {
+  //     'Content-Type': 'image/png',
+  //   },
+  // });
 
-  return new Response(blob, {
-    status: 200,
-    headers: {
-      'Content-Type': 'image/png',
-    },
-  });
+  // const blob = await res.blob();
+
+  // return new Response(blob, {
+  //   status: 200,
+  //   headers: {
+  //     'Content-Type': 'image/png',
+  //   },
+  // });
 }
