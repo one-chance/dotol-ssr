@@ -1,8 +1,0 @@
-{
-    "rewrites": [
-        {
-            "source": "/api/test/:server/:character",
-            "destination": "https://avatar.baram.nexon.com/Profile/RenderAvatar/:server/:character"
-        }
-    ]
-}
