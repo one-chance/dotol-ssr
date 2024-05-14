@@ -10,21 +10,21 @@ const whiteList = ['http://localhost:5173', 'https://dotols.com'];
 export async function GET(req: Request, { params }: { params: Params }) {
   const { character } = params;
   const { searchParams } = new URL(req.url!);
-  const referer = req.headers.get('referer') || '';
+  // const referer = req.headers.get('referer') || '';
 
-  try {
-    if (!referer) {
-      throw new Error('Forbidden');
-    }
+  // try {
+  //   if (!referer) {
+  //     throw new Error('Forbidden');
+  //   }
 
-    const refererDomain = new URL(referer).origin;
+  //   const refererDomain = new URL(referer).origin;
 
-    if (!whiteList.includes(refererDomain)) {
-      throw new Error('Forbidden');
-    }
-  } catch {
-    return new Response('Forbidden', { status: 403, statusText: 'Forbidden' });
-  }
+  //   if (!whiteList.includes(refererDomain)) {
+  //     throw new Error('Forbidden');
+  //   }
+  // } catch {
+  //   return new Response('Forbidden', { status: 403, statusText: 'Forbidden' });
+  // }
 
   const [name, server] = character.split('@');
   const skinParam = SKIN_LIST[searchParams.get('skin') as Skin] ?? '-1';
@@ -42,26 +42,22 @@ export async function GET(req: Request, { params }: { params: Params }) {
 
   const url = `https://avatar.baram.nexon.com/Profile/RenderAvatar/${server}/${name}?${urlParams.toString()}`;
 
-  try {
-    const res = await fetch(url);
-    const imageData = await res.arrayBuffer();
+  const res = await fetch(url);
+  const imageData = await res.arrayBuffer();
 
-    return new Response(imageData, {
-      status: 200,
-      headers: {
-        'Content-Type': 'image/png',
-      },
-    });
+  return new Response(imageData, {
+    status: 200,
+    headers: {
+      'Content-Type': 'image/png',
+    },
+  });
 
-    // const blob = await res.blob();
+  // const blob = await res.blob();
 
-    // return new Response(blob, {
-    //   status: 200,
-    //   headers: {
-    //     'Content-Type': 'image/png',
-    //   },
-    // });
-  } catch {
-    return new Response('Not Found', { status: 404, statusText: 'Not Found' });
-  }
+  // return new Response(blob, {
+  //   status: 200,
+  //   headers: {
+  //     'Content-Type': 'image/png',
+  //   },
+  // });
 }
