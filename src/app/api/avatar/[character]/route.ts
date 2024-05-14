@@ -43,22 +43,24 @@ export async function GET(req: Request, { params }: { params: Params }) {
   const url = `https://avatar.baram.nexon.com/Profile/RenderAvatar/${server}/${name}?${urlParams.toString()}`;
 
   try {
-    const res = await fetch(url, {
-      headers: {
-        'Content-Type': 'image/png',
-        'User-Agent':
-          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-      },
-    });
+    const res = await fetch(url);
+    const imageData = await res.arrayBuffer();
 
-    const blob = await res.blob();
-
-    return new Response(blob, {
+    return new Response(imageData, {
       status: 200,
       headers: {
         'Content-Type': 'image/png',
       },
     });
+
+    // const blob = await res.blob();
+
+    // return new Response(blob, {
+    //   status: 200,
+    //   headers: {
+    //     'Content-Type': 'image/png',
+    //   },
+    // });
   } catch {
     return new Response('Not Found', { status: 404, statusText: 'Not Found' });
   }
