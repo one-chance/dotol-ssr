@@ -4,7 +4,7 @@
 import { Select } from '@/components';
 import { useEffect, useLayoutEffect, useState } from 'react';
 import { arrowUp, arrowDown, arrowRight, arrowLeft } from '../icon';
-import { getCharacterList, getMyInfo } from '@/utils';
+import { getAvatar, getCharacterList, getMyInfo } from '@/utils';
 import { useAtomValue } from 'jotai';
 import { isloggedinAtom } from '@/states';
 import { Skin } from '@/types';
@@ -74,6 +74,14 @@ export default function Avatar({ equips, skin }: AvatarProps) {
   useEffect(() => {
     if (character === '') return;
 
+    // async function loadAvartar() {
+    //   const test = await getAvatar(character, String(direction), skin, isNaked, equips.join(','));
+
+    //   setPath(test);
+    // }
+
+    // loadAvartar();
+
     const params = new URLSearchParams();
     params.set('dir', String(direction));
     params.set('naked', isNaked);
@@ -81,6 +89,10 @@ export default function Avatar({ equips, skin }: AvatarProps) {
     if (equips.length > 0) params.set('items', equips.join(','));
 
     setPath(`/api/avatar/${character}?${params.toString()}`);
+
+    // return () => {
+    //   URL.revokeObjectURL(path);
+    // };
   }, [character, direction, isNaked, skin, equips]);
 
   return (
@@ -101,7 +113,8 @@ export default function Avatar({ equips, skin }: AvatarProps) {
       </div>
 
       <div className="relative flex flex-row justify-center items-center w-[180px] h-[158px] bg-[#EBE7E2]">
-        {character !== '' && <img src={path} alt={character} />}
+        {character !== '' && path !== '' && <img src={path} alt={character} />}
+        {/* {character !== '' && <img src={path} alt={character} />} */}
       </div>
 
       <Select name={character} disabled={character === ''} items={characters} onSelect={changeCharacter} />

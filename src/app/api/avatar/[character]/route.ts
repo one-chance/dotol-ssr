@@ -42,7 +42,20 @@ export async function GET(req: Request, { params }: { params: Params }) {
 
   const url = `https://avatar.baram.nexon.com/Profile/RenderAvatar/${server}/${name}?${urlParams.toString()}`;
 
-  const res = await fetch(url);
+  const res = await fetch(url, {
+    headers: {
+      origin: 'https://baram.nexon.com',
+      referer: 'https://baram.nexon.com/',
+      'Access-Control-Allow-Headers':
+        'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers',
+      'Access-Control-Allow-Origin': 'https://baram.nexon.com',
+      'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
+      'Content-Type': 'image/png',
+      Date: new Date().toUTCString(),
+      'Request-Context': 'appId=cid-v1:602befdf-c942-47ae-8f9e-a1749f6ee32f',
+    },
+  });
+
   const imageData = await res.arrayBuffer();
 
   return new Response(imageData, {
@@ -51,13 +64,4 @@ export async function GET(req: Request, { params }: { params: Params }) {
       'Content-Type': 'image/png',
     },
   });
-
-  // const blob = await res.blob();
-
-  // return new Response(blob, {
-  //   status: 200,
-  //   headers: {
-  //     'Content-Type': 'image/png',
-  //   },
-  // });
 }
