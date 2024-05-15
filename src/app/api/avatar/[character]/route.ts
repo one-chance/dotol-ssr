@@ -10,7 +10,7 @@ const whiteList = ['http://localhost:5173', 'https://dotols.com'];
 export async function GET(req: Request, { params }: { params: Params }) {
   const { character } = params;
   const { searchParams } = new URL(req.url!);
-  // const referer = req.headers.get('referer') || '';
+  const referer = req.headers.get('referer') || '';
 
   // try {
   //   if (!referer) {

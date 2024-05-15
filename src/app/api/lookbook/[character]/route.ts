@@ -1,4 +1,3 @@
-import { NextResponse } from 'next/server';
 import { SKIN_LIST } from '@/contants';
 import { Skin } from '@/types';
 
@@ -24,7 +23,7 @@ export async function GET(req: Request, { params }: { params: Params }) {
       throw new Error('Forbidden');
     }
   } catch {
-    return new Response('403: Forbidden', { status: 403, statusText: 'Forbidden' });
+    return new Response('Forbidden', { status: 403, statusText: 'Forbidden' });
   }
 
   const [name, server] = character.split('@');
@@ -43,20 +42,26 @@ export async function GET(req: Request, { params }: { params: Params }) {
 
   const url = `https://avatar.baram.nexon.com/Profile/RenderAvatar/${server}/${name}?${urlParams.toString()}`;
 
-  return NextResponse.redirect(url, { status: 302 });
+  const res = await fetch(url, {
+    headers: {
+      origin: 'https://baram.nexon.com',
+      referer: 'https://baram.nexon.com/',
+      'Access-Control-Allow-Headers':
+        'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers',
+      'Access-Control-Allow-Origin': 'https://baram.nexon.com',
+      'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
+      'Content-Type': 'image/png',
+      Date: new Date().toUTCString(),
+      'Request-Context': 'appId=cid-v1:602befdf-c942-47ae-8f9e-a1749f6ee32f',
+    },
+  });
 
-  // const res = await fetch(url, {
-  //   headers: {
-  //     'Content-Type': 'image/png',
-  //   },
-  // });
+  const imageData = await res.arrayBuffer();
 
-  // const blob = await res.blob();
-
-  // return new Response(blob, {
-  //   status: 200,
-  //   headers: {
-  //     'Content-Type': 'image/png',
-  //   },
-  // });
+  return new Response(imageData, {
+    status: 200,
+    headers: {
+      'Content-Type': 'image/png',
+    },
+  });
 }
