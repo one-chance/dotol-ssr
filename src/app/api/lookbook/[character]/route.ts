@@ -6,7 +6,7 @@ const whiteList = ['http://localhost:5173', 'https://dotols.com'];
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
-  const character = decodeURI(request.nextUrl.pathname.replace('/api/avatar/', ''));
+  const character = decodeURI(request.nextUrl.pathname.replace('/api/lookbook/', ''));
   const [name, server] = character.split('@')!;
 
   const urlParams = new URLSearchParams({ is: '1' });
