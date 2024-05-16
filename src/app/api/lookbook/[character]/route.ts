@@ -9,22 +9,6 @@ export async function GET(request: NextRequest) {
   const character = decodeURI(request.nextUrl.pathname.replace('/api/avatar/', ''));
   const [name, server] = character.split('@')!;
 
-  // const referer = req.headers.get('referer') || '';
-
-  // try {
-  //   if (!referer) {
-  //     throw new Error('Forbidden');
-  //   }
-
-  //   const refererDomain = new URL(referer).origin;
-
-  //   if (!whiteList.includes(refererDomain)) {
-  //     throw new Error('Forbidden');
-  //   }
-  // } catch {
-  //   return new Response('Forbidden', { status: 403, statusText: 'Forbidden' });
-  // }
-
   const urlParams = new URLSearchParams({ is: '1' });
   if (searchParams.get('dir')) {
     urlParams.set('changeDir', searchParams.get('dir')!);

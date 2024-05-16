@@ -80,7 +80,7 @@ export default function Avatar({ equips, skin }: AvatarProps) {
     params.set('skin', skin);
     if (equips.length > 0) params.set('items', equips.join(','));
 
-    setPath(`/api/avatar/${character}?${params.toString()}`);
+    setPath(`/api/lookbook/${character}?${params.toString()}`);
   }, [character, direction, equips, isNaked, skin]);
 
   return (
@@ -101,7 +101,7 @@ export default function Avatar({ equips, skin }: AvatarProps) {
       </div>
 
       <div className="relative flex flex-row justify-center items-center w-[180px] h-[158px] bg-[#EBE7E2]">
-        {character !== '' && path !== '' && <img src={path} alt={character} />}
+        {path !== '' && <img src={path} alt={character} />}
       </div>
 
       <Select name={character} disabled={character === ''} items={characters} onSelect={changeCharacter} />
