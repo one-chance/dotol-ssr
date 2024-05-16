@@ -28,8 +28,8 @@ export async function GET(request: NextRequest) {
 
   const res = await fetch(url, {
     headers: {
-      // 'Access-Control-Allow-Origin': 'https://baram.nexon.com',
-      // 'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS, POST, PUT',
+      'Access-Control-Allow-Origin': 'https://baram.nexon.com',
+      'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS, POST, PUT',
       'Content-Type': 'image/png',
     },
   });
