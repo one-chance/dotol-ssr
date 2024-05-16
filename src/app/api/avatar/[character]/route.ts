@@ -30,11 +30,9 @@ export async function GET(request: NextRequest) {
     headers: {
       origin: 'https://baram.nexon.com',
       'Acccess-Control-Allow-Headers': 'Origin, Content-Type',
-      // 'Access-Control-Allow-Origin': 'https://baram.nexon.com',
+      'Access-Control-Allow-Origin': 'https://baram.nexon.com',
       'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS, POST, PUT',
       'Content-Type': 'image/png',
-      // Date: new Date().toUTCString(),
-      // 'Request-Context': 'appId=cid-v1:602befdf-c942-47ae-8f9e-a1749f6ee32f',
     },
   });
 
