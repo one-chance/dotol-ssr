@@ -15,8 +15,7 @@ const MakeTable = ({ equip }: { equip: string }) => {
   useLayoutEffect(() => {
     const getData = async () => {
       const res = await fetch(`/api/normal-equip/make?origin=${equip}`);
-      const tempData: MakeData[] = await res.json();
-      setData(tempData);
+      setData(await res.json());
     };
 
     getData();
@@ -59,8 +58,7 @@ const ReforgeTable = ({ equip }: { equip: string }) => {
   useLayoutEffect(() => {
     const getData = async () => {
       const res = await fetch(`/api/normal-equip/reforge?origin=${equip}`);
-      const tempData = await res.json();
-      setData(tempData);
+      setData(await res.json());
     };
 
     getData();
