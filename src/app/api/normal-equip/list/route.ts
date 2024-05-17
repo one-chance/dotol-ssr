@@ -4,7 +4,7 @@ import { supabaseClient } from '@/utils/supabase';
 type As = 'make' | 'reforge' | 'hone';
 
 async function getEquipList(subject: string, part: string, as: As): Promise<NextResponse> {
-  let query = supabaseClient.from('normal-equip').select('name').eq('subject', subject).eq(as, true);
+  let query = supabaseClient.from('normal-equip').select('*').eq('subject', subject).eq(as, true);
 
   if (part !== '부위') query = query.eq('part', part);
 
@@ -16,14 +16,17 @@ async function getEquipList(subject: string, part: string, as: As): Promise<Next
     return NextResponse.json({ error: error.message }, { status: 500, statusText: 'Internal Server Error' });
   }
 
-  return NextResponse.json(data, {
-    status: 200,
-    headers: {
-      'Access-Control-Allow-Origin': 'https://dotols.com',
-      'Access-Control-Allow-Methods': 'GET',
-      'Access-Control-Allow-Headers': 'Content-Type',
+  return NextResponse.json(
+    data.map(item => item.name),
+    {
+      status: 200,
+      headers: {
+        'Access-Control-Allow-Origin': 'https://dotols.com',
+        'Access-Control-Allow-Methods': 'GET',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      },
     },
-  });
+  );
 }
 
 export async function GET(request: NextRequest) {

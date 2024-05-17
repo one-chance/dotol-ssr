@@ -4,7 +4,7 @@ import { supabaseClient } from '@/utils/supabase';
 async function getHoneData(origin: string): Promise<NextResponse> {
   const { data, error } = await supabaseClient
     .from('normal-equip-hone')
-    .select('equip')
+    .select('*')
     .eq('origin', origin)
     .order('index', { ascending: true });
 
@@ -12,14 +12,17 @@ async function getHoneData(origin: string): Promise<NextResponse> {
     return NextResponse.json({ error: error.message }, { status: 500, statusText: 'Internal Server Error' });
   }
 
-  return NextResponse.json(data, {
-    status: 200,
-    headers: {
-      'Access-Control-Allow-Origin': 'https://dotols.com',
-      'Access-Control-Allow-Methods': 'GET',
-      'Access-Control-Allow-Headers': 'Content-Type',
+  return NextResponse.json(
+    data.map(item => item.equip),
+    {
+      status: 200,
+      headers: {
+        'Access-Control-Allow-Origin': 'https://dotols.com',
+        'Access-Control-Allow-Methods': 'GET',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      },
     },
-  });
+  );
 }
 
 async function getHoneDataByEquip(origin: string, equip: string): Promise<NextResponse> {
