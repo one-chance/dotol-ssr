@@ -1,4 +1,5 @@
 import { createBrowserClient } from '@supabase/ssr';
+import { HoneData, MakeData, ReforgeData } from '@/types';
 
 type As = 'make' | 'reforge' | 'hone';
 
@@ -17,8 +18,65 @@ export const getEquipList = async (subject: string, part: string, as: As): Promi
   const { data, error } = await query;
 
   if (error) {
-    throw error;
+    throw new Error(error.message);
   }
 
   return data.map(item => item.name);
+};
+
+export const getMakeData = async (origin: string): Promise<MakeData[]> => {
+  const { data, error } = await supabaseClient
+    .from('normal-equip-make')
+    .select('*')
+    .eq('origin', origin)
+    .order('index', { ascending: true });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+};
+
+export const getReforgeData = async (origin: string): Promise<ReforgeData[]> => {
+  const { data, error } = await supabaseClient
+    .from('normal-equip-reforge')
+    .select('*')
+    .eq('origin', origin)
+    .order('index', { ascending: true });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+};
+
+export const getHoneList = async (origin: string): Promise<string[]> => {
+  const { data, error } = await supabaseClient
+    .from('normal-equip-hone')
+    .select('equip')
+    .eq('origin', origin)
+    .order('index', { ascending: true });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data.map(item => item.equip);
+};
+
+export const getHoneData = async (origin: string, equip: string): Promise<HoneData> => {
+  const { data, error } = await supabaseClient
+    .from('normal-equip-hone')
+    .select('*')
+    .eq('origin', origin)
+    .eq('equip', equip)
+    .single();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
 };

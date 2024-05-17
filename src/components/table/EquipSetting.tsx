@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Select } from '@/components';
 import { HoneData } from '@/types';
+import { getHoneData } from '@/utils/supabase';
 
 type EquipSettingProps = {
   origin: string;
@@ -64,8 +65,8 @@ export default function NormalHoneOption({ origin, equip }: EquipSettingProps) {
 
   useEffect(() => {
     const getData = async () => {
-      const res = await fetch(`/api/normal-equip/hone?origin=${origin}&equip=${equip}`);
-      setData(await res.json());
+      const tempData = await getHoneData(origin, equip);
+      setData(tempData);
     };
 
     getData();
