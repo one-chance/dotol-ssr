@@ -2,7 +2,8 @@
 
 import { NormalDetailList, NormalOriginList, Select } from '@/components';
 import { EQUIP_PARTS, EQUIP_SUBJECTS } from '@/contants';
-import { EquipPart, EquipSubject, HoneData, NormalEquip } from '@/types';
+import { EquipPart, EquipSubject } from '@/types';
+import { getEquipList } from '@/utils/supabase';
 import { useEffect, useState } from 'react';
 
 export default function HoneCalculatorPage() {
@@ -38,8 +39,8 @@ export default function HoneCalculatorPage() {
     if (subject === '종류') return setOriginList([]);
 
     const getList = async () => {
-      const res = await fetch(`/api/normal-equip/list?subject=${subject}&part=${part}&as=hone`);
-      setOriginList(await res.json());
+      const list = await getEquipList(subject, part, 'hone');
+      setOriginList(list);
     };
 
     getList();

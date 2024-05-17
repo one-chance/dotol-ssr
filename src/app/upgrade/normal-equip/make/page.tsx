@@ -3,7 +3,8 @@
 import { useEffect, useState } from 'react';
 import { NormalOriginList, NormalEquipTable, Select } from '@/components';
 import { EQUIP_PARTS, EQUIP_SUBJECTS, NORMAL_EQUIP_NOTICE } from '@/contants';
-import { EquipPart, EquipSubject, NormalEquip } from '@/types';
+import { EquipPart, EquipSubject } from '@/types';
+import { getEquipList } from '@/utils/supabase';
 
 export default function NormalEquipMakePage() {
   const [subject, setSubject] = useState<EquipSubject>('종류');
@@ -28,8 +29,8 @@ export default function NormalEquipMakePage() {
     if (subject === '종류') return setOriginList([]);
 
     const getList = async () => {
-      const res = await fetch(`/api/normal-equip/list?subject=${subject}&part=${part}&as=make`);
-      setOriginList(await res.json());
+      const list = await getEquipList(subject, part, 'make');
+      setOriginList(list);
     };
 
     getList();
