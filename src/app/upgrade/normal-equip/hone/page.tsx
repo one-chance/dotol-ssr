@@ -3,8 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Select, NormalOriginList, EquipSetting, NormalDetailList } from '@/components';
 import { EQUIP_PARTS, EQUIP_SUBJECTS, NORMAL_EQUIP_NOTICE } from '@/contants';
-import { EquipPart, EquipSubject } from '@/types';
-import { getEquipList, getHoneData } from '@/utils/supabase';
+import { EquipPart, EquipSubject, HoneData, NormalEquip } from '@/types';
 
 export default function NormalEquipListPage() {
   const [subject, setSubject] = useState<EquipSubject>('종류');
@@ -35,8 +34,8 @@ export default function NormalEquipListPage() {
     if (subject === '종류') return setOriginList([]);
 
     const getList = async () => {
-      const data = await getEquipList(subject, part, 'hone');
-      setOriginList(data.map(item => item.name));
+      const res = await fetch(`/api/normal-equip/list?subject=${subject}&part=${part}&as=hone`);
+      setOriginList(await res.json());
     };
 
     getList();
@@ -46,8 +45,9 @@ export default function NormalEquipListPage() {
     if (origin === '') return setEquipList([]);
 
     const getList = async () => {
-      const data = await getHoneData(origin);
-      setEquipList(data.map(item => item.equip));
+      const res = await fetch(`/api/normal-equip/hone?origin=${origin}`);
+      const data = await res.json();
+      setEquipList(data);
     };
 
     getList();

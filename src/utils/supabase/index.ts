@@ -1,1 +1,1 @@
-export * from './equip';
+export * from './client';

@@ -28,8 +28,8 @@ export async function GET(request: NextRequest) {
 
   const res = await fetch(url, {
     headers: {
-      origin: 'https://baram.nexon.com',
-      'Acccess-Control-Allow-Headers': 'Origin, Content-Type',
+      // origin: 'https://baram.nexon.com',
+      // 'Acccess-Control-Allow-Headers': 'Origin, Content-Type',
       'Access-Control-Allow-Origin': 'https://baram.nexon.com',
       'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS, POST, PUT',
       'Content-Type': 'image/png',

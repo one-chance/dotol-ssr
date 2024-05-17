@@ -2,7 +2,6 @@
 
 import { useLayoutEffect, useState } from 'react';
 import { MakeData, ReforgeData } from '@/types';
-import { getMakeData, getReforgeData } from '@/utils/supabase';
 
 type TableProps = {
   as: 'make' | 'reforge';
@@ -15,8 +14,9 @@ const MakeTable = ({ equip }: { equip: string }) => {
 
   useLayoutEffect(() => {
     const getData = async () => {
-      const data = await getMakeData(equip);
-      setData(data);
+      const res = await fetch(`/api/normal-equip/make?origin=${equip}`);
+      const tempData: MakeData[] = await res.json();
+      setData(tempData);
     };
 
     getData();
@@ -58,8 +58,9 @@ const ReforgeTable = ({ equip }: { equip: string }) => {
 
   useLayoutEffect(() => {
     const getData = async () => {
-      const data = await getReforgeData(equip);
-      setData(data);
+      const res = await fetch(`/api/normal-equip/reforge?origin=${equip}`);
+      const tempData = await res.json();
+      setData(tempData);
     };
 
     getData();
