@@ -72,14 +72,20 @@ export default function LoginModal({ onClose }: ModalProps) {
         />
       </div>
 
-      <div className="flex flex-row items-center gap-1">
-        <Link href="/forgot/userId" className="text-gray-400 text-sm font-medium" onClick={onClose}>
-          아이디 찾기
+      <div className="flex flex-row flex-wrap justify-between gap-5">
+        <Link href="/signup" className="text-gray-400 text-sm font-medium" onClick={onClose}>
+          회원가입
         </Link>
-        <span className="text-gray-400 text-sm font-medium">/</span>
-        <Link href="/forgot/password" className="text-gray-400 text-sm font-medium" onClick={onClose}>
-          비밀번호 찾기
-        </Link>
+
+        <div className="flex flex-row items-center gap-1">
+          <Link href="/forgot/userId" className="text-gray-400 text-sm font-medium" onClick={onClose}>
+            아이디 찾기
+          </Link>
+          <span className="text-gray-400 text-sm font-medium">/</span>
+          <Link href="/forgot/password" className="text-gray-400 text-sm font-medium" onClick={onClose}>
+            비밀번호 찾기
+          </Link>
+        </div>
       </div>
 
       <button
