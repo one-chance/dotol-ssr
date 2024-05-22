@@ -5,7 +5,7 @@ import { Select } from '@/components';
 import jsonData from '@/contants/production-item.json';
 import jsonData2 from '@/contants/production-recipe.json';
 
-const SKILL_LIST = ['종류', '직조술', '벌목술', '채광술', '조제술', '재봉술', '목공술', '대장술', '강화술'];
+const SKILL_LIST = ['종류', '직조술', '벌목술', '채광술', '조제술', '재봉술', '목공술', '대장술', '강화술'] as const;
 const GRADES = [
   '단계',
   '왕초보',
@@ -19,7 +19,7 @@ const GRADES = [
   '대장인',
   '절대장인',
   '전설장인',
-];
+] as const;
 type Skill = (typeof SKILL_LIST)[number];
 type Grade = (typeof GRADES)[number];
 
@@ -33,19 +33,19 @@ export default function ProductionCalculatorPage() {
   const DATA = jsonData[skill as keyof typeof jsonData];
   const DATA2 = DATA[grade as keyof typeof DATA];
 
-  const selectSkill = (_skill: string) => {
-    setSkill(_skill as Skill);
+  const selectSkill = (newSkill: Skill) => {
+    setSkill(newSkill);
     setGrade('단계');
     setItem('품목');
   };
 
-  const selectGrade = (_grade: string) => {
-    setGrade(_grade as Grade);
+  const selectGrade = (newGrade: Grade) => {
+    setGrade(newGrade);
     setItem('품목');
   };
 
-  const selectItem = (_item: string) => {
-    setItem(_item);
+  const selectItem = (newItem: string) => {
+    setItem(newItem);
     setQuantity(1);
   };
 

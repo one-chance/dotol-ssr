@@ -2,16 +2,23 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-type SelectProps = {
+type SelectProps<T extends readonly string[]> = {
   className?: string;
-  name: string;
-  items: readonly string[];
-  onSelect: (item: string) => void;
+  name: T[number];
+  items: T;
+  onSelect: (item: T[number]) => void;
   disabled?: boolean;
   maxHeight?: string;
 };
 
-export default function Select({ className, name, items, onSelect, disabled, maxHeight }: SelectProps) {
+export default function Select<T extends readonly string[]>({
+  className,
+  name,
+  items,
+  onSelect,
+  disabled,
+  maxHeight,
+}: SelectProps<T>) {
   const selectRef = useRef<HTMLDivElement>(null);
   const optionRef = useRef<HTMLDivElement>(null);
   const [show, setShow] = useState(false);
@@ -22,7 +29,7 @@ export default function Select({ className, name, items, onSelect, disabled, max
     setShow(!show);
   };
 
-  const selectItem = (item: string) => {
+  const selectItem = (item: T[number]) => {
     setSelected(item);
     onSelect(item);
     setShow(false);

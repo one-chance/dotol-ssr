@@ -12,8 +12,8 @@ export default function LookbookPage() {
   const [skin, setSkin] = useState<Skin>('현재색상');
   const [selectedEquip, setSelectedEquip] = useState<string[]>([]);
 
-  const selectSkin = (_skin: string) => {
-    setSkin(_skin as Skin);
+  const selectSkin = (newSkin: Skin) => {
+    setSkin(newSkin);
   };
 
   const addEquip = (item: string) => {

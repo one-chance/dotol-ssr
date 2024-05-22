@@ -20,7 +20,7 @@ const SUBJECTS = [
   '귀문',
   '기타',
 ] as const;
-type Subjects = (typeof SUBJECTS)[number];
+type Subject = (typeof SUBJECTS)[number];
 
 type Effect = {
   index: number;
@@ -35,7 +35,7 @@ type NormalSetEffectData = {
 };
 
 export default function NormalEquipSetEffect({ data }: { data: NormalSetEffectData }) {
-  const [subject, setSubject] = useState<Subjects>('종류');
+  const [subject, setSubject] = useState<Subject>('종류');
   const [effect, setEffect] = useState<Effect>({
     index: 0,
     name: '',
@@ -45,13 +45,13 @@ export default function NormalEquipSetEffect({ data }: { data: NormalSetEffectDa
   const DATA = data[effect.name];
   const effectList = EQUIP_SET_EFFECTS.filter(item => item.subject === subject);
 
-  const selectSubject = (_subject: string) => {
-    setSubject(_subject as Subjects);
+  const selectSubject = (newSubject: Subject) => {
+    setSubject(newSubject);
     setEffect({ index: 0, name: '', subject: '' });
   };
 
-  const selectEffect = (_effect: Effect) => {
-    setEffect(_effect);
+  const selectEffect = (newEffect: Effect) => {
+    setEffect(newEffect);
   };
 
   return (

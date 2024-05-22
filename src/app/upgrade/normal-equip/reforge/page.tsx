@@ -13,7 +13,7 @@ export default function NormalEquipReforgePage() {
 
   const [originList, setOriginList] = useState<string[]>([]);
 
-  const handleSelect = (type: string) => (value: string) => {
+  const handleSelect = (type: string) => (value: EquipSubject | EquipPart | string) => {
     if (type === 'subject') {
       setOrigin('');
       setPart('부위' as EquipPart);

@@ -9,9 +9,9 @@ export default function SignUpPage() {
   const [phase, setPhase] = useState<Phase>(1);
   const [email, setEmail] = useState<string>('');
 
-  const movePhase = (_phase: Phase, _email?: string) => {
-    if (_email) setEmail(_email);
-    setPhase(_phase);
+  const movePhase = (newPhase: Phase, newEmail?: string) => {
+    if (newEmail) setEmail(newEmail);
+    setPhase(newPhase);
   };
 
   const phaseContent = {

@@ -10,9 +10,9 @@ type DetailListProps = {
 export default function NormalDetailList({ list, onSelect }: DetailListProps) {
   const [item, setItem] = useState('');
 
-  const selectItem = (_item: string) => {
-    setItem(_item);
-    onSelect(_item);
+  const selectItem = (newItem: string) => {
+    setItem(newItem);
+    onSelect(newItem);
   };
 
   return (

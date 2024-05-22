@@ -4,12 +4,12 @@ import { Select } from '@/components';
 
 const JOBS = ['전사', '도적', '주술사', '도사', '궁사', '천인', '마도사', '영술사', '차사', '살수'] as const;
 const PARTS = ['목/어깨장식', '투구', '무기', '갑옷', '망토'] as const;
-type Jobs = (typeof JOBS)[number];
-type Parts = (typeof PARTS)[number];
+type Job = (typeof JOBS)[number];
+type Part = (typeof PARTS)[number];
 
 type EnchantData = {
-  [key in Jobs]: {
-    [key in Parts]: {
+  [key in Job]: {
+    [key in Part]: {
       기술능력: string;
       전설: string;
       신화: string;
@@ -18,16 +18,16 @@ type EnchantData = {
 };
 
 export default function NormalEquipEnchant({ data }: { data: EnchantData }) {
-  const [job, setJob] = useState<Jobs>('전사');
-  const [part, setPart] = useState<Parts>('목/어깨장식');
+  const [job, setJob] = useState<Job>('전사');
+  const [part, setPart] = useState<Part>('목/어깨장식');
   const DATA = data[job][part];
 
-  const selectJob = (_job: string) => {
-    setJob(_job as Jobs);
+  const selectJob = (newJob: Job) => {
+    setJob(newJob);
   };
 
-  const selectPart = (_part: string) => {
-    setPart(_part as Parts);
+  const selectPart = (newPart: Part) => {
+    setPart(newPart);
   };
 
   return (

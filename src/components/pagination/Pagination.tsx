@@ -12,9 +12,9 @@ export default function Pagination({ currentPage, totalPage }: PaginationProps) 
   const router = useRouter();
   const pathname = usePathname();
 
-  const movePage = (_page: number) => {
+  const movePage = (newPage: number) => {
     const params = new URLSearchParams(window.location.search);
-    params.set('page', String(_page));
+    params.set('page', String(newPage));
     router.replace(`${pathname}?${params.toString()}`);
   };
 

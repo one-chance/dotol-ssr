@@ -3,10 +3,10 @@ import { useState } from 'react';
 import { Select } from '@/components';
 
 const PARTS = ['무기', '갑옷', '투구', '명경', '장갑', '보주', '영옥'] as const;
-type Parts = (typeof PARTS)[number];
+type Part = (typeof PARTS)[number];
 
 type ArtifactListData = {
-  [key in Parts]: {
+  [key in Part]: {
     [key: string]: {
       [key: string]: string;
     }[];
@@ -14,13 +14,13 @@ type ArtifactListData = {
 };
 
 export default function ArtifactEquipList({ data }: { data: ArtifactListData }) {
-  const [part, setPart] = useState<Parts>('무기');
+  const [part, setPart] = useState<Part>('무기');
 
   const DATA = data[part];
   const subjects = Object.keys(DATA);
 
-  const selectPart = (item: string) => {
-    setPart(item as Parts);
+  const selectPart = (item: Part) => {
+    setPart(item);
   };
 
   return (

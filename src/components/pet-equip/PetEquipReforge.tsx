@@ -21,12 +21,12 @@ const PARTS = ['무기', '갑옷', '투구', '문양', '신물', '세트옷'] ||
   '바람의성물',
   '땅의성물',
 ];
-type Subjects = (typeof SUBJECTS)[number];
-type Parts = (typeof PARTS)[number];
+type Subject = (typeof SUBJECTS)[number];
+type Part = (typeof PARTS)[number];
 
 type PetReforgeData = {
-  [key in Subjects]: {
-    [key in Parts]: {
+  [key in Subject]: {
+    [key in Part]: {
       장비: string;
       재료: string;
       성공률: string;
@@ -35,12 +35,12 @@ type PetReforgeData = {
 };
 
 export default function PetEquipReforge({ data }: { data: PetReforgeData }) {
-  const [subject, setSubject] = useState<Subjects>('황룡');
+  const [subject, setSubject] = useState<Subject>('황룡');
 
   const DATA = data[subject];
 
-  const selectSubject = (item: string) => {
-    setSubject(item as Subjects);
+  const selectSubject = (item: Subject) => {
+    setSubject(item);
   };
 
   return (

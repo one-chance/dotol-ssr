@@ -26,8 +26,8 @@ export default function CostumeSection({ selected, onSelect }: CostumeSectionPro
   const [keyword, setKeyword] = useState<string>('');
   const [itemList, setItemList] = useState<CostumeInfo[]>([]);
 
-  const selectPart = (item: string) => {
-    setPart(item as CostumePart);
+  const selectPart = (item: CostumePart) => {
+    setPart(item);
     router.replace(`${pathname}?page=1`);
   };
 

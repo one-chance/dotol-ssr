@@ -6,9 +6,9 @@ import { HONE_RECIPE, HONE_BREAK_RECIPE } from '@/contants';
 import { addCommaToNumber } from '@/utils';
 
 const SUBJECTS = ['종류', '용', '중국', '일본', '환웅', '타계', '기타'] as const;
-type Subjects = (typeof SUBJECTS)[number];
+type Subject = (typeof SUBJECTS)[number];
 export default function HoningRecipePage() {
-  const [subject, setSubject] = useState<Subjects>('종류');
+  const [subject, setSubject] = useState<Subject>('종류');
   const [level, setLevel] = useState<{ start: number; end: number }>({
     start: 0,
     end: 0,
@@ -24,10 +24,10 @@ export default function HoningRecipePage() {
 
   const [showResult, setShowResult] = useState<boolean>(false);
 
-  const selectSubject = (item: string) => {
+  const selectSubject = (item: Subject) => {
     setShowResult(false);
     setLevel({ start: 0, end: 0 });
-    setSubject(item as Subjects);
+    setSubject(item);
   };
 
   const inputStart = (e: React.ChangeEvent<HTMLInputElement>) => {

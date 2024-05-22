@@ -3,10 +3,10 @@ import { useState } from 'react';
 import { Select } from '@/components';
 
 const SUBJECTS = ['황룡', '청룡', '주작', '백호', '현무', '공용'] as const;
-type Subjects = (typeof SUBJECTS)[number];
+type Subject = (typeof SUBJECTS)[number];
 
 type PetListData = {
-  [key in Subjects]: {
+  [key in Subject]: {
     [key: string]: {
       [key: string]: string;
     }[];
@@ -14,7 +14,7 @@ type PetListData = {
 };
 
 export default function PetEquipList({ data }: { data: PetListData }) {
-  const [subject, setSubject] = useState<Subjects>('황룡');
+  const [subject, setSubject] = useState<Subject>('황룡');
   const parts = {
     황룡: ['무기', '갑옷', '투구', '문양', '신물', '세트옷'],
     청룡: ['무기', '갑옷', '투구', '문양', '신물', '세트옷'],
@@ -26,8 +26,8 @@ export default function PetEquipList({ data }: { data: PetListData }) {
 
   const DATA = data[subject];
 
-  const selectSubject = (item: string) => {
-    setSubject(item as Subjects);
+  const selectSubject = (item: Subject) => {
+    setSubject(item);
   };
 
   return (

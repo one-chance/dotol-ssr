@@ -10,7 +10,7 @@ import { deleteCharacter, getCharacterList, registerCharacter, updateMainCharact
 import { getMyInfo } from '@/utils';
 
 const SERVERS = ['서버', '연', '유리', '무휼', '하자', '호동', '진'] as const;
-type Server = (typeof SERVERS)[number] | '서버';
+type Server = (typeof SERVERS)[number];
 
 export default function CharacterPage() {
   const router = useRouter();
@@ -25,8 +25,8 @@ export default function CharacterPage() {
     setCharacter(e.target.value);
   };
 
-  const selectServer = (item: string) => {
-    setServer((item as (typeof SERVERS)[number]) || '서버');
+  const selectServer = (item: Server) => {
+    setServer(item);
   };
 
   const getMainCharacter = async () => {
@@ -56,16 +56,16 @@ export default function CharacterPage() {
     }
   };
 
-  const changeMainCharacter = async (_character: string) => {
-    const res = await updateMainCharacter(_character);
+  const changeMainCharacter = async (newMainCharacter: string) => {
+    const res = await updateMainCharacter(newMainCharacter);
 
     if (res.statusCode === 200) {
       return alert('대표 캐릭터가 변경되었습니다.');
     }
   };
 
-  const removeCharacter = async (_character: string) => {
-    const res = await deleteCharacter(_character);
+  const removeCharacter = async (character: string) => {
+    const res = await deleteCharacter(character);
 
     if (res.statusCode === 400) {
       return alert('대표 캐릭터는 삭제할 수 없습니다.');

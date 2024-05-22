@@ -10,12 +10,12 @@ type SkinSectionProps = {
 };
 
 export default function SkinSection({ onSelect }: SkinSectionProps) {
-  const SKINS = Object.keys(SKIN_LIST);
+  const SKINS = Object.keys(SKIN_LIST) as Skin[];
   const [skin, setSkin] = useState<Skin>('현재색상');
 
-  const selectSkin = (_skin: string) => {
-    setSkin(_skin as Skin);
-    onSelect(_skin as Skin);
+  const selectSkin = (newSkin: Skin) => {
+    setSkin(newSkin);
+    onSelect(newSkin);
   };
 
   return (

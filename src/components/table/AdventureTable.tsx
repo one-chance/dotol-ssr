@@ -6,8 +6,8 @@ import { Select } from '@/components/common';
 const LOCATIONS = ['환상의섬', '백두촌', '용궁', '백제', '지옥', '금천군', '흉수계', '인도'] as const;
 const SUBJECTS = ['괴수', '물품', '임무', '탐방', '보상'] as const;
 
-type LocationType = (typeof LOCATIONS)[number];
-type SubjectType = (typeof SUBJECTS)[number];
+type Location = (typeof LOCATIONS)[number];
+type Subject = (typeof SUBJECTS)[number];
 type AdventureCell =
   | {
       괴수: string;
@@ -40,17 +40,17 @@ type TableProps = {
 };
 
 export default function AdventureTable({ data }: TableProps) {
-  const [location, setLocation] = useState<LocationType>('환상의섬');
-  const [subject, setSubject] = useState<SubjectType>('괴수');
+  const [location, setLocation] = useState<Location>('환상의섬');
+  const [subject, setSubject] = useState<Subject>('괴수');
 
   const DATA = data[location][subject];
 
-  const selectLocation = (location: string) => {
-    setLocation(location as LocationType);
+  const selectLocation = (newLocation: Location) => {
+    setLocation(newLocation);
   };
 
-  const selectSubject = (name: string) => {
-    setSubject(name as SubjectType);
+  const selectSubject = (newSubject: Subject) => {
+    setSubject(newSubject);
   };
 
   return (

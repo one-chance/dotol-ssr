@@ -17,7 +17,7 @@ const SUBJECTS = [
   '레이드',
 ] as const;
 
-type SubjectType = (typeof SUBJECTS)[number];
+type Subject = (typeof SUBJECTS)[number];
 type ArchievementCell = {
   업적: string;
   업적_점수: string;
@@ -29,11 +29,11 @@ type TableProps = {
 };
 
 export default function AchievementTable({ data }: TableProps) {
-  const [subject, setSubject] = useState<SubjectType>('탐험일지');
+  const [subject, setSubject] = useState<Subject>('탐험일지');
   const DATA = data[subject];
 
-  const selectSubject = (name: string) => {
-    setSubject(name as SubjectType);
+  const selectSubject = (name: Subject) => {
+    setSubject(name);
   };
 
   return (

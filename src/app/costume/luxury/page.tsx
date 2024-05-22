@@ -8,12 +8,12 @@ type Series = keyof typeof LUXURY_LIST;
 
 export default function LuxuryPage() {
   const [series, setSeries] = useState<Series>('풍운신령');
-  const names = Object.keys(LUXURY_LIST);
+  const names = Object.keys(LUXURY_LIST) as Series[];
 
   const DATA = LUXURY_LIST[series as Series];
 
-  const selectSeries = (_series: string) => {
-    setSeries(_series as Series);
+  const selectSeries = (newSeries: Series) => {
+    setSeries(newSeries);
   };
 
   return (
@@ -21,7 +21,7 @@ export default function LuxuryPage() {
       <span className="text-xl sm:text-2xl font-semibold">명품의 목록</span>
 
       <div className="flex flex-row flex-wrap gap-x-4 gap-y-2 border rounded p-4 mt-10">
-        {names.map((item: string, index: number) => (
+        {names.map((item: Series, index: number) => (
           <button
             key={item}
             type="button"

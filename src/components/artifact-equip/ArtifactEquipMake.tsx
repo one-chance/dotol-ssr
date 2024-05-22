@@ -18,10 +18,10 @@ const Title = () => {
 };
 
 const PARTS = ['무기', '갑옷', '투구', '명경', '장갑', '보주'] as const;
-type Parts = (typeof PARTS)[number];
+type Part = (typeof PARTS)[number];
 
 type ReforgeData = {
-  [key in Parts]: {
+  [key in Part]: {
     [key: string]: {
       [key: string]: string;
     }[];
@@ -29,12 +29,12 @@ type ReforgeData = {
 };
 
 export default function ArtifactEquipMake({ data }: { data: ReforgeData }) {
-  const [part, setPart] = useState<Parts>('무기');
+  const [part, setPart] = useState<Part>('무기');
   const DATA = data[part];
   const Subjects = Object.keys(DATA);
 
-  const selectPart = (item: string) => {
-    setPart(item as Parts);
+  const selectPart = (item: Part) => {
+    setPart(item);
   };
 
   return (

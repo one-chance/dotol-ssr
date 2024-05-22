@@ -4,10 +4,10 @@ import { useState } from 'react';
 import { Select } from '@/components';
 
 const PARTS = ['무기', '갑옷', '투구', '왼손', '오른손', '목/어깨', '신발', '망토'] as const;
-type Parts = (typeof PARTS)[number];
+type Part = (typeof PARTS)[number];
 
 type BodyEnahnceBonusData = {
-  [key in Parts]: {
+  [key in Part]: {
     단계: string;
     능력치: string[];
     목록: string[];
@@ -15,11 +15,11 @@ type BodyEnahnceBonusData = {
 };
 
 export default function BodyEnhanceBonus({ data }: { data: BodyEnahnceBonusData }) {
-  const [part, setPart] = useState<Parts>('무기');
+  const [part, setPart] = useState<Part>('무기');
   const DATA = data[part];
 
-  const selectPart = (item: string) => {
-    setPart(item as Parts);
+  const selectPart = (item: Part) => {
+    setPart(item);
   };
 
   return (
