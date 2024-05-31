@@ -1,7 +1,7 @@
 'use client';
 
-import { createUser, isDuplicatedUserId } from '@/utils';
 import { useState } from 'react';
+import { createUser, isDuplicatedUserId } from '@/actions/user.action';
 
 type SignUpProps = {
   email: string;

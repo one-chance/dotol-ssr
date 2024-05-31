@@ -1,14 +1,12 @@
 'use client';
 
 import { useState } from 'react';
+
+import { checkIsAuthed } from '@/actions/auth.action';
 import { Avatar, CostumeSection, EquipSection, SkinSection } from '@/components';
-import { useAtomValue } from 'jotai';
-import { isloggedinAtom } from '@/states';
 import { Skin } from '@/types';
 
 export default function LookbookPage() {
-  const isLoggedIn = useAtomValue(isloggedinAtom);
-
   const [skin, setSkin] = useState<Skin>('현재색상');
   const [selectedEquip, setSelectedEquip] = useState<string[]>([]);
 
@@ -16,8 +14,9 @@ export default function LookbookPage() {
     setSkin(newSkin);
   };
 
-  const addEquip = (item: string) => {
-    if (!isLoggedIn) return alert('캐릭터를 등록해야 아바타가 보입니다.');
+  const addEquip = async (item: string) => {
+    const isAuthed = await checkIsAuthed();
+    if (!isAuthed) return alert('캐릭터를 등록해야 아바타가 보입니다.');
 
     if (selectedEquip.length === 10) return;
     setSelectedEquip(prev => (prev.includes(item) ? prev.filter(i => i !== item) : [...prev, item]));

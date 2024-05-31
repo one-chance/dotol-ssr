@@ -1,14 +1,11 @@
 'use client';
 
-import { isloggedinAtom } from '@/states';
-import { deleteUser } from '@/utils';
-import { useAtomValue } from 'jotai';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useLayoutEffect, useState } from 'react';
+import { deleteUser } from '@/actions/user.action';
 
 export default function WithdrawlPage() {
   const router = useRouter();
-  const isLoggedin = useAtomValue(isloggedinAtom);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -30,10 +27,6 @@ export default function WithdrawlPage() {
       return;
     }
   };
-
-  useLayoutEffect(() => {
-    if (!isLoggedin) router.push('/');
-  }, [isLoggedin, router]);
 
   return (
     <div className="flex flex-col grow mx-auto px-2.5 py-5 sm:p-10 gap-10">

@@ -1,33 +1,35 @@
 'use client';
 
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useAtom } from 'jotai';
+
 import { menu } from '@/components/icon';
 import { MenuModal } from '@/components/modal';
-import { isloggedinAtom, showLoginAtom } from '@/states';
-import { useModal } from '@/hooks';
-import { useEffect, useRef, useState } from 'react';
 import { USER_MENUS } from '@/contants';
+import { loginModalAtom } from '@/states';
+import { useModal } from '@/hooks';
+import { signout } from '@/utils/auth';
 
-export default function MobileHeader() {
+type HeaderProps = {
+  isAuthed: boolean;
+};
+
+export default function MobileHeader({ isAuthed }: HeaderProps) {
   const myInfoRef = useRef<HTMLButtonElement>(null);
   const userMenuRef = useRef<HTMLDivElement>(null);
 
   const { openModal, closeModal, showModal } = useModal();
   const [showUserMenu, setShowUserMenu] = useState(false);
-  const [, setShowLoginModal] = useAtom(showLoginAtom);
-  const [isLoggedIn, setIsLoggedin] = useAtom(isloggedinAtom);
+  const [, setShowLoginModal] = useAtom(loginModalAtom);
 
   const handleLogin = () => {
-    if (!isLoggedIn) setShowLoginModal(true);
+    if (!isAuthed) setShowLoginModal(true);
     else setShowUserMenu(!showUserMenu);
   };
 
-  const logout = () => {
-    localStorage.removeItem(`accessToken`);
-    localStorage.removeItem(`userInfo`);
-    setIsLoggedin(false);
-    setShowUserMenu(false);
+  const logout = async () => {
+    await signout();
   };
 
   useEffect(() => {
@@ -56,7 +58,7 @@ export default function MobileHeader() {
 
         <div className="flex flex-col items-end">
           <button type="button" ref={myInfoRef} className="w-12 text-white outline-none" onClick={handleLogin}>
-            {isLoggedIn ? '내 정보' : '로그인'}
+            {isAuthed ? '내 정보' : '로그인'}
           </button>
 
           {showUserMenu && (

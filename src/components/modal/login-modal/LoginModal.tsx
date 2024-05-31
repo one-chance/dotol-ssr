@@ -1,11 +1,9 @@
 'use client';
 
-import Link from 'next/link';
 import { useState } from 'react';
+import Link from 'next/link';
 import { Modal } from '@/components/modal';
-import { isloggedinAtom } from '@/states';
-import { decodeJWT, verifyUser } from '@/utils';
-import { useAtom } from 'jotai';
+import { signin } from '@/utils/auth';
 
 type ModalProps = {
   onClose: () => void;
@@ -14,7 +12,6 @@ type ModalProps = {
 export default function LoginModal({ onClose }: ModalProps) {
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
-  const [, setIsLoggedin] = useAtom(isloggedinAtom);
 
   const inputUserId = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserId(e.target.value);
@@ -24,19 +21,8 @@ export default function LoginModal({ onClose }: ModalProps) {
     setPassword(e.target.value);
   };
 
-  const signin = async () => {
-    const res = await verifyUser(userId, password);
-
-    if (res.statusCode === 404) {
-      return alert('등록되지 않은 계정입니다.');
-    } else if (res.statusCode === 400) {
-      return alert('비밀번호가 일치하지 않습니다.');
-    } else if (res.statusCode === 200) {
-      localStorage.setItem(`accessToken`, res.data);
-      localStorage.setItem('userInfo', JSON.stringify(decodeJWT(res.data)));
-      setIsLoggedin(true);
-      onClose();
-    }
+  const login = async () => {
+    await signin(userId, password);
   };
 
   return (
@@ -66,7 +52,7 @@ export default function LoginModal({ onClose }: ModalProps) {
           onChange={inputPassword}
           onKeyDown={e => {
             if (e.key === 'Enter') {
-              signin();
+              login();
             }
           }}
         />
@@ -92,7 +78,7 @@ export default function LoginModal({ onClose }: ModalProps) {
         type="button"
         disabled={userId === '' || password.length < 8}
         className="h-10 rounded bg-[#6877FF] text-white font-medium disabled:opacity-50"
-        onClick={signin}
+        onClick={login}
       >
         로그인
       </button>

@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { clothes, book, hammer, search, calculator } from '@/components/icon';
 import { MENUS } from '@/contants';
-import { Menu } from '@/types';
 
 const arrow = (open: boolean) => {
   return (
@@ -44,7 +43,7 @@ export default function MenuList({ onClose }: MenuListProps) {
 
   return (
     <div className="flex flex-col gap-6">
-      {MENUS.map((main: Menu, index: number) => (
+      {MENUS.map((main, index) => (
         <div key={main.category} className="flex flex-col gap-4">
           <div className="flex flex-row justify-between items-center" onClick={() => switchSubMenu(index)}>
             <div className="flex flex-row items-center gap-3">

@@ -1,92 +1,16 @@
-'use client';
+import { CharacterAuth, CharacterList } from '@/components/character';
+import { getCharacterList } from '@/actions/character.action';
 
-import { useLayoutEffect, useState } from 'react';
-import { Select } from '@/components';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { useAtomValue } from 'jotai';
-import { isloggedinAtom } from '@/states';
-import { deleteCharacter, getCharacterList, registerCharacter, updateMainCharacter } from '@/utils/api';
-import { getMyInfo } from '@/utils';
-
-const SERVERS = ['서버', '연', '유리', '무휼', '하자', '호동', '진'] as const;
-type Server = (typeof SERVERS)[number];
-
-export default function CharacterPage() {
-  const router = useRouter();
-  const isLoggedin = useAtomValue(isloggedinAtom);
-
-  const [character, setCharacter] = useState('');
-  const [server, setServer] = useState<Server>('서버');
-  const [charactes, setCharacters] = useState<string[]>([]);
-  const [mainCharacter, setMainCharacter] = useState('');
-
-  const inputCharacter = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCharacter(e.target.value);
-  };
-
-  const selectServer = (item: Server) => {
-    setServer(item);
-  };
-
-  const getMainCharacter = async () => {
-    const res = await getMyInfo();
-
-    if (res.statusCode === 200) {
-      setMainCharacter(res.data.mainCharacter);
-    }
-  };
-
-  const getCharacters = async () => {
-    const res = await getCharacterList();
-
-    if (res.statusCode === 200) {
-      setCharacters(res.data);
-    }
-  };
-
-  const getAuth = async () => {
-    const res = await registerCharacter(`${character}@${server}`);
-
-    if (res.statusCode === 400) {
-      return alert('이미 등록된 캐릭터거나 인시말이 일치하지 않습니다.');
-    } else if (res.statusCode === 200) {
-      alert('캐릭터가 등록되었습니다.');
-      window.location.reload();
-    }
-  };
-
-  const changeMainCharacter = async (newMainCharacter: string) => {
-    const res = await updateMainCharacter(newMainCharacter);
-
-    if (res.statusCode === 200) {
-      return alert('대표 캐릭터가 변경되었습니다.');
-    }
-  };
-
-  const removeCharacter = async (character: string) => {
-    const res = await deleteCharacter(character);
-
-    if (res.statusCode === 400) {
-      return alert('대표 캐릭터는 삭제할 수 없습니다.');
-    } else if (res.statusCode === 200) {
-      return alert('캐릭터가 삭제되었습니다.');
-    }
-  };
-
-  useLayoutEffect(() => {
-    if (!isLoggedin) router.push('/');
-
-    getMainCharacter();
-    getCharacters();
-  }, [isLoggedin, router]);
+export default async function CharacterPage() {
+  const characters = await getCharacterList();
 
   return (
     <div className="flex flex-col grow mx-auto px-2.5 py-5 sm:p-10 gap-10">
       <span className="text-xl sm:text-2xl font-semibold">캐릭터 관리</span>
 
       <div className="flex flex-col sm:flex-row gap-5">
-        <div className="flex flex-col min-w-[340px] border rounded p-5 gap-5">
+        <CharacterAuth />
+        {/* <div className="flex flex-col min-w-[340px] border rounded p-5 gap-5">
           <span className="text-lg font-medium text-center">캐릭터 등록</span>
 
           <Image src="/auth.png" alt="character register" width={298} height={100} />
@@ -117,14 +41,15 @@ export default function CharacterPage() {
           >
             인증하기
           </button>
-        </div>
+        </div> */}
 
-        <div className="flex flex-col min-w-[340px] border rounded p-5 gap-5">
+        <CharacterList list={characters?.data} />
+        {/* <div className="flex flex-col min-w-[340px] border rounded p-5 gap-5">
           <span className="text-lg font-medium text-center">캐릭터 목록</span>
 
           <div className="flex flex-col gap-2 max-h-[302px] overflow-y-scroll">
-            {charactes.length === 0 && <span className="text-center text-gray-400">인증된 캐릭터가 없습니다.</span>}
-            {charactes?.map((char: string) => (
+            {characters.length === 0 && <span className="text-center text-gray-400">인증된 캐릭터가 없습니다.</span>}
+            {characters?.map((char: string) => (
               <div key={char} className="flex flex-row justify-between items-center">
                 <span>
                   {char}
@@ -150,7 +75,7 @@ export default function CharacterPage() {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

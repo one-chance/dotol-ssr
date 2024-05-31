@@ -1,14 +1,9 @@
 'use client';
 
-import { isloggedinAtom } from '@/states';
-import { updatePassword } from '@/utils';
-import { useAtomValue } from 'jotai';
-import { useRouter } from 'next/navigation';
-import { useLayoutEffect, useState } from 'react';
+import { useState } from 'react';
+import { updatePassword } from '@/actions/user.action';
 
 export default function ChangePasswordPage() {
-  const router = useRouter();
-  const isLoggedin = useAtomValue(isloggedinAtom);
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
 
@@ -29,10 +24,6 @@ export default function ChangePasswordPage() {
       return alert('비밀번호가 변경되었습니다.');
     }
   };
-
-  useLayoutEffect(() => {
-    if (!isLoggedin) router.push('/');
-  }, [isLoggedin, router]);
 
   return (
     <div className="flex flex-col grow mx-auto px-2.5 py-5 sm:p-10 gap-10">

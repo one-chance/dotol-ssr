@@ -3,10 +3,11 @@
 
 import { useEffect, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+
+import { getClothesList } from '@/actions/costume.actions';
 import { Pagination, Select } from '@/components';
-import { CostumeInfo, CostumePart } from '@/types';
-import { getClothesList } from '@/utils';
 import { COSTUME_PARTS } from '@/contants';
+import { CostumeInfo, CostumePart } from '@/types';
 
 type CostumeSectionProps = {
   selected: string[];

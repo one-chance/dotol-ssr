@@ -1,62 +1,53 @@
 'use client';
 
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { useAtom } from 'jotai';
-import { USER_MENUS } from '@/contants';
-import { isloggedinAtom, showLoginAtom } from '@/states';
 import { useRouter } from 'next/navigation';
-import { checkAuthed, checkNewVisitor, getIPAddress } from '@/utils';
+import { useAtom } from 'jotai';
 
-export default function UserSection() {
+import { checkNewVisitor } from '@/actions/visit.action';
+import { USER_MENUS } from '@/contants';
+import { loginModalAtom } from '@/states';
+import { signout } from '@/utils/auth';
+
+type UserMenuProps = {
+  isAuthed: boolean;
+};
+
+export default function UserMenu({ isAuthed }: UserMenuProps) {
   const router = useRouter();
   const myInfoRef = useRef<HTMLButtonElement>(null);
   const userMenuRef = useRef<HTMLDivElement>(null);
 
   const [showUserMenu, setShowUserMenu] = useState(false);
-  const [isLoggedin, setIsLoggedin] = useAtom(isloggedinAtom);
-  const [, setShowLoginModal] = useAtom(showLoginAtom);
+  const [, setShowLoginModal] = useAtom(loginModalAtom);
 
-  const handleSignUp = () => {
-    if (isLoggedin) {
-      localStorage.removeItem(`accessToken`);
-      localStorage.removeItem(`userInfo`);
-      setIsLoggedin(false);
+  const handleSignUp = async () => {
+    if (isAuthed) {
+      await signout();
     } else {
       router.push('/signup');
     }
   };
 
   const handleLogin = () => {
-    if (isLoggedin) {
+    if (isAuthed) {
       setShowUserMenu(!showUserMenu);
     } else {
       setShowLoginModal(true);
     }
   };
 
-  const visitor = async () => {
-    const visitorIP = await getIPAddress();
-    await checkNewVisitor(visitorIP);
-  };
+  useEffect(() => {
+    const visitor = async () => {
+      const visitor = await fetch('https://api64.ipify.org?format=json');
+      const visitorIP = await visitor.json();
 
-  useLayoutEffect(() => {
+      await checkNewVisitor(visitorIP.ip);
+    };
+
     visitor();
-
-    const userInfo = checkAuthed();
-    if (!userInfo) return setIsLoggedin(false);
-
-    const { exp }: { exp: number } = userInfo;
-    const now = Math.floor(Date.now() / 1000);
-
-    if (exp < now) {
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('userInfo');
-      return setIsLoggedin(false);
-    } else {
-      return setIsLoggedin(true);
-    }
-  }, [setIsLoggedin]);
+  }, []);
 
   useEffect(() => {
     const closeModal = (e: CustomEvent<MouseEvent>) => {
@@ -77,7 +68,7 @@ export default function UserSection() {
           className="h-10 bg-[#f2f5f8] text-[#223a54] font-medium rounded flex-1"
           onClick={handleSignUp}
         >
-          {isLoggedin ? '로그아웃' : '회원가입'}
+          {isAuthed ? '로그아웃' : '회원가입'}
         </button>
 
         <button
@@ -86,7 +77,7 @@ export default function UserSection() {
           className="h-10 bg-[#6877ff] text-white font-medium rounded flex-1"
           onClick={handleLogin}
         >
-          {isLoggedin ? '내 정보' : '로그인'}
+          {isAuthed ? '내 정보' : '로그인'}
         </button>
       </div>
 

@@ -2,8 +2,6 @@ import { NextRequest } from 'next/server';
 import { SKIN_LIST } from '@/contants';
 import { Skin } from '@/types';
 
-const whiteList = ['http://localhost:5173', 'https://dotols.com'];
-
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
   const character = decodeURI(request.nextUrl.pathname.replace('/api/lookbook/', ''));

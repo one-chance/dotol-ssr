@@ -1,13 +1,16 @@
 import Link from 'next/link';
+
 import { clothes, book, hammer, search, calculator } from '@/components/icon';
 import { MENUS } from '@/contants';
-import { Menu } from '@/types';
 import UserMenu from './UserMenu';
 import Login from './Login';
 import Visitor from './Visitor';
+import { checkIsAuthed } from '@/actions/auth.action';
 
 export default async function Sidebar() {
   const ICONS = [clothes, book, hammer, search, calculator];
+
+  const isAuthed = await checkIsAuthed();
 
   return (
     <aside className="min-w-60 z-10 hidden md:block">
@@ -18,12 +21,12 @@ export default async function Sidebar() {
           </Link>
         </div>
 
-        <UserMenu />
+        <UserMenu isAuthed={isAuthed} />
 
         <hr className="bg-[#808496]" />
 
         <nav className="flex flex-col gap-8 overflow-y-scroll scrollbar-hidden">
-          {MENUS.map((main: Menu, index: number) => (
+          {MENUS.map((main, index) => (
             <div key={main.category} className="flex flex-col gap-3">
               <div className="flex flex-row items-center gap-2">
                 <span className="text-xl text-[#808496]">{ICONS[index]}</span>

@@ -1,16 +1,17 @@
-import { getAccessToken } from '../jwtUtils';
+'use server';
+
+import { getAccessToken } from './auth.action';
 
 export const getCharacterList = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER}/characters`, {
     method: `GET`,
     headers: {
       'Content-Type': `application/json`,
-      Authorization: `Bearer ${getAccessToken()}`,
+      Authorization: `Bearer ${await getAccessToken()}`,
     },
   });
 
-  const data = await res.json();
-  return data;
+  return await res.json();
 };
 
 export const registerCharacter = async (character: string) => {
@@ -18,7 +19,7 @@ export const registerCharacter = async (character: string) => {
     method: `POST`,
     headers: {
       'Content-Type': `application/json`,
-      Authorization: `Bearer ${getAccessToken()}`,
+      Authorization: `Bearer ${await getAccessToken()}`,
     },
     body: JSON.stringify({
       character,
@@ -34,7 +35,7 @@ export const deleteCharacter = async (character: string) => {
     method: `DELETE`,
     headers: {
       'Content-Type': `application/json`,
-      Authorization: `Bearer ${getAccessToken()}`,
+      Authorization: `Bearer ${await getAccessToken()}`,
     },
   });
 
@@ -47,7 +48,7 @@ export const updateMainCharacter = async (character: string) => {
     method: `PATCH`,
     headers: {
       'Content-Type': `application/json`,
-      Authorization: `Bearer ${getAccessToken()}`,
+      Authorization: `Bearer ${await getAccessToken()}`,
     },
     body: JSON.stringify({
       character,

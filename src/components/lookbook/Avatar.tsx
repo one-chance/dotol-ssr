@@ -1,12 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 'use client';
 
-import { Select } from '@/components';
 import { useEffect, useLayoutEffect, useState } from 'react';
-import { arrowUp, arrowDown, arrowRight, arrowLeft } from '../icon';
-import { getCharacterList, getMyInfo } from '@/utils';
-import { useAtomValue } from 'jotai';
-import { isloggedinAtom } from '@/states';
+
+import { getCharacterList } from '@/actions/character.action';
+import { getMyInfo } from '@/actions/user.action';
+import { Select } from '@/components';
+import { arrowUp, arrowDown, arrowRight, arrowLeft } from '@/components/icon';
 import { Skin } from '@/types';
 
 type Direction = 0 | 1 | 2 | 3;
@@ -25,8 +25,6 @@ type AvatarProps = {
 };
 
 export default function Avatar({ equips, skin }: AvatarProps) {
-  const isLoggedIn = useAtomValue(isloggedinAtom);
-
   const [character, setCharacter] = useState<string>('');
   const [characters, setCharacters] = useState<string[]>([]);
   const [direction, setDirection] = useState<Direction>(2);
@@ -69,7 +67,7 @@ export default function Avatar({ equips, skin }: AvatarProps) {
   useLayoutEffect(() => {
     getCharacters();
     getUserInfo();
-  }, [isLoggedIn]);
+  }, []);
 
   useEffect(() => {
     if (character === '') return;

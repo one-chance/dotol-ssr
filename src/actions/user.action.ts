@@ -1,4 +1,6 @@
-import { getAccessToken } from '../jwtUtils';
+'use server';
+
+import { getAccessToken } from './auth.action';
 
 export const isDuplicatedUserId = async (userId: string) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER}/users/check-email//users/check-id/${userId}`, {
@@ -91,7 +93,7 @@ export const deleteUser = async (email: string, password: string) => {
     method: `POST`,
     headers: {
       'Content-Type': `application/json`,
-      Authorization: `Bearer ${getAccessToken()}`,
+      Authorization: `Bearer ${await getAccessToken()}`,
     },
     body: JSON.stringify({
       email,
@@ -155,7 +157,7 @@ export const updatePassword = async (oldPassword: string, newPassword: string) =
     method: `PATCH`,
     headers: {
       'Content-Type': `application/json`,
-      Authorization: `Bearer ${getAccessToken()}`,
+      Authorization: `Bearer ${await getAccessToken()}`,
     },
     body: JSON.stringify({
       oldPassword,
@@ -173,7 +175,7 @@ export const getMyInfo = async () => {
     method: `GET`,
     headers: {
       'Content-Type': `application/json`,
-      Authorization: `Bearer ${getAccessToken()}`,
+      Authorization: `Bearer ${await getAccessToken()}`,
     },
   });
 

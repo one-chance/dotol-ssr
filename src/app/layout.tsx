@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
+
 import { Provider } from 'jotai';
 import { Footer, MobileHeader, Sidebar } from '@/components/layout';
 import { sharedOpenGraph } from '@/app/shared-metadata';
 import './globals.css';
+import { checkIsAuthed } from '@/actions/auth.action';
 
 export const metadata: Metadata = {
   title: '도톨 | 바람의나라 커뮤니티',
@@ -17,11 +19,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
+  test: React.ReactNode;
 }>) {
+  const isAuthed = await checkIsAuthed();
+
   return (
     <html lang="en">
       <head>
@@ -36,7 +41,7 @@ export default function RootLayout({
             <Sidebar />
 
             <main className="flex flex-col w-full min-h-screen bg-white">
-              <MobileHeader />
+              <MobileHeader isAuthed={isAuthed} />
               {children}
               <Footer />
             </main>

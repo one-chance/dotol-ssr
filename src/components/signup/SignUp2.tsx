@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { isDuplicatedEmail, sendOTPCode, verifyOTPCode } from '@/utils';
+import { isDuplicatedEmail, sendOTPCode, verifyOTPCode } from '@/actions/user.action';
 
 type SignUpProps = {
   setPhase: (phase: 1 | 2 | 3 | 4, email?: string) => void;

@@ -1,15 +1,6 @@
 import { MetadataRoute } from 'next';
-// import { getPosts } from '@/utils';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // const posts = await getPosts();
-
-  // const postsSitemap: MetadataRoute.Sitemap = posts.map(post => ({
-  //   url: `https://one-chance.dev/post/${post.url}`,
-  //   lastModified: new Date(),
-  //   changeFrequency: 'daily',
-  // }));
-
   const calculatorSitemap: MetadataRoute.Sitemap = [
     {
       url: 'https://dotols.com/calculator/ability',

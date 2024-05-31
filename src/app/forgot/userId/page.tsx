@@ -1,8 +1,8 @@
 'use client';
 
-import { forgotUserId } from '@/utils';
-import Link from 'next/link';
 import { useState } from 'react';
+import Link from 'next/link';
+import { forgotUserId } from '@/actions/user.action';
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
