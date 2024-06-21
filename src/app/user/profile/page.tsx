@@ -46,7 +46,6 @@ export default function ProfilePage() {
     const res = await getMyInfo();
 
     if (res.statusCode === 200) {
-      console.log(res);
       setUserInfo(res.data);
     }
   };

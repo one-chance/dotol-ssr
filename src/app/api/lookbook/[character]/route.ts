@@ -26,6 +26,7 @@ export async function GET(request: NextRequest) {
 
   const res = await fetch(url, {
     headers: {
+      referer: 'https://baram.nexon.com',
       origin: 'https://baram.nexon.com',
       'Acccess-Control-Allow-Headers': 'Origin, Content-Type',
       'Access-Control-Allow-Origin': 'https://baram.nexon.com',
