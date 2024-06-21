@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 import { checkIsAuthed } from '@/actions/auth.action';
-import { Avatar, CostumeSection, EquipSection, SkinSection } from '@/components';
+import { Avatar2, CostumeSection, EquipSection, SkinSection } from '@/components';
 import { Skin } from '@/types';
 
 export default function LookbookPage() {
@@ -32,7 +32,7 @@ export default function LookbookPage() {
 
       <div className="flex flex-row flex-wrap gap-2.5">
         <div className="flex flex-col gap-2 mx-auto">
-          <Avatar equips={selectedEquip} skin={skin} />
+          <Avatar2 equips={selectedEquip} skin={skin} />
 
           <div className="flex flex-col flex-1 p-3 gap-2.5 border rounded max-w-[214px] max-h-[290px] min-h-20">
             <span className="font-medium text-center">착용 목록</span>
