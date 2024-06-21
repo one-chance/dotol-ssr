@@ -34,6 +34,8 @@ export async function GET(request: NextRequest) {
       'Content-Type': 'image/png',
       'X-Requested-With': 'XMLHttpRequest',
       'Request-Context': 'appId=cid-v1:602befdf-c942-47ae-8f9e-a1749f6ee32f',
+      'Access-Control-Request-Method': 'GET',
+      'Access-Control-Request-Headers': 'X-Requested-With, Content-Type, Origin, Accept',
     },
   });
 
