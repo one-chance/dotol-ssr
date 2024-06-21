@@ -24,6 +24,14 @@ export async function GET(request: NextRequest) {
 
   const url = `https://avatar.baram.nexon.com/Profile/RenderAvatar/${server}/${name}?${urlParams.toString()}`;
 
+  await fetch(url, {
+    headers: {
+      origin: 'https://baram.nexon.com',
+      'Access-Control-Request-Method': 'GET',
+      'Access-Control-Request-Headers': 'X-Requested-With, Content-Type, Origin, Accept',
+    },
+  });
+
   const res = await fetch(url, {
     headers: {
       referer: 'https://baram.nexon.com',
