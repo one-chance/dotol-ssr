@@ -28,10 +28,11 @@ export async function GET(request: NextRequest) {
     headers: {
       referer: 'https://baram.nexon.com',
       origin: 'https://baram.nexon.com',
-      'Acccess-Control-Allow-Headers': 'Origin, Content-Type',
+      'Acccess-Control-Allow-Headers': 'Origin, Content-Type, X-Requested-With',
       'Access-Control-Allow-Origin': 'https://baram.nexon.com',
       'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS, POST, PUT',
       'Content-Type': 'image/png',
+      'X-Requested-With': 'XMLHttpRequest',
     },
   });
 
