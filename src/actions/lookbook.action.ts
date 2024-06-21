@@ -6,16 +6,15 @@ export const getAvatar = async (character: string) => {
 
   const response = await fetch(url, {
     headers: {
-      referer: 'https://baram.nexon.com',
       origin: 'https://baram.nexon.com',
-      'Acccess-Control-Allow-Headers': 'Origin, Content-Type, X-Requested-With',
+      referer: 'https://baram.nexon.com/',
+      'Access-Control-Allow-Headers':
+        'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers',
       'Access-Control-Allow-Origin': 'https://baram.nexon.com',
-      'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS, POST, PUT',
+      'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
       'Content-Type': 'image/png',
-      'X-Requested-With': 'XMLHttpRequest',
+      Date: new Date().toUTCString(),
       'Request-Context': 'appId=cid-v1:602befdf-c942-47ae-8f9e-a1749f6ee32f',
-      'Access-Control-Request-Method': 'GET',
-      'Access-Control-Request-Headers': 'X-Requested-With, Content-Type, Origin, Accept',
     },
   });
   const buffer = await response.arrayBuffer();
