@@ -8,7 +8,7 @@ import { getMyInfo } from '@/actions/user.action';
 import { Select } from '@/components';
 import { arrowUp, arrowDown, arrowRight, arrowLeft } from '@/components/icon';
 import { Skin } from '@/types';
-import { getAvatar } from '@/actions/lookbook.action';
+import { SKIN_LIST } from '@/contants';
 
 type Direction = 0 | 1 | 2 | 3;
 type Naked = 'y' | 'n';
@@ -32,7 +32,6 @@ export default function Avatar({ equips, skin }: AvatarProps) {
   const [isNaked, setIsNaked] = useState<Naked>('n');
 
   const [path, setPath] = useState<string>('');
-  const [path2, setPath2] = useState<string>('');
 
   const changeCharacter = (chr: string) => {
     setCharacter(chr);
@@ -74,20 +73,21 @@ export default function Avatar({ equips, skin }: AvatarProps) {
   useEffect(() => {
     if (character === '') return;
 
-    const params = new URLSearchParams();
-    params.set('dir', String(direction));
-    params.set('naked', isNaked);
-    params.set('skin', skin);
-    if (equips.length > 0) params.set('items', equips.join(','));
+    const base = 'https://avatar.baram.nexon.com/Profile/RenderAvatar/';
+    const [name, server] = character.split('@')!;
+    const params = new URLSearchParams({ is: '1' });
+    // params.set('dir', String(direction));
+    // params.set('naked', isNaked);
+    // params.set('skin', skin);
+    // if (equips.length > 0) params.set('items', equips.join(','));
+    params.set('changeDir', String(direction));
+    params.set('ed', isNaked);
+    const skinParam = SKIN_LIST[skin as Skin] ?? '-1';
+    params.set('sc', skinParam);
+    if (equips.length > 0) params.set('previewEquip', equips.join(',').replaceAll(',', '|'));
 
-    setPath(`/api/lookbook/${character}?${params.toString()}`);
-
-    const getImage = async () => {
-      const image = await getAvatar(character);
-      setPath2(image);
-    };
-
-    getImage();
+    // setPath(`/api/lookbook/${character}?${params.toString()}`);
+    setPath(`${base}${server}/${name}?${params.toString()}`);
   }, [character, direction, equips, isNaked, skin]);
 
   return (
@@ -109,7 +109,7 @@ export default function Avatar({ equips, skin }: AvatarProps) {
 
       <div className="relative flex flex-row justify-center items-center w-[180px] h-[158px] bg-[#EBE7E2]">
         {/* {character !== '' && path !== '' && <img src={path} alt={character} />} */}
-        {character !== '' && path2 !== '' && <img src={path2} alt={character} />}
+        {character !== '' && path !== '' && <img src={path} alt={character} />}
       </div>
 
       <Select name={character} disabled={character === ''} items={characters} onSelect={changeCharacter} />
