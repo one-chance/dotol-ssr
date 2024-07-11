@@ -79,25 +79,19 @@ export default function Home() {
 
       <div className="flex flex-row flex-wrap gap-5">
         <div className="flex flex-col flex-1 border rounded gap-2.5 p-4">
-          <span className="text-lg font-semibold">6월 신규 치장</span>
+          <span className="text-lg font-semibold">7월 신규 치장</span>
 
           <div className="flex flex-col gap-2">
-            <span className="font-medium">멋진의상재봉틀 - 여우비 의상</span>
-            <div className="flex flex-col">
-              <div className="flex flex-row flex-wrap justify-center items-end min-w-[304px]">
-                <Image unoptimized src="/1.gif" alt="costume1" width={100} height={150} />
-                <Image unoptimized src="/2.gif" alt="costume2" width={100} height={150} />
-              </div>
-              <div className="flex flex-row flex-wrap justify-center items-end min-w-[304px]">
-                <Image unoptimized src="/3.gif" alt="costume2" width={100} height={150} />
-                <Image unoptimized src="/4.gif" alt="costume2" width={100} height={150} />
-              </div>
+            <span className="font-medium">멋진의상재봉틀 - 칠석견우직녀 의상</span>
+            <div className="flex flex-row flex-wrap justify-center items-end min-w-[304px]">
+              <Image unoptimized src="/1.gif" alt="costume1" width={160} height={160} />
+              <Image unoptimized src="/2.gif" alt="costume2" width={160} height={160} />
             </div>
 
-            <span className="font-medium"> 의상수선가위 - 청하서원 의상</span>
+            <span className="font-medium"> 의상수선가위 - 나그네여름 의상</span>
             <div className="flex flex-row flex-wrap justify-center items-end min-w-[304px]">
-              <Image unoptimized src="/5.gif" alt="costume3" width={180} height={180} />
-              <Image unoptimized src="/6.gif" alt="costume4" width={180} height={180} />
+              <Image unoptimized src="/3.gif" alt="costume3" width={190} height={240} />
+              <Image unoptimized src="/4.gif" alt="costume4" width={190} height={240} />
             </div>
           </div>
         </div>
