@@ -24,7 +24,7 @@ export default function CharacterAuth() {
     const res = await registerCharacter(`${character}@${server}`);
 
     if (res.statusCode === 400) {
-      return alert('이미 등록된 캐릭터거나 인시말이 일치하지 않습니다.');
+      return alert('이미 등록된 캐릭터거나 인사말이 일치하지 않습니다.');
     } else if (res.statusCode === 200) {
       alert('캐릭터가 등록되었습니다.');
       window.location.reload();

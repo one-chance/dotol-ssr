@@ -28,11 +28,13 @@ export const login = async (userId: string, password: string) => {
 
     const data = await res.json();
 
-    cookies().set('token', data.data, {
-      maxAge: 60 * 60 * 3,
-    });
+    if (data.statusCode === 200) {
+      cookies().set('token', data.data, {
+        maxAge: 60 * 60 * 3,
+      });
+    }
 
-    return data;
+    return data.statusCode;
   } catch {
     throw new Error('Failed to login.');
   }
