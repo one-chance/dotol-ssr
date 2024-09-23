@@ -33,9 +33,10 @@ export default function CharacterAuth() {
 
   useEffect(() => {
     const test = async () => {
-      const res = getGreetingMessage('감소셔틀@하자');
-      console.log(res);
+      console.log(await getGreetingMessage('감소셔틀@하자'));
     };
+
+    test();
   }, []);
 
   return (
