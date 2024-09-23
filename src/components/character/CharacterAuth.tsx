@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import { Select } from '@/components/common';
-import { getGreetingMessage, registerCharacter } from '@/actions';
+import { registerCharacter } from '@/actions';
 
 const SERVERS = ['서버', '연', '유리', '무휼', '하자', '호동', '진'] as const;
 type Server = (typeof SERVERS)[number];
@@ -24,20 +24,12 @@ export default function CharacterAuth() {
     const res = await registerCharacter(`${character}@${server}`);
 
     if (res.statusCode === 400) {
-      return alert('이미 등록된 캐릭터거나 인사말이 일치하지 않습니다.');
+      return alert('에러가 발생했습니다. 운영자에게 문의해주세요.');
     } else if (res.statusCode === 200) {
       alert('캐릭터가 등록되었습니다.');
       window.location.reload();
     }
   };
-
-  useEffect(() => {
-    const test = async () => {
-      console.log(await getGreetingMessage('감소셔틀@하자'));
-    };
-
-    test();
-  }, []);
 
   return (
     <div className="flex flex-col min-w-[340px] border rounded p-5 gap-5">
