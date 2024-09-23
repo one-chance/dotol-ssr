@@ -1,5 +1,6 @@
 'use server';
 
+import { parse } from 'node-html-parser';
 import { getAccessToken } from './auth.action';
 
 export const getCharacterList = async () => {
@@ -12,6 +13,21 @@ export const getCharacterList = async () => {
   });
 
   return await res.json();
+};
+
+export const getGreetingMessage = async (character: string) => {
+  const url = `https://baram.nexon.com/Profile/Info?character=${character}`;
+  try {
+    const response = await fetch(url);
+    const html = await response.text();
+    const root = parse(html);
+
+    const textareaContent = root.querySelector('textarea')?.textContent;
+
+    return textareaContent;
+  } catch (err) {
+    return '';
+  }
 };
 
 export const registerCharacter = async (character: string) => {
