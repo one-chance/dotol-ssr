@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Select } from '@/components/common';
-import { registerCharacter } from '@/actions';
+import { getGreetingMessage, registerCharacter } from '@/actions';
 
 const SERVERS = ['서버', '연', '유리', '무휼', '하자', '호동', '진'] as const;
 type Server = (typeof SERVERS)[number];
@@ -30,6 +30,13 @@ export default function CharacterAuth() {
       window.location.reload();
     }
   };
+
+  useEffect(() => {
+    const test = async () => {
+      const res = getGreetingMessage('감소셔틀@하자');
+      console.log(res);
+    };
+  }, []);
 
   return (
     <div className="flex flex-col min-w-[340px] border rounded p-5 gap-5">
