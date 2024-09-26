@@ -1,6 +1,5 @@
 'use server';
 
-import { parse } from 'node-html-parser';
 import { getAccessToken } from './auth.action';
 
 export const getCharacterList = async () => {
