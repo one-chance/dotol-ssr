@@ -7,16 +7,16 @@ import { EquipPart, EquipSubject } from '@/types';
 import { getEquipList } from '@/utils/supabase';
 
 export default function NormalEquipMakePage() {
-  const [subject, setSubject] = useState<EquipSubject>('종류');
+  const [subject, setSubject] = useState<Exclude<EquipSubject, '기타'>>('종류');
   const [part, setPart] = useState<EquipPart>('부위');
   const [origin, setOrigin] = useState<string>('');
   const [originList, setOriginList] = useState<string[]>([]);
 
-  const handleSelect = (type: string) => (value: EquipSubject | EquipPart | string) => {
+  const handleSelect = (type: string) => (value: Exclude<EquipSubject, '기타'> | EquipPart | string) => {
     if (type === 'subject') {
       setOrigin('');
       setPart('부위' as EquipPart);
-      setSubject(value as EquipSubject);
+      setSubject(value as Exclude<EquipSubject, '기타'>);
     } else if (type === 'part') {
       setOrigin('');
       setPart(value as EquipPart);
