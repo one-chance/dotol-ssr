@@ -14,19 +14,16 @@ const Title = ({ isPublic }: { isPublic: boolean }) => {
 };
 
 const SUBJECTS = ['황룡', '청룡', '주작', '백호', '현무', '공용'] as const;
-const PARTS = ['무기', '갑옷', '투구', '문양', '신물', '세트옷'] || [
-  '목걸이',
-  '물의성물',
-  '불의성물',
-  '바람의성물',
-  '땅의성물',
-];
+const PARTS1 = ['무기', '갑옷', '투구', '문양', '신물', '세트옷'];
+const PARTS2 = ['목걸이', '물의성물', '불의성물', '바람의성물', '땅의성물'];
+
 type Subject = (typeof SUBJECTS)[number];
-type Part = (typeof PARTS)[number];
+type Part1 = (typeof PARTS1)[number];
+type Part2 = (typeof PARTS2)[number];
 
 type PetReforgeData = {
   [key in Subject]: {
-    [key in Part]: {
+    [key in Part1 | Part2]: {
       장비: string;
       재료: string;
       성공률: string;
