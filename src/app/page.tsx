@@ -79,25 +79,25 @@ export default function Home() {
 
       <div className="flex flex-row flex-wrap gap-5">
         <div className="flex flex-col flex-1 border rounded gap-2.5 p-4">
-          <span className="text-lg font-semibold">3월 신규 치장</span>
+          <span className="text-lg font-semibold">4월 신규 치장</span>
 
           <div className="flex flex-col gap-2">
-            <span className="font-medium">멋진의상재봉틀 - 봄의청사 의상</span>
+            <span className="font-medium">멋진의상재봉틀 - 애니멀펑크 의상</span>
             <div className="flex flex-row flex-wrap justify-center items-end min-w-[304px]">
-              <Image unoptimized src="/1.gif" alt="costume1" width={180} height={200} />
-              <Image unoptimized src="/2.gif" alt="costume2" width={180} height={200} />
+              <Image unoptimized src="/1.gif" alt="costume1" width={180} height={180} />
+              <Image unoptimized src="/2.gif" alt="costume2" width={180} height={180} />
             </div>
 
-            <span className="font-medium">멋진의상재봉틀 - 바람미니미도적/주술사</span>
+            <span className="font-medium">멋진의상재봉틀 - 바람미니미살수/천인</span>
             <div className="flex flex-row flex-wrap justify-center items-end min-w-[304px]">
-              <Image unoptimized src="/3.gif" alt="costume1" width={120} height={130} />
-              <Image unoptimized src="/4.gif" alt="costume2" width={200} height={180} />
+              <Image unoptimized src="/3.gif" alt="costume1" width={140} height={175} />
+              <Image unoptimized src="/4.gif" alt="costume2" width={140} height={160} />
             </div>
 
-            <span className="font-medium"> 의상수선가위 - 심플화이트후드/모던프레피셔츠</span>
+            <span className="font-medium"> 의상수선가위 - 긱시크교복</span>
             <div className="flex flex-row flex-wrap justify-center items-end min-w-[304px]">
-              <Image unoptimized src="/5.gif" alt="costume3" width={154} height={180} />
-              <Image unoptimized src="/6.gif" alt="costume4" width={154} height={180} />
+              <Image unoptimized src="/5.gif" alt="costume3" width={140} height={160} />
+              <Image unoptimized src="/6.gif" alt="costume4" width={120} height={140} />
             </div>
           </div>
         </div>
