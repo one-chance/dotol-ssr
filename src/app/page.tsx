@@ -79,19 +79,19 @@ export default function Home() {
 
       <div className="flex flex-row flex-wrap gap-5">
         <div className="flex flex-col flex-1 border rounded gap-2.5 p-4">
-          <span className="text-lg font-semibold">6월 신규 치장</span>
+          <span className="text-lg font-semibold">7월 신규 치장</span>
 
           <div className="flex flex-col gap-2">
-            <span className="font-medium">멋진의상재봉틀 - 일등항해사 의상</span>
+            <span className="font-medium">멋진의상재봉틀 - 워터파크물놀이 의상</span>
             <div className="flex flex-row flex-wrap justify-center items-end min-w-[304px]">
-              <Image unoptimized src="/1.gif" alt="costume1" width={180} height={180} />
-              <Image unoptimized src="/2.gif" alt="costume2" width={220} height={180} />
+              <Image unoptimized src="/1.gif" alt="costume1" width={140} height={160} />
+              <Image unoptimized src="/2.gif" alt="costume2" width={140} height={160} />
             </div>
 
-            <span className="font-medium"> 의상수선가위 - 바닷바람 의상</span>
+            <span className="font-medium"> 의상수선가위 - 편안한블루와이드팬츠 의상</span>
             <div className="flex flex-row flex-wrap justify-center items-end min-w-[304px]">
-              <Image unoptimized src="/3.gif" alt="costume3" width={110} height={120} />
-              <Image unoptimized src="/4.gif" alt="costume4" width={110} height={120} />
+              <Image unoptimized src="/3.gif" alt="costume3" width={160} height={120} />
+              <Image unoptimized src="/4.gif" alt="costume4" width={120} height={150} />
             </div>
           </div>
         </div>
