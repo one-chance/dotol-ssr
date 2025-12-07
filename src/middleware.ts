@@ -5,7 +5,8 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (pathname.startsWith('/user')) {
-    const token = cookies().get('token');
+    const cookieStore = await cookies();
+    const token = cookieStore.get('token');
 
     if (!token) {
       return NextResponse.redirect(new URL('/', request.url));

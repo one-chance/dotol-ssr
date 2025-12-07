@@ -3,14 +3,14 @@
 import { cookies } from 'next/headers';
 
 export const checkIsAuthed = async () => {
-  const token = cookies().get('token');
-
+  const cookieStore = await cookies();
+  const token = cookieStore.get('token');
   return Boolean(token);
 };
 
 export const getAccessToken = async () => {
-  const token = cookies().get('token');
-
+  const cookieStore = await cookies();
+  const token = cookieStore.get('token');
   return token?.value ?? '';
 };
 
@@ -29,7 +29,8 @@ export const login = async (userId: string, password: string) => {
     const data = await res.json();
 
     if (data.statusCode === 200) {
-      cookies().set('token', data.data, {
+      const cookieStore = await cookies(); // ★ 변경점
+      cookieStore.set('token', data.data, {
         maxAge: 60 * 60 * 3,
       });
     }
@@ -41,10 +42,11 @@ export const login = async (userId: string, password: string) => {
 };
 
 export const logout = async () => {
-  const token = cookies().get('token');
+  const cookieStore = await cookies();
+  const token = cookieStore.get('token');
 
   if (token) {
-    cookies().delete('token');
+    cookieStore.delete('token');
     return true;
   }
 

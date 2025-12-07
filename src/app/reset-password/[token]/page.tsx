@@ -1,11 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { resetPassword } from '@/actions/user.action';
 
-export default function ResetPasswordPage({ params }: { params: { token: string } }) {
+export default function ResetPasswordPage() {
   const router = useRouter();
+  const params = useParams<{ token: string }>();
   const [newPassword, setNewPassword] = useState('');
 
   const inputNewPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
