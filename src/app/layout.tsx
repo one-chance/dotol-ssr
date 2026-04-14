@@ -3,8 +3,8 @@ import type { Metadata } from 'next';
 import { Provider } from 'jotai';
 import { Footer, MobileHeader, Sidebar } from '@/components/layout';
 import { sharedOpenGraph } from '@/app/shared-metadata';
-import './globals.css';
 import { checkIsAuthed } from '@/actions/auth.action';
+import './globals.css';
 
 export const metadata: Metadata = {
   title: '도톨 | 바람의나라 커뮤니티',
@@ -23,7 +23,6 @@ export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-  test: React.ReactNode;
 }>) {
   const isAuthed = await checkIsAuthed();
 
