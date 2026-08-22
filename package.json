@@ -8,6 +8,9 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "resolutions": {
+    "nanoid": "^3.3.17"
+  },
   "dependencies": {
     "@supabase/ssr": "^0.3.0",
     "@supabase/supabase-js": "^2.43.0",
