@@ -9,13 +9,15 @@
     "lint": "next lint"
   },
   "resolutions": {
-    "nanoid": "^3.3.17"
+    "nanoid": "^3.3.17",
+    "brace-expansion": "2.1.7",
+    "postcss-selector-parser": "6.1.3"
   },
   "dependencies": {
     "@supabase/ssr": "^0.3.0",
     "@supabase/supabase-js": "^2.43.0",
     "jotai": "^2.8.0",
-    "next": "15.5.24",
+    "next": "15.5.27",
     "react": "^18",
     "react-dom": "^18"
   },
