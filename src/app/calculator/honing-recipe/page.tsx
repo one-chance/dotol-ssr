@@ -148,7 +148,9 @@ export default function HoningRecipePage() {
               <div className="flex flex-row">
                 <span>필요 재료: </span>
                 <div className="flex flex-row flex-wrap flex-1 px-2 gap-1">
-                  {breakMaterial?.map((item, index) => <span key={index}>{`${item.이름}-${item.수량}개`}</span>)}
+                  {breakMaterial?.map((item, index) => (
+                    <span key={index}>{`${item.이름}-${item.수량}개`}</span>
+                  ))}
                 </div>
               </div>
               <span>{`필요 금전: ${addCommaToNumber(breakMoney)}전`}</span>
